@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth overflow-x-hidden snap-y snap-proximity">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رتريت عودة الملكة - رحلة تشافي وتمكين متكاملة</title>
+
+    <!-- Meta tags for SEO -->
+    <meta name="description"
+        content="منتدى سيدات إيليا يدعوكنّ لرتريت عودة الملكة: مساحة نخبوية خاصة بـ 100 سيدة للتشافي والتمكين وتفكيك المعيقات وإعادة تجسيد حضورك القيادي.">
+    <meta name="keywords" content="رتريت عودة الملكة, سيدات إيليا, تشافي, تمكين المرأة, طاقة الأنوثة, عين ياعل">
+    <meta name="author" content="منتدى سيدات إيليا">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: El Messiri for Headings, Cairo for Body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=El+Messiri:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind Config for Custom Theme -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        luxury: {
+                            gold: {
+                                DEFAULT: '#C98F88',
+                                light: '#E9D2CE',
+                                dark: '#9C5C54',
+                                shimmer: '#F0D9D3'
+                            },
+                            bg: {
+                                DEFAULT: '#FCF8F6',
+                                warm: '#FFF6F2',
+                                pastel: '#F8F1F5'
+                            },
+                            charcoal: '#3D2F33',
+                            muted: '#76686C',
+                            pastel: {
+                                lavender: '#E2D7E7',
+                                rose: '#E9D2CE',
+                                sand: '#EFE2D3',
+                                sage: '#D2DDD4',
+                                peach: '#F7E5D9'
+                            }
+                        }
+                    },
+                    fontFamily: {
+                        headings: ['"El Messiri"', 'serif'],
+                        body: ['"Cairo"', 'sans-serif']
+                    },
+                    animation: {
+                        'gradient-x': 'gradientX 15s ease infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'shimmer': 'shimmer 2.5s infinite',
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                        'scale-up': 'scaleUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'glow-pulse': 'glowPulse 2.4s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        gradientX: {
+                            '0%, 100%': { 'background-position': '0% 50%' },
+                            '50%': { 'background-position': '100% 50%' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        shimmer: {
+                            '100%': { transform: 'translateX(100%)' }
+                        },
+                        fadeIn: {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        scaleUp: {
+                            'from': { opacity: '0', transform: 'scale(0.95)' },
+                            'to': { opacity: '1', transform: 'scale(1)' }
+                        },
+                        glowPulse: {
+                            '0%, 100%': { boxShadow: '0 0 16px 4px rgba(226,215,231,0.65)' },
+                            '50%': { boxShadow: '0 0 22px 7px rgba(233,210,206,0.7)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply font-body text-luxury-charcoal bg-luxury-bg selection:bg-luxury-gold selection:text-white leading-relaxed overflow-x-hidden;
+            }
+            h1, h2, h3, h4, h5, h6 {
+                @apply font-headings font-semibold tracking-wide text-luxury-charcoal;
+            }
+        }
+        @layer components {
+            .glassmorphism {
+                @apply bg-white/70 backdrop-blur-md border border-white/50 shadow-sm;
+            }
+            .btn-luxury {
+                @apply relative overflow-hidden bg-gradient-to-r from-luxury-gold-dark to-luxury-gold text-white font-semibold py-4 px-8 rounded-full shadow-lg transition-all duration-300 hover:shadow-luxury-gold/30 hover:scale-[1.03] active:scale-[0.98] focus:outline-none;
+            }
+            .btn-luxury-outline {
+                @apply relative border-2 border-luxury-gold text-luxury-gold-dark hover:text-white hover:bg-luxury-gold font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] focus:outline-none;
+            }
+            .card-luxury {
+                @apply glassmorphism rounded-2xl p-6 md:p-8 transition-all duration-300 hover:scale-[1.02] hover:border-luxury-pastel-sage/40 hover:bg-luxury-pastel-sage/[0.04] hover:shadow-xl hover:shadow-luxury-pastel-sage/10;
+            }
+        }
+
+        /* Ambient floating gradient decorations */
+        .ambient-glow-1 {
+            background: radial-gradient(circle, rgba(226,215,231,0.55) 0%, rgba(252,248,246,0) 70%);
+        }
+        .ambient-glow-2 {
+            background: radial-gradient(circle, rgba(233,210,206,0.5) 0%, rgba(252,248,246,0) 70%);
+        }
+        .ambient-glow-3 {
+            background: radial-gradient(circle, rgba(210,221,212,0.45) 0%, rgba(252,248,246,0) 70%);
+        }
+
+        /* Gold Shimmer Button Effect */
+        .shimmer-effect::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            transform: translateX(-100%);
+            background-image: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.3) 20%,
+                rgba(255, 255, 255, 0.6) 60%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            animation: shimmer 3s infinite;
+        }
+    </style>
+</head>
+
+<body class="relative min-h-screen overflow-x-hidden max-w-[100vw]">
+
+    <!-- Floating Background Orbs (clipped to viewport width to prevent mobile overflow) -->
+    <div class="absolute inset-0 overflow-hidden -z-10 pointer-events-none">
+        <div class="absolute top-0 right-0 w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px] ambient-glow-1 rounded-full animate-float"
+            style="animation-duration: 8s;"></div>
+        <div class="absolute top-[800px] left-0 w-[320px] h-[320px] sm:w-[450px] sm:h-[450px] md:w-[600px] md:h-[600px] ambient-glow-2 rounded-full animate-float"
+            style="animation-duration: 12s;"></div>
+        <div class="absolute bottom-[400px] right-10 w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px] ambient-glow-3 rounded-full animate-float"
+            style="animation-duration: 10s;"></div>
+    </div>
+
+    <!-- 1. NAVIGATION HEADER -->
+    <header class="sticky top-0 z-50 transition-all duration-300 w-full" id="nav-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 md:py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-reverse space-x-2 md:space-x-3 min-w-0">
+                <!-- Inner Brand / Calligraphy representation -->
+                <div
+                    class="w-9 h-9 md:w-10 md:h-10 rounded-full border-2 border-luxury-gold flex items-center justify-center bg-white shadow-sm shrink-0">
+                    <span class="text-luxury-gold font-headings font-bold text-base md:text-lg">إ</span>
+                </div>
+                <div class="min-w-0">
+                    <span
+                        class="block font-headings text-[10px] md:text-sm text-luxury-gold font-semibold tracking-widest leading-none truncate">منتدى
+                        سيدات إيليا</span>
+                    <span class="block font-headings text-sm md:text-lg font-bold text-luxury-charcoal leading-tight truncate">عودة
+                        الملكة</span>
+                </div>
+            </div>
+
+            <nav
+                class="hidden md:flex items-center space-x-reverse space-x-8 text-sm font-semibold text-luxury-charcoal">
+                <a href="#about" class="hover:text-luxury-gold duration-300">عن الرتريت</a>
+                <a href="#journey" class="hover:text-luxury-gold duration-300">المحطات الست</a>
+                <a href="#schedule" class="hover:text-luxury-gold duration-300">البرنامج</a>
+                <a href="#dress-code"
+                    class="hover:text-luxury-gold duration-300 font-semibold text-luxury-gold-dark">اللباس والتحضير</a>
+            </nav>
+
+            <div class="flex items-center gap-2 shrink-0">
+                <a href="#register-form" onclick="showDressCodeMessage()"
+                    class="btn-luxury px-3.5 md:px-6 py-2 md:py-2.5 text-[10px] md:text-sm font-medium tracking-wide shadow-md whitespace-nowrap">احجزي الآن</a>
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="فتح القائمة"
+                    class="md:hidden w-9 h-9 rounded-full flex items-center justify-center text-luxury-charcoal hover:bg-luxury-gold/10 transition-all duration-300">
+                    <i class="fa-solid fa-bars text-base"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu-overlay" onclick="closeMobileMenuOnBackdrop(event)"
+            class="md:hidden fixed inset-0 z-40 bg-luxury-charcoal/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+            <div id="mobile-menu-panel"
+                class="absolute top-0 right-0 h-full w-72 max-w-[80%] bg-white shadow-2xl p-6 flex flex-col gap-1.5 translate-x-full transition-transform duration-300 ease-out">
+                <div class="flex items-center justify-between mb-6">
+                    <span class="font-headings text-lg font-bold text-luxury-charcoal">القائمة</span>
+                    <button onclick="toggleMobileMenu()" aria-label="إغلاق القائمة"
+                        class="w-9 h-9 rounded-full flex items-center justify-center text-luxury-muted hover:text-luxury-charcoal hover:bg-luxury-gold/10 transition-all duration-300">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <a href="#about" onclick="toggleMobileMenu()"
+                    class="py-3 px-3 rounded-xl text-sm font-semibold text-luxury-charcoal hover:bg-luxury-gold/10 hover:text-luxury-gold-dark transition-all duration-300">عن
+                    الرتريت</a>
+                <a href="#journey" onclick="toggleMobileMenu()"
+                    class="py-3 px-3 rounded-xl text-sm font-semibold text-luxury-charcoal hover:bg-luxury-gold/10 hover:text-luxury-gold-dark transition-all duration-300">المحطات
+                    الست</a>
+                <a href="#schedule" onclick="toggleMobileMenu()"
+                    class="py-3 px-3 rounded-xl text-sm font-semibold text-luxury-charcoal hover:bg-luxury-gold/10 hover:text-luxury-gold-dark transition-all duration-300">البرنامج</a>
+                <a href="#dress-code" onclick="toggleMobileMenu()"
+                    class="py-3 px-3 rounded-xl text-sm font-semibold text-luxury-gold-dark hover:bg-luxury-gold/10 transition-all duration-300">اللباس
+                    والتحضير</a>
+                <a href="#register-form" onclick="toggleMobileMenu(); showDressCodeMessage()"
+                    class="btn-luxury mt-4 text-center text-sm py-3">احجزي الآن</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. HERO SECTION -->
+    <section id="hero" class="relative pt-8 pb-12 md:pt-20 md:pb-32 overflow-hidden snap-start scroll-mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center">
+
+            <!-- Hero Content -->
+            <div class="lg:col-span-7 text-right z-10 space-y-8 animate-fade-in">
+                <!-- Badge -->
+                <div
+                    class="inline-flex items-center space-x-reverse space-x-2 bg-luxury-gold-light/20 text-luxury-gold-dark border border-luxury-gold/30 px-4 py-1.5 rounded-full text-xs font-semibold">
+                    <i class="fa-solid fa-crown text-xs"></i>
+                    <span>تجمع ملكي خاص ومغلق لـ 100 سيدة فقط</span>
+                </div>
+
+                <h1
+                    class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-luxury-charcoal font-headings leading-[1.2] md:leading-[1.25]">
+                    رتريت عودة الملكة: <br>
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-l from-luxury-gold-dark to-luxury-gold">رحلة
+                        تشافي وتمكين متكاملة</span> <br>
+                    <span class="text-2xl md:text-3xl font-normal block mt-2 text-luxury-muted">من الجذور إلى الحضور
+                        القيادي</span>
+                </h1>
+
+                <p class="text-base md:text-lg text-luxury-muted leading-relaxed font-light">
+                    منتدى "سيدات إيليا" يدعوكنّ لخلع أعباء اليومي، وتفكيك المعيقات، وإعادة تجسيد حضوركِ القيادي في مساحة
+                    نخبوية خاصة تم تصميمها لتلائم جلالة روحكِ الطامحة للسكينة والقوة.
+                </p>
+
+                <!-- Metadata badges -->
+                <div class="grid grid-cols-3 gap-3 md:gap-4 max-w-lg">
+                    <div class="glassmorphism p-3.5 rounded-xl text-center border-white/50">
+                        <div
+                            class="w-9 h-9 rounded-full bg-luxury-gold/10 text-luxury-gold-dark flex items-center justify-center mx-auto mb-2 text-sm">
+                            <i class="fa-regular fa-calendar-days"></i>
+                        </div>
+                        <span class="block text-[10px] text-luxury-muted">التاريخ</span>
+                        <span class="block text-xs md:text-sm font-bold text-luxury-charcoal">19 يوليو 2026</span>
+                    </div>
+
+                    <div class="glassmorphism p-3.5 rounded-xl text-center border-white/50">
+                        <div
+                            class="w-9 h-9 rounded-full bg-luxury-gold/10 text-luxury-gold-dark flex items-center justify-center mx-auto mb-2 text-sm">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <span class="block text-[10px] text-luxury-muted">الموقع</span>
+                        <span class="block text-xs md:text-sm font-bold text-luxury-charcoal">عين ياعل</span>
+                    </div>
+
+                    <div class="glassmorphism p-3.5 rounded-xl text-center border-white/50">
+                        <div
+                            class="w-9 h-9 rounded-full bg-luxury-gold/10 text-luxury-gold-dark flex items-center justify-center mx-auto mb-2 text-sm">
+                            <i class="fa-solid fa-sterling-sign"></i>
+                        </div>
+                        <span class="block text-[10px] text-luxury-muted">الاستثمار</span>
+                        <span class="block text-xs md:text-sm font-bold text-luxury-charcoal">65 شاقل</span>
+                    </div>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="pt-4 flex flex-col sm:flex-row items-center gap-4">
+                    <a href="#register-form" onclick="showDressCodeMessage()"
+                        class="btn-luxury shimmer-effect w-full sm:w-auto text-center px-10 py-4.5 rounded-full text-base shadow-lg hover:shadow-luxury-gold/30">
+                        احجزي مقعدكِ الملكي الآن
+                    </a>
+                    <a href="#journey"
+                        class="btn-luxury-outline w-full sm:w-auto text-center px-8 py-4.5 rounded-full text-base">
+                        اكتشفي المحطات الست
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Image & Live FOMO Ticker -->
+            <div class="lg:col-span-5 relative z-10 flex flex-col justify-center items-center">
+
+                <!-- Main Luxury Canvas Display (Pure CSS/SVG Art) -->
+                <div
+                    class="relative w-full max-w-[280px] sm:max-w-sm md:max-w-md aspect-square rounded-3xl overflow-hidden border border-luxury-gold/50 shadow-2xl bg-gradient-to-tr from-luxury-bg-pastel via-white to-luxury-bg-warm flex items-center justify-center p-6 md:p-8 group mx-auto">
+                    <!-- Rotating subtle gold starburst/pattern -->
+                    <div
+                        class="absolute inset-0 opacity-10 bg-[radial-gradient(#C5A880_1px,transparent_1px)] [background-size:16px_16px] rounded-2xl">
+                    </div>
+
+                    <!-- Ambient Glow -->
+                    <div class="absolute w-56 h-56 bg-luxury-gold/15 rounded-full filter blur-3xl animate-pulse"></div>
+
+                    <!-- Center Crown Mandala Symbol -->
+                    <div
+                        class="relative z-10 w-48 h-48 rounded-full border-2 border-dashed border-luxury-gold/40 flex items-center justify-center p-3 animate-float">
+                        <div
+                            class="w-full h-full rounded-full border border-luxury-gold flex flex-col items-center justify-center bg-white/75 backdrop-blur-md shadow-lg space-y-3">
+                            <div
+                                class="w-16 h-16 rounded-full bg-luxury-gold-light/20 flex items-center justify-center text-luxury-gold-dark text-3xl">
+                                <i class="fa-solid fa-crown"></i>
+                            </div>
+                            <div class="text-center">
+                                <span
+                                    class="block font-headings text-lg font-bold text-luxury-charcoal leading-none">عودة
+                                    الملكة</span>
+                                <span
+                                    class="block text-[10px] text-luxury-gold-dark tracking-widest font-semibold mt-1">QUEEN'S
+                                    RETURN</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Inner circular orbits -->
+                    <div class="absolute w-64 h-64 rounded-full border border-luxury-gold/25 animate-spin"
+                        style="animation-duration: 25s;"></div>
+                    <div class="absolute w-72 h-72 rounded-full border border-dashed border-luxury-gold/15 animate-spin"
+                        style="animation-duration: 45s; animation-direction: reverse;"></div>
+
+                    <!-- Overlay bottom shine -->
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-luxury-pastel-lavender/40 via-transparent to-transparent pointer-events-none">
+                    </div>
+                </div>
+
+                <!-- Interactive Seat Counter / FOMO bar -->
+                <div
+                    class="w-full max-w-[280px] sm:max-w-sm md:max-w-md glassmorphism p-5 md:p-6 rounded-2xl border-luxury-gold/30 shadow-lg relative -mt-6 md:-mt-12 mx-auto">
+                    <div class="flex justify-between items-center mb-3">
+                        <div class="flex items-center space-x-reverse space-x-2">
+                            <span class="flex h-2.5 w-2.5 relative">
+                                <span
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+                            </span>
+                            <span class="text-xs md:text-sm font-semibold text-luxury-charcoal">المقاعد المتبقية في هذه
+                                الرحلة</span>
+                        </div>
+                        <span class="text-sm font-bold text-luxury-gold-dark" id="seats-left-counter">13 مقعداً</span>
+                    </div>
+
+                    <!-- Progress bar -->
+                    <div
+                        class="w-full bg-luxury-gold-light/30 h-3 rounded-full overflow-hidden p-0.5 border border-white/50">
+                        <div class="bg-gradient-to-l from-luxury-gold-dark to-luxury-gold h-full rounded-full w-0 transition-all duration-1000 ease-out"
+                            id="seats-progress-bar"></div>
+                    </div>
+
+                    <div class="flex justify-between items-center mt-2.5 text-[10px] text-luxury-muted">
+                        <span>سعة الحضور الإجمالية: 100 سيدة</span>
+                        <span id="seats-percentage-text">تم حجز 87% من المقاعد</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 3. CORE VALUE BLOCKS -->
+    <section id="about" class="py-12 md:py-20 bg-gradient-to-b from-transparent via-luxury-bg-pastel/40 to-transparent snap-start scroll-mt-16">
+        <div class="max-w-7xl mx-auto px-6">
+
+            <div class="text-center max-w-2xl mx-auto mb-10 md:mb-16 space-y-4">
+                <span class="text-luxury-gold font-semibold uppercase tracking-wider text-xs block">مفهوم الرتريت</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold font-headings text-luxury-charcoal">لماذا رتريت عودة
+                    الملكة؟</h2>
+                <div class="w-16 h-0.5 bg-luxury-gold mx-auto"></div>
+                <p class="text-sm md:text-base text-luxury-muted font-light leading-relaxed">
+                    لقد صممنا هذه الرحلة لتكون بيئة داعمة ومحفزة تمنحكِ فرصة حقيقية للانفصال عن روتينكِ اليومي والاتصال
+                    الصادق مع حقيقتكِ وقوتكِ الداخلية.
+                </p>
+            </div>
+
+            <!-- 2 Core Feature Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto">
+
+                <!-- Card 1: Groups Setup -->
+                <div class="card-luxury flex flex-col justify-between border-t-4 border-t-luxury-gold">
+                    <div class="space-y-4">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-luxury-gold/10 text-luxury-gold-dark flex items-center justify-center text-2xl mb-6 shadow-sm">
+                            <i class="fa-solid fa-users-line"></i>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold font-headings text-luxury-charcoal">
+                            عمق طاقي في مجموعات مغلقة
+                        </h3>
+                        <p class="text-sm md:text-base text-luxury-muted font-light leading-relaxed">
+                            لحماية خصوصيتكِ وضمان فاعلية التمارين، يتم تقسيم السيدات الـ 100 إلى 5 مجموعات ثابتة ومغلقة
+                            (بحد أقصى 15 إلى 20 سيدة لكل محطة). هذا يضمن لغة تواصل شخصية حميمة وعمل طاقي دقيق وحرية
+                            كاملة للتعبير دون حرج.
+                        </p>
+                    </div>
+                    <div
+                        class="mt-8 pt-4 border-t border-luxury-gold-light/20 flex items-center justify-between text-xs font-semibold text-luxury-gold-dark">
+                        <span>مجموعة ثابتة ومغلقة</span>
+                        <span>15-20 سيدة كحد أقصى</span>
+                    </div>
+                </div>
+
+                <!-- Card 2: Children Protection -->
+                <div class="card-luxury flex flex-col justify-between border-t-4 border-t-luxury-gold">
+                    <div class="space-y-4">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-luxury-gold/10 text-luxury-gold-dark flex items-center justify-center text-2xl mb-6 shadow-sm">
+                            <i class="fa-solid fa-child-reaching"></i>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold font-headings text-luxury-charcoal">
+                            تفرّغ تام للتشافي (رعاية أطفال منظمة)
+                        </h3>
+                        <p class="text-sm md:text-base text-luxury-muted font-light leading-relaxed">
+                            لأننا نعلم مدى صعوبة تفرغ الأمهات، صممنا قسماً خاصاً برعاية الأطفال. يتم توزيع أطفالكنّ على
+                            مجموعات صغيرة حسب الفئة العمرية (بحد أقصى 15 طفلاً لكل مجموعة) تحت إشراف ميسّرات حركيات
+                            وتربويات محترفات يقدمن أنشطة فنية وإبداعية مميزة.
+                        </p>
+                    </div>
+                    <div
+                        class="mt-8 pt-4 border-t border-luxury-gold-light/20 flex items-center justify-between text-xs font-semibold text-luxury-gold-dark">
+                        <span>رعاية متكاملة</span>
+                        <span>مجموعات عمرية صغيرة ومنظمة</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 4. THE 6-STATIONS INTERACTIVE JOURNEY -->
+    <section id="journey" class="py-12 md:py-20 bg-luxury-bg-warm/30 relative snap-start scroll-mt-16">
+        <div class="max-w-7xl mx-auto px-6">
+
+            <div class="text-center max-w-2xl mx-auto mb-10 md:mb-16 space-y-4">
+                <span class="text-luxury-gold font-semibold uppercase tracking-wider text-xs block">مسار التحوّل</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold font-headings text-luxury-charcoal">محطات الرحلة الست
+                </h2>
+                <div class="w-16 h-0.5 bg-luxury-gold mx-auto"></div>
+                <p class="text-sm md:text-base text-luxury-muted font-light leading-relaxed">
+                    من خلال نظام الدوران المنظم، ستعبرين مع مجموعتكِ المغلقة عبر 6 محطات مصممة خصيصاً بمقاييس عالمية
+                    للتفريغ والتشافي.
+                </p>
+            </div>
+
+            <!-- Grid of 6 Stations (inline expanding accordion cards) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
+
+                <!-- Station 1 -->
+                <div class="station-card card-luxury cursor-pointer flex flex-col group transition-all duration-300"
+                    id="station-card-1" onclick="toggleStation(1)">
+                    <div class="flex justify-between items-start mb-6">
+                        <span
+                            class="text-5xl font-headings font-bold text-luxury-gold-light group-hover:text-luxury-gold transition-colors duration-300">٠١</span>
+                        <span
+                            class="w-9 h-9 rounded-full bg-luxury-gold/10 text-luxury-gold flex items-center justify-center text-xs group-hover:bg-luxury-gold group-hover:text-white transition-all duration-300">
+                            <i id="station-chevron-1" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                        </span>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-bold font-headings text-luxury-charcoal mb-1.5">جذور الملكة:
+                        رحلة التجذّر والوعي الترددي</h3>
+                    <p class="text-xs font-semibold text-luxury-gold-dark">تيسير: ديالا نبواني</p>
+
+                    <div id="station-panel-1" class="grid transition-[grid-template-rows] duration-500 ease-in-out"
+                        style="grid-template-rows: 0fr;">
+                        <div class="overflow-hidden">
+                            <div class="pt-5 mt-5 border-t border-luxury-gold-light/20 space-y-3">
+                                <p class="text-[11px] font-bold text-luxury-gold-dark">معالجة ومرشدة في الطب الترددي
+                                    وعلاج الأبعاد (Dimensional Therapy &amp; Frequency Medicine)</p>
+                                <p class="text-xs md:text-sm text-luxury-muted font-light leading-relaxed">
+                                    تجربة تفاعلية تجمع بين التجذر والاتصال بالذات، واستكشاف أنماط الطاقة الشخصية،
+                                    والتحرر من المشاعر المعيقة واستبدالها بمشاعر داعمة، لتعزيز الوعي الذاتي والتوازن
+                                    الداخلي والاتصال الأعمق مع الذات. (محتوى المحطة: نشاط التجذر عبر تأمل موجه واتصال
+                                    بالطبيعة، تجربة استكشاف الطاقة، ونشاط الشحن والتفريغ العاطفي مع زراعة نية رمزية في
+                                    أصيص نبات).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <span
+                        class="mt-6 pt-4 border-t border-luxury-gold-light/20 flex items-center justify-between text-xs text-luxury-gold font-semibold group-hover:text-luxury-gold-dark transition-all duration-300">
+                        <span id="station-label-1">اضغطي لمعرفة تفاصيل المحطة</span>
+                    </span>
+                </div>
+
+                <!-- Station 2 -->
+                <div class="station-card card-luxury cursor-pointer flex flex-col group transition-all duration-300"
+                    id="station-card-2" onclick="toggleStation(2)">
+                    <div class="flex justify-between items-start mb-6">
+                        <span
+                            class="text-5xl font-headings font-bold text-luxury-gold-light group-hover:text-luxury-gold transition-colors duration-300">٠٢</span>
+                        <span
+                            class="w-9 h-9 rounded-full bg-luxury-gold/10 text-luxury-gold flex items-center justify-center text-xs group-hover:bg-luxury-gold group-hover:text-white transition-all duration-300">
+                            <i id="station-chevron-2" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                        </span>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-bold font-headings text-luxury-charcoal mb-1.5">صرخة ملوّنة:
+                        تجربة تحرر وتجديد طاقة من خلال الفن</h3>
+                    <p class="text-xs font-semibold text-luxury-gold-dark">تيسير: نورا خطيب</p>
+
+                    <div id="station-panel-2" class="grid transition-[grid-template-rows] duration-500 ease-in-out"
+                        style="grid-template-rows: 0fr;">
+                        <div class="overflow-hidden">
+                            <div class="pt-5 mt-5 border-t border-luxury-gold-light/20 space-y-3">
+                                <p class="text-[11px] font-bold text-luxury-gold-dark">أمينة تجارب ومدربة في التفريغ
+                                    التعبيري الحسي والحركي عبر الفن</p>
+                                <p class="text-xs md:text-sm text-luxury-muted font-light leading-relaxed">
+                                    التعرف على الألوان التي تعبّر عن المشاركة وما تخفيه من معتقدات وااحتياجات داخلية —
+                                    صرخة ملوّنة لتحرير الطاقة من خلال مسدسات الألوان، لتجربة حرية إبداعية وانعتاق
+                                    جسدي — وبناء طاقة جديدة من خلال تمارين تنفس حركية وتأمل وتصور للنوايا الجديدة.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <span
+                        class="mt-6 pt-4 border-t border-luxury-gold-light/20 flex items-center justify-between text-xs text-luxury-gold font-semibold group-hover:text-luxury-gold-dark transition-all duration-300">
+                        <span id="station-label-2">اضغطي لمعرفة تفاصيل المحطة</span>
+                    </span>
+                </div>
+
+                <!-- Station 3 -->
+                <div class="station-card card-luxury cursor-pointer flex flex-col group transition-all duration-300"
+                    id="station-card-3" onclick="toggleStation(3)">
+                    <div class="flex justify-between items-start mb-6">
+                        <span
+                            class="text-5xl font-headings font-bold text-luxury-gold-light group-hover:text-luxury-gold transition-colors duration-300">٠٣</span>
+                        <span
+                            class="w-9 h-9 rounded-full bg-luxury-gold/10 text-luxury-gold flex items-center justify-center text-xs group-hover:bg-luxury-gold group-hover:text-white transition-all duration-300">
+                            <i id="station-chevron-3" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                        </span>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-bold font-headings text-luxury-charcoal mb-1.5">تطهير الروح:
+                        غسيل الطاقة والتشافي الذاتي للملكة</h3>
+                    <p class="text-xs font-semibold text-luxury-gold-dark">تيسير: رويدة شاويش</p>
+
+                    <div id="station-panel-3" class="grid transition-[grid-template-rows] duration-500 ease-in-out"
+                        style="grid-template-rows: 0fr;">
+                        <div class="overflow-hidden">
+                            <div class="pt-5 mt-5 border-t border-luxury-gold-light/20 space-y-3">
+                                <p class="text-[11px] font-bold text-luxury-gold-dark">معالجة بالطب الشامل الموحد
+                                    وغسيل الطاقة بطريقة د. نادر بطو</p>
+                                <p class="text-xs md:text-sm text-luxury-muted font-light leading-relaxed">
+                                    تأمل وغسيل طاقة جماعي يهدف إلى تطهير مراكز الطاقة (الشكرات) وتحرير المشاعر السلبية
+                                    للوصول للتوازن الداخلي والاستقرار النفسي.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <span
+                        class="mt-6 pt-4 border-t border-luxury-gold-light/20 flex items-center justify-between text-xs text-luxury-gold font-semibold group-hover:text-luxury-gold-dark transition-all duration-300">
+                        <span id="station-label-3">اضغطي لمعرفة تفاصيل المحطة</span>
+                    </span>
+                </div>
+
+                <!-- Station 4 -->
+                <div class="station-card card-luxury cursor-pointer flex flex-col group transition-all duration-300"
+                    id="station-card-4" onclick="toggleStation(4)">
+                    <div class="flex justify-between items-start mb-6">
+                        <span
+                            class="text-5xl font-headings font-bold text-luxury-gold-light group-hover:text-luxury-gold transition-colors duration-300">٠٤</span>
+                        <span
+                            class="w-9 h-9 rounded-full bg-luxury-gold/10 text-luxury-gold flex items-center justify-center text-xs group-hover:bg-luxury-gold group-hover:text-white transition-all duration-300">
+                            <i id="station-chevron-4" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                        </span>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-bold font-headings text-luxury-charcoal mb-1.5">إشراقة القوة:
+                        تحرير طفلك الداخلي لقيادة ملكية</h3>
+                    <p class="text-xs font-semibold text-luxury-gold-dark">تيسير: انتصار قراعين وفداء الرازم</p>
+
+                    <div id="station-panel-4" class="grid transition-[grid-template-rows] duration-500 ease-in-out"
+                        style="grid-template-rows: 0fr;">
+                        <div class="overflow-hidden">
+                            <div class="pt-5 mt-5 border-t border-luxury-gold-light/20 space-y-3">
+                                <p class="text-[11px] font-bold text-luxury-gold-dark">انتصار قراعين (ماجستير علاج
+                                    سلوكي معرفي CBT ومعالجة Sadhu Board)</p>
+                                <p class="text-[11px] font-bold text-luxury-gold-dark">فداء الرازم (مدربة برمجة لغوية
+                                    عصبية NLP ومعالجة Sadhu Board)</p>
+                                <p class="text-xs md:text-sm text-luxury-muted font-light leading-relaxed">
+                                    تجربة عمقة للتحرر من قيود الماضي وجروح الطفل الداخلي، وتفريغ الشحنات العاطفية
+                                    المكبوتة، لاستعادة التوازن النفسي وبناء ثقة متجددة بالنفس بقوة الطفل الداخلي وروح
+                                    الملكة المطمئنة.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <span
+                        class="mt-6 pt-4 border-t border-luxury-gold-light/20 flex items-center justify-between text-xs text-luxury-gold font-semibold group-hover:text-luxury-gold-dark transition-all duration-300">
+                        <span id="station-label-4">اضغطي لمعرفة تفاصيل المحطة</span>
+                    </span>
+                </div>
+
+                <!-- Station 5 -->
+                <div class="station-card card-luxury cursor-pointer flex flex-col group transition-all duration-300"
+                    id="station-card-5" onclick="toggleStation(5)">
+                    <div class="flex justify-between items-start mb-6">
+                        <span
+                            class="text-5xl font-headings font-bold text-luxury-gold-light group-hover:text-luxury-gold transition-colors duration-300">٠٥</span>
+                        <span
+                            class="w-9 h-9 rounded-full bg-luxury-gold/10 text-luxury-gold flex items-center justify-center text-xs group-hover:bg-luxury-gold group-hover:text-white transition-all duration-300">
+                            <i id="station-chevron-5" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                        </span>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-bold font-headings text-luxury-charcoal mb-1.5">تجسيد الملكة:
+                        أناقة تحمل معنى وأثراً قيادياً</h3>
+                    <p class="text-xs font-semibold text-luxury-gold-dark">تيسير: صابرين حسون طافش</p>
+
+                    <div id="station-panel-5" class="grid transition-[grid-template-rows] duration-500 ease-in-out"
+                        style="grid-template-rows: 0fr;">
+                        <div class="overflow-hidden">
+                            <div class="pt-5 mt-5 border-t border-luxury-gold-light/20 space-y-3">
+                                <p class="text-[11px] font-bold text-luxury-gold-dark">ستايلست وخبيرة انطباع أولي،
+                                    مصممة شخصيات مسرحية ومختصة Visual Merchandising، محاضرة ومدرّبة في التسويق البصري
+                                </p>
+                                <p class="text-xs md:text-sm text-luxury-muted font-light leading-relaxed">
+                                    ورشة تفاعلية تكشف العلاقة العميقة بين المظهر الخارجي والثقة بالنفس والهوية
+                                    الشخصية، وكيفية استخدام الملابس والألوان والتفاصيل البصرية كأدوات للتعبير عن الذات
+                                    وتعزيز الحضور القيادي، بما ينعكس على الانطباع الأول والتواصل مع الآخرين.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <span
+                        class="mt-6 pt-4 border-t border-luxury-gold-light/20 flex items-center justify-between text-xs text-luxury-gold font-semibold group-hover:text-luxury-gold-dark transition-all duration-300">
+                        <span id="station-label-5">اضغطي لمعرفة تفاصيل المحطة</span>
+                    </span>
+                </div>
+
+                <!-- Station 6 -->
+                <div class="station-card card-luxury cursor-pointer flex flex-col group transition-all duration-300"
+                    id="station-card-6" onclick="toggleStation(6)">
+                    <div class="flex justify-between items-start mb-6">
+                        <span
+                            class="text-5xl font-headings font-bold text-luxury-gold-light group-hover:text-luxury-gold transition-colors duration-300">٠٦</span>
+                        <span
+                            class="w-9 h-9 rounded-full bg-luxury-gold/10 text-luxury-gold flex items-center justify-center text-xs group-hover:bg-luxury-gold group-hover:text-white transition-all duration-300">
+                            <i id="station-chevron-6" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+                        </span>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-bold font-headings text-luxury-charcoal mb-1.5">إيقاع الملكة:
+                        تحرر الأنوثة والظهور الإبداعي الرقمي</h3>
+                    <p class="text-xs font-semibold text-luxury-gold-dark">تيسير: دنيا مخلوف</p>
+
+                    <div id="station-panel-6" class="grid transition-[grid-template-rows] duration-500 ease-in-out"
+                        style="grid-template-rows: 0fr;">
+                        <div class="overflow-hidden">
+                            <div class="pt-5 mt-5 border-t border-luxury-gold-light/20 space-y-3">
+                                <p class="text-[11px] font-bold text-luxury-gold-dark">مدربة رقص شرقي وإيقاعي أنثوي،
+                                    ومختصة في التسويق الذاتي الإبداعي عبر منصات التواصل الاجتماعي</p>
+                                <p class="text-xs md:text-sm text-luxury-muted font-light leading-relaxed">
+                                    ورشة تجمع بين لغة الجسد ولغة العصر، تبدأ بالاتصال بجوهر الأنوثة والتحرر من خلال
+                                    الحركة والإيقاع، وتنطلق منها نحو تمكين الملكة من التعبير عن تميزها وبناء حضورها
+                                    الرقمي الإبداعي بثقة وأصالة. تتضمن تمارين حركية موجهة في الرقص الشرقي والإيقاعي
+                                    لتفكيك الرواسب المخزنة في الجسد، واستعادة مرونة طاقة الأنوثة والاتصال بالذات عبر
+                                    (اللون البرتقالي للرقص) لفتح مناطق إحساس وتفريغ وتحرير مشاعر للوصول إلى الخفة
+                                    والانسيابية، بالإضافة إلى "خلوة الرقص" لتكوني حرة، غير مقيدة، ومحبة لنفسكِ وللحياة.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <span
+                        class="mt-6 pt-4 border-t border-luxury-gold-light/20 flex items-center justify-between text-xs text-luxury-gold font-semibold group-hover:text-luxury-gold-dark transition-all duration-300">
+                        <span id="station-label-6">اضغطي لمعرفة تفاصيل المحطة</span>
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 5. OFFICIAL SCHEDULE SECTION -->
+    <section id="schedule" class="py-12 md:py-20 relative snap-start scroll-mt-16">
+        <div class="max-w-4xl mx-auto px-6">
+
+            <div class="text-center max-w-2xl mx-auto mb-10 md:mb-16 space-y-4">
+                <span class="text-luxury-gold font-semibold uppercase tracking-wider text-xs block">برنامج اليوم</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold font-headings text-luxury-charcoal">أجندة رتريت عودة
+                    الملكة</h2>
+                <div class="w-16 h-0.5 bg-luxury-gold mx-auto"></div>
+                <p class="text-sm md:text-base text-luxury-muted font-light">
+                    جدول زمني متناغم تم تنظيمه بدقة لنضمن لكِ أقصى استفادة وتكامل بين الاسترخاء والتشافي والاحتفال.
+                </p>
+            </div>
+
+            <!-- Slim Agenda Rectangles: title on the right, time on the left;
+                 clicking slides the time under the title and reveals details in its place -->
+            <div class="space-y-4">
+
+                <!-- Item 1 -->
+                <div class="agenda-item rounded-2xl border border-luxury-gold-light/30 hover:border-luxury-pastel-sage/60 bg-white/40 hover:bg-luxury-pastel-sage/20 transition-all duration-300 overflow-hidden cursor-pointer"
+                    id="agenda-item-1" onclick="toggleAgendaItem(1)">
+                    <div class="flex items-start justify-between gap-4 px-5 py-4">
+                        <div class="min-w-0">
+                            <h3
+                                class="text-sm md:text-base font-bold font-headings text-luxury-charcoal transition-colors duration-300">
+                                الافتتاحية والفترة الصباحية</h3>
+                            <div id="agenda-time-under-1" class="grid transition-[grid-template-rows] duration-300 ease-in-out"
+                                style="grid-template-rows: 0fr;">
+                                <span class="overflow-hidden block text-[11px] font-bold text-luxury-gold pt-1">09:00
+                                    - 10:30 صباحاً</span>
+                            </div>
+                        </div>
+                        <div class="shrink-0 flex items-center gap-2 pt-0.5">
+                            <span id="agenda-time-side-1"
+                                class="text-xs font-bold text-luxury-gold-dark transition-all duration-300">09:00 -
+                                10:30 صباحاً</span>
+                            <i id="agenda-chevron-1"
+                                class="fa-solid fa-chevron-down text-luxury-gold text-[10px] transition-transform duration-300"></i>
+                        </div>
+                    </div>
+                    <div id="agenda-details-1" class="grid transition-[grid-template-rows] duration-500 ease-in-out"
+                        style="grid-template-rows: 0fr;">
+                        <div class="overflow-hidden">
+                            <p class="text-xs md:text-sm text-luxury-muted font-light leading-relaxed px-5 pb-5 pt-3 border-t border-luxury-gold-light/15">
+                                استقبال ملكي ترحيبي، وتناول وجبة إفطار صباحية من البوفيه الفاخر، تليها الافتتاحية
+                                وكلمة ترحيبية ملهمة وميسرة من الأخصائية <strong
+                                    class="text-luxury-charcoal font-semibold">ميرا محفوظ</strong> لتهيئة النوايا
+                                المشتركة.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="agenda-item rounded-2xl border border-luxury-gold-light/30 hover:border-luxury-pastel-sage/60 bg-white/40 hover:bg-luxury-pastel-sage/20 transition-all duration-300 overflow-hidden cursor-pointer"
+                    id="agenda-item-2" onclick="toggleAgendaItem(2)">
+                    <div class="flex items-start justify-between gap-4 px-5 py-4">
+                        <div class="min-w-0">
+                            <h3
+                                class="text-sm md:text-base font-bold font-headings text-luxury-charcoal transition-colors duration-300">
+                                رحلة العودة للذات (المحطات الست للمداورة)</h3>
+                            <div id="agenda-time-under-2" class="grid transition-[grid-template-rows] duration-300 ease-in-out"
+                                style="grid-template-rows: 0fr;">
+                                <span class="overflow-hidden block text-[11px] font-bold text-luxury-gold pt-1">10:30
+                                    - 02:00 ظهراً</span>
+                            </div>
+                        </div>
+                        <div class="shrink-0 flex items-center gap-2 pt-0.5">
+                            <span id="agenda-time-side-2"
+                                class="text-xs font-bold text-luxury-gold-dark transition-all duration-300">10:30 -
+                                02:00 ظهراً</span>
+                            <i id="agenda-chevron-2"
+                                class="fa-solid fa-chevron-down text-luxury-gold text-[10px] transition-transform duration-300"></i>
+                        </div>
+                    </div>
+                    <div id="agenda-details-2" class="grid transition-[grid-template-rows] duration-500 ease-in-out"
+                        style="grid-template-rows: 0fr;">
+                        <div class="overflow-hidden">
+                            <p class="text-xs md:text-sm text-luxury-muted font-light leading-relaxed px-5 pb-5 pt-3 border-t border-luxury-gold-light/15">
+                                توزيع المشاركات على مجموعاتهن والدخول في عمق المحطات الست. يتضمن البرنامج <strong
+                                    class="text-luxury-charcoal font-semibold">4 جولات مكثفة ومداورة</strong>، حيث
+                                تستغرق كل جولة 45 دقيقة كاملة لضمان التفاعل مع الميسرات.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="agenda-item rounded-2xl border border-luxury-gold-light/30 hover:border-luxury-pastel-sage/60 bg-white/40 hover:bg-luxury-pastel-sage/20 transition-all duration-300 overflow-hidden cursor-pointer"
+                    id="agenda-item-3" onclick="toggleAgendaItem(3)">
+                    <div class="flex items-start justify-between gap-4 px-5 py-4">
+                        <div class="min-w-0">
+                            <h3
+                                class="text-sm md:text-base font-bold font-headings text-luxury-charcoal transition-colors duration-300">
+                                مراسم التتويج والولادة الجديدة</h3>
+                            <div id="agenda-time-under-3" class="grid transition-[grid-template-rows] duration-300 ease-in-out"
+                                style="grid-template-rows: 0fr;">
+                                <span class="overflow-hidden block text-[11px] font-bold text-luxury-gold pt-1">02:00
+                                    - 02:45 بعد الظهر</span>
+                            </div>
+                        </div>
+                        <div class="shrink-0 flex items-center gap-2 pt-0.5">
+                            <span id="agenda-time-side-3"
+                                class="text-xs font-bold text-luxury-gold-dark transition-all duration-300">02:00 -
+                                02:45 بعد الظهر</span>
+                            <i id="agenda-chevron-3"
+                                class="fa-solid fa-chevron-down text-luxury-gold text-[10px] transition-transform duration-300"></i>
+                        </div>
+                    </div>
+                    <div id="agenda-details-3" class="grid transition-[grid-template-rows] duration-500 ease-in-out"
+                        style="grid-template-rows: 0fr;">
+                        <div class="overflow-hidden">
+                            <p class="text-xs md:text-sm text-luxury-muted font-light leading-relaxed px-5 pb-5 pt-3 border-t border-luxury-gold-light/15">
+                                مراسم رمزية خاصة بالتمكين وتجسيد الحضور الملكي، وتوزيع هدية الرتريت الحصرية <strong
+                                    class="text-luxury-charcoal font-semibold">Elia Well-being Kit</strong> – وهى باقة
+                                عناية وتوجيه متكاملة مصممة لتمتد لمرافقتكِ طيلة الـ 360 يوماً القادمة.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="agenda-item rounded-2xl border border-luxury-gold-light/30 hover:border-luxury-pastel-sage/60 bg-white/40 hover:bg-luxury-pastel-sage/20 transition-all duration-300 overflow-hidden cursor-pointer"
+                    id="agenda-item-4" onclick="toggleAgendaItem(4)">
+                    <div class="flex items-start justify-between gap-4 px-5 py-4">
+                        <div class="min-w-0">
+                            <h3
+                                class="text-sm md:text-base font-bold font-headings text-luxury-charcoal transition-colors duration-300">
+                                الاحتفال والغداء الفاخر</h3>
+                            <div id="agenda-time-under-4" class="grid transition-[grid-template-rows] duration-300 ease-in-out"
+                                style="grid-template-rows: 0fr;">
+                                <span class="overflow-hidden block text-[11px] font-bold text-luxury-gold pt-1">02:45
+                                    - 04:00 عصراً</span>
+                            </div>
+                        </div>
+                        <div class="shrink-0 flex items-center gap-2 pt-0.5">
+                            <span id="agenda-time-side-4"
+                                class="text-xs font-bold text-luxury-gold-dark transition-all duration-300">02:45 -
+                                04:00 عصراً</span>
+                            <i id="agenda-chevron-4"
+                                class="fa-solid fa-chevron-down text-luxury-gold text-[10px] transition-transform duration-300"></i>
+                        </div>
+                    </div>
+                    <div id="agenda-details-4" class="grid transition-[grid-template-rows] duration-500 ease-in-out"
+                        style="grid-template-rows: 0fr;">
+                        <div class="overflow-hidden">
+                            <p class="text-xs md:text-sm text-luxury-muted font-light leading-relaxed px-5 pb-5 pt-3 border-t border-luxury-gold-light/15">
+                                تناول غداء استثنائي من بوفيه رئيسي فاخر ومعد خصيصاً لمشاركات المنتدى، ترافقه أجواء
+                                احتفالية ملكية مع دي جي مميز، والتقاط الصور التذكارية لتخليد لحظات اللقاء والنقاء.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 6. SMART REGISTRATION FORM (includes the Dress Code alert) -->
+    <section id="register-form" class="py-12 md:py-20 relative snap-start scroll-mt-16">
+        <div class="max-w-3xl mx-auto px-6">
+
+            <div class="text-center max-w-2xl mx-auto mb-12 space-y-4">
+                <span class="text-luxury-gold font-semibold uppercase tracking-wider text-xs block">خطوة البدء</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold font-headings text-luxury-charcoal">طلب الانضمام وتأكيد
+                    المقعد</h2>
+                <div class="w-16 h-0.5 bg-luxury-gold mx-auto"></div>
+                <p class="text-sm md:text-base text-luxury-muted font-light leading-relaxed">
+                    يرجى تعبئة الحقول التالية بعناية، ليتسنى لنا إعداد ملف طاقي ومسار مخصص يتلاءم مع أهدافكِ.
+                </p>
+            </div>
+
+            <!-- The Registration Card -->
+            <div class="card-luxury p-8 md:p-10 border-luxury-gold/20 shadow-2xl relative bg-white/90">
+
+                <!-- Form Alert messages -->
+                <div id="form-error-alert"
+                    class="hidden mb-6 p-4 bg-red-50 border-r-4 border-red-500 rounded-lg text-sm text-red-700">
+                    <i class="fa-solid fa-triangle-exclamation ml-2"></i>
+                    <span id="form-error-text">يرجى التأكد من ملء جميع الحقول المطلوبة.</span>
+                </div>
+
+                <!-- Dress Code Slim Alert (glowing trigger -> opens a popup modal) -->
+                <div id="dress-code" class="flex justify-center mb-8 scroll-mt-24">
+                    <button type="button" id="dress-code-toggle" onclick="openDressCodeModal()"
+                        class="animate-glow-pulse w-full max-w-md flex items-center justify-center gap-3 px-5 py-3 rounded-2xl border border-luxury-pastel-rose/60 bg-white/80 text-luxury-gold-dark font-semibold text-xs md:text-sm transition-all duration-300 hover:scale-[1.02]">
+                        <i class="fa-solid fa-shirt"></i>
+                        <span>تنبيه هام: اللباس والتحضير (Dress Code) — اضغطي للتفاصيل</span>
+                        <i class="fa-solid fa-chevron-left text-[10px]"></i>
+                    </button>
+                </div>
+
+                <form id="queens-retreat-form" onsubmit="handleRetreatSubmit(event)" class="space-y-6">
+
+                    <!-- Grid personal info -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Full Name -->
+                        <div class="space-y-2">
+                            <label for="fullName"
+                                class="block text-xs md:text-sm font-semibold text-luxury-charcoal">الاسم الكامل <span
+                                    class="text-red-500">*</span></label>
+                            <input type="text" id="fullName" name="fullName" required placeholder="أدخلي اسمكِ الثلاثي"
+                                class="w-full px-4 py-3 rounded-xl border border-luxury-pastel-sand/50 bg-luxury-bg/50 focus:border-luxury-pastel-lavender focus:bg-white focus:outline-none focus:ring-2 focus:ring-luxury-pastel-lavender/25 focus:shadow-md text-sm transition-all duration-300">
+                        </div>
+
+                        <!-- Phone/WhatsApp -->
+                        <div class="space-y-2">
+                            <label for="whatsapp"
+                                class="block text-xs md:text-sm font-semibold text-luxury-charcoal">رقم الهاتف / الواتس
+                                آب <span class="text-red-500">*</span></label>
+                            <input type="tel" id="whatsapp" name="whatsapp" required placeholder="مثال: 05XXXXXXXX"
+                                class="w-full px-4 py-3 rounded-xl border border-luxury-pastel-sand/50 bg-luxury-bg/50 focus:border-luxury-pastel-lavender focus:bg-white focus:outline-none focus:ring-2 focus:ring-luxury-pastel-lavender/25 focus:shadow-md text-sm transition-all duration-300 text-left"
+                                dir="ltr">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Email -->
+                        <div class="space-y-2">
+                            <label for="email"
+                                class="block text-xs md:text-sm font-semibold text-luxury-charcoal">البريد الإلكتروني
+                                <span class="text-red-500">*</span></label>
+                            <input type="email" id="email" name="email" required placeholder="example@email.com"
+                                class="w-full px-4 py-3 rounded-xl border border-luxury-pastel-sand/50 bg-luxury-bg/50 focus:border-luxury-pastel-lavender focus:bg-white focus:outline-none focus:ring-2 focus:ring-luxury-pastel-lavender/25 focus:shadow-md text-sm transition-all duration-300 text-left"
+                                dir="ltr">
+                        </div>
+
+                        <!-- Residence -->
+                        <div class="space-y-2">
+                            <label for="residence"
+                                class="block text-xs md:text-sm font-semibold text-luxury-charcoal">مكان السكن الحالي
+                                <span class="text-red-500">*</span></label>
+                            <input type="text" id="residence" name="residence" required placeholder="المدينة / القرية"
+                                class="w-full px-4 py-3 rounded-xl border border-luxury-pastel-sand/50 bg-luxury-bg/50 focus:border-luxury-pastel-lavender focus:bg-white focus:outline-none focus:ring-2 focus:ring-luxury-pastel-lavender/25 focus:shadow-md text-sm transition-all duration-300">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Job Title -->
+                        <div class="space-y-2">
+                            <label for="jobTitle"
+                                class="block text-xs md:text-sm font-semibold text-luxury-charcoal">المسمى الوظيفي
+                                والمهني الدقيق <span class="text-red-500">*</span></label>
+                            <input type="text" id="jobTitle" name="jobTitle" required
+                                placeholder="مثال: طبيبة، مديرة قسم، معلمة"
+                                class="w-full px-4 py-3 rounded-xl border border-luxury-pastel-sand/50 bg-luxury-bg/50 focus:border-luxury-pastel-lavender focus:bg-white focus:outline-none focus:ring-2 focus:ring-luxury-pastel-lavender/25 focus:shadow-md text-sm transition-all duration-300">
+                        </div>
+
+                        <!-- Workplace -->
+                        <div class="space-y-2">
+                            <label for="workplace"
+                                class="block text-xs md:text-sm font-semibold text-luxury-charcoal">مكان العمل / الوظيفة
+                                <span class="text-red-500">*</span></label>
+                            <input type="text" id="workplace" name="workplace" required
+                                placeholder="اسم المؤسسة أو الشركة"
+                                class="w-full px-4 py-3 rounded-xl border border-luxury-pastel-sand/50 bg-luxury-bg/50 focus:border-luxury-pastel-lavender focus:bg-white focus:outline-none focus:ring-2 focus:ring-luxury-pastel-lavender/25 focus:shadow-md text-sm transition-all duration-300">
+                        </div>
+                    </div>
+
+                    <!-- 6-Stations Selection (Energy Path Preference) -->
+                    <div class="space-y-3 pt-3">
+                        <label class="block text-xs md:text-sm font-semibold text-luxury-charcoal">
+                            ما هي الجوانب الأكثر أهمية لكِ في هذه الرحلة؟
+                            <span class="text-luxury-gold-dark font-normal text-xs block mt-1">(يرجى اختيار جانبين على
+                                الأقل لمساعدتنا في تنظيم مساركِ الطاقي الخاص) <span class="text-red-500">*</span></span>
+                        </label>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="stations-checkbox-group">
+                            <label
+                                class="flex items-center space-x-reverse space-x-3 p-3 rounded-xl border border-luxury-gold-light/30 bg-luxury-bg/30 hover:border-luxury-pastel-sage/60 hover:bg-luxury-pastel-sage/20 hover:scale-[1.01] cursor-pointer transition-all duration-300">
+                                <input type="checkbox" name="energyPaths" value="1"
+                                    class="w-4.5 h-4.5 rounded text-luxury-gold focus:ring-luxury-gold border-luxury-gold-light">
+                                <span class="text-xs md:text-sm text-luxury-muted">جذور الملكة (التجذّر والوعي
+                                    الترددي)</span>
+                            </label>
+                            <label
+                                class="flex items-center space-x-reverse space-x-3 p-3 rounded-xl border border-luxury-gold-light/30 bg-luxury-bg/30 hover:border-luxury-pastel-sage/60 hover:bg-luxury-pastel-sage/20 hover:scale-[1.01] cursor-pointer transition-all duration-300">
+                                <input type="checkbox" name="energyPaths" value="2"
+                                    class="w-4.5 h-4.5 rounded text-luxury-gold focus:ring-luxury-gold border-luxury-gold-light">
+                                <span class="text-xs md:text-sm text-luxury-muted">صرخة ملوّنة: تحرر وتجديد طاقة من
+                                    خلال الفن</span>
+                            </label>
+                            <label
+                                class="flex items-center space-x-reverse space-x-3 p-3 rounded-xl border border-luxury-gold-light/30 bg-luxury-bg/30 hover:border-luxury-pastel-sage/60 hover:bg-luxury-pastel-sage/20 hover:scale-[1.01] cursor-pointer transition-all duration-300">
+                                <input type="checkbox" name="energyPaths" value="3"
+                                    class="w-4.5 h-4.5 rounded text-luxury-gold focus:ring-luxury-gold border-luxury-gold-light">
+                                <span class="text-xs md:text-sm text-luxury-muted">تطهير الروح: غسيل الطاقة والتشافي
+                                    الذاتي</span>
+                            </label>
+                            <label
+                                class="flex items-center space-x-reverse space-x-3 p-3 rounded-xl border border-luxury-gold-light/30 bg-luxury-bg/30 hover:border-luxury-pastel-sage/60 hover:bg-luxury-pastel-sage/20 hover:scale-[1.01] cursor-pointer transition-all duration-300">
+                                <input type="checkbox" name="energyPaths" value="4"
+                                    class="w-4.5 h-4.5 rounded text-luxury-gold focus:ring-luxury-gold border-luxury-gold-light">
+                                <span class="text-xs md:text-sm text-luxury-muted">إشراقة القوة: تحرير الطفل
+                                    الداخلي</span>
+                            </label>
+                            <label
+                                class="flex items-center space-x-reverse space-x-3 p-3 rounded-xl border border-luxury-gold-light/30 bg-luxury-bg/30 hover:border-luxury-pastel-sage/60 hover:bg-luxury-pastel-sage/20 hover:scale-[1.01] cursor-pointer transition-all duration-300">
+                                <input type="checkbox" name="energyPaths" value="5"
+                                    class="w-4.5 h-4.5 rounded text-luxury-gold focus:ring-luxury-gold border-luxury-gold-light">
+                                <span class="text-xs md:text-sm text-luxury-muted">تجسيد الملكة: أناقة وأثر قيادي</span>
+                            </label>
+                            <label
+                                class="flex items-center space-x-reverse space-x-3 p-3 rounded-xl border border-luxury-gold-light/30 bg-luxury-bg/30 hover:border-luxury-pastel-sage/60 hover:bg-luxury-pastel-sage/20 hover:scale-[1.01] cursor-pointer transition-all duration-300">
+                                <input type="checkbox" name="energyPaths" value="6"
+                                    class="w-4.5 h-4.5 rounded text-luxury-gold focus:ring-luxury-gold border-luxury-gold-light">
+                                <span class="text-xs md:text-sm text-luxury-muted">إيقاع الملكة: تحرر الأنوثة
+                                    والظهور الإبداعي الرقمي</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Kids Management Toggle -->
+                    <div class="space-y-4 pt-3 border-t border-luxury-gold-light/20">
+                        <label class="block text-xs md:text-sm font-semibold text-luxury-charcoal">
+                            هل ترغبين في اصطحاب أطفالكِ معكِ؟
+                        </label>
+                        <div class="flex space-x-reverse space-x-6">
+                            <label class="flex items-center space-x-reverse space-x-2.5 cursor-pointer">
+                                <input type="radio" name="bringKids" value="yes" onclick="toggleKidsFields(true)"
+                                    class="w-4.5 h-4.5 text-luxury-gold focus:ring-luxury-gold border-luxury-gold-light">
+                                <span class="text-xs md:text-sm text-luxury-muted">نعم، أرغب في الرعاية المنظمة
+                                    لهم</span>
+                            </label>
+                            <label class="flex items-center space-x-reverse space-x-2.5 cursor-pointer">
+                                <input type="radio" name="bringKids" value="no" checked
+                                    onclick="toggleKidsFields(false)"
+                                    class="w-4.5 h-4.5 text-luxury-gold focus:ring-luxury-gold border-luxury-gold-light">
+                                <span class="text-xs md:text-sm text-luxury-muted">لا، لا أرغب</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Kids Options Container (Collapsible) -->
+                    <div id="kids-options-container"
+                        class="hidden space-y-4 p-5 rounded-2xl bg-luxury-gold/5 border border-luxury-gold-light/30 transition-all duration-500 overflow-hidden">
+                        <span class="block text-xs font-bold text-luxury-gold-dark">اختيار الفئات العمرية (متاح حد أقصى
+                            15 طفلاً لكل فئة):</span>
+
+                        <div class="grid grid-cols-1 gap-4">
+
+                            <!-- Group 1: 5-6 Years -->
+                            <div
+                                class="flex flex-col md:flex-row md:items-center justify-between gap-2 p-3 rounded-xl bg-white border border-luxury-gold-light/10">
+                                <label class="flex items-center space-x-reverse space-x-3 cursor-pointer shrink-0">
+                                    <input type="checkbox" id="kids-g1" name="kidsAgeGroups" value="5-6"
+                                        onchange="handleKidGroupChange(this, '5-6')"
+                                        class="w-4.5 h-4.5 rounded text-luxury-gold focus:ring-luxury-gold border-luxury-gold-light">
+                                    <span class="text-xs md:text-sm text-luxury-charcoal font-semibold">جيل 5 - 6
+                                        سنوات</span>
+                                </label>
+                                <div class="flex items-center space-x-reverse space-x-2 text-xs">
+                                    <span class="text-luxury-muted">الأماكن المتاحة:</span>
+                                    <span id="capacity-g1" class="font-bold text-luxury-gold-dark">1 / 15 مقعد</span>
+                                    <span id="warning-g1" class="hidden text-red-500 text-[10px] font-semibold">الأماكن
+                                        ممتلئة؟ يرجى التواصل معنا مباشرة لضم طفلكِ إلى قائمة الانتظار.</span>
+                                </div>
+                            </div>
+
+                            <!-- Group 2: 7-8 Years (Starts Full) -->
+                            <div
+                                class="flex flex-col md:flex-row md:items-center justify-between gap-2 p-3 rounded-xl bg-white border border-luxury-gold-light/10">
+                                <label class="flex items-center space-x-reverse space-x-3 cursor-not-allowed shrink-0">
+                                    <input type="checkbox" id="kids-g2" name="kidsAgeGroups" value="7-8" disabled
+                                        class="w-4.5 h-4.5 rounded text-luxury-gold border-luxury-gold-light/50 bg-gray-100">
+                                    <span class="text-xs md:text-sm text-gray-400 font-semibold">جيل 7 - 8 سنوات</span>
+                                </label>
+                                <div
+                                    class="flex flex-col md:flex-row md:items-center space-x-reverse space-x-2 text-xs">
+                                    <div class="flex items-center space-x-reverse space-x-2">
+                                        <span class="text-gray-400">الأماكن المتاحة:</span>
+                                        <span id="capacity-g2" class="font-bold text-red-500">0 / 15 مقعد</span>
+                                    </div>
+                                    <span id="warning-g2" class="text-red-500 text-[10px] font-semibold md:mr-3">الأماكن
+                                        ممتلئة؟ يرجى التواصل معنا مباشرة لضم طفلكِ إلى قائمة الانتظار.</span>
+                                </div>
+                            </div>
+
+                            <!-- Group 3: 9-10 Years -->
+                            <div
+                                class="flex flex-col md:flex-row md:items-center justify-between gap-2 p-3 rounded-xl bg-white border border-luxury-gold-light/10">
+                                <label class="flex items-center space-x-reverse space-x-3 cursor-pointer shrink-0">
+                                    <input type="checkbox" id="kids-g3" name="kidsAgeGroups" value="9-10"
+                                        onchange="handleKidGroupChange(this, '9-10')"
+                                        class="w-4.5 h-4.5 rounded text-luxury-gold focus:ring-luxury-gold border-luxury-gold-light">
+                                    <span class="text-xs md:text-sm text-luxury-charcoal font-semibold">جيل 9 - 10
+                                        سنوات</span>
+                                </label>
+                                <div class="flex items-center space-x-reverse space-x-2 text-xs">
+                                    <span class="text-luxury-muted">الأماكن المتاحة:</span>
+                                    <span id="capacity-g3" class="font-bold text-luxury-gold-dark">5 / 15 مقعد</span>
+                                    <span id="warning-g3" class="hidden text-red-500 text-[10px] font-semibold">الأماكن
+                                        ممتلئة؟ يرجى التواصل معنا مباشرة لضم طفلكِ إلى قائمة الانتظار.</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="pt-6">
+                        <button type="submit"
+                            class="btn-luxury shimmer-effect w-full py-4.5 text-center font-headings text-lg tracking-wide rounded-2xl shadow-xl hover:shadow-luxury-gold/20 flex items-center justify-center space-x-reverse space-x-3">
+                            <i class="fa-solid fa-crown"></i>
+                            <span>تأكيد التسجيل وحفظ مقعدي الملكي</span>
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-luxury-charcoal text-white/70 py-12 border-t border-luxury-gold/20">
+        <div
+            class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center md:text-right">
+
+            <div>
+                <span class="block font-headings text-xl font-bold text-white mb-2">منتدى سيدات إيليا</span>
+                <p class="text-xs font-light text-white/50 leading-relaxed">
+                    منتدى نخبوي يسعى لتمكين ونهوض المرأة الفلسطينية من خلال برامج نوعية تجمع بين المعرفة والتشافي الفعلي
+                    والتمكين القيادي.
+                </p>
+            </div>
+
+            <div class="flex justify-center space-x-reverse space-x-6">
+                <a href="#about" class="hover:text-luxury-gold duration-300 text-sm">عن الرتريت</a>
+                <a href="#journey" class="hover:text-luxury-gold duration-300 text-sm">المحطات</a>
+                <a href="#schedule" class="hover:text-luxury-gold duration-300 text-sm">الأجندة</a>
+            </div>
+
+            <div class="space-y-3">
+                <span class="block text-xs font-semibold text-luxury-gold">للتواصل المباشر والاستفسارات:</span>
+                <div class="flex items-center justify-center md:justify-start space-x-reverse space-x-3 text-xs">
+                    <i class="fa-solid fa-phone text-luxury-gold"></i>
+                    <span dir="ltr">+972 50-000-0000</span>
+                </div>
+                <div class="flex items-center justify-center md:justify-start space-x-reverse space-x-3 text-xs">
+                    <i class="fa-regular fa-envelope text-luxury-gold"></i>
+                    <span>contact@eliawomen.org</span>
+                </div>
+            </div>
+
+        </div>
+        <div class="max-w-7xl mx-auto px-6 mt-8 pt-8 border-t border-white/5 text-center text-[10px] text-white/40">
+            &copy; 2026 منتدى سيدات إيليا. جميع الحقوق محفوظة لرتريت عودة الملكة.
+        </div>
+    </footer>
+
+    <!-- DRESS CODE MODAL -->
+    <div id="dress-code-modal"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-luxury-charcoal/40 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300"
+        onclick="closeDressCodeModalOnBackdrop(event)">
+        <div class="glassmorphism w-full max-w-lg bg-white rounded-3xl p-6 md:p-8 shadow-2xl relative border-2 border-luxury-gold/40 max-h-[90vh] overflow-y-auto animate-scale-up"
+            onclick="event.stopPropagation()">
+
+            <button onclick="closeDressCodeModal()"
+                class="absolute top-4 left-4 w-9 h-9 rounded-full bg-luxury-bg flex items-center justify-center text-luxury-muted hover:text-luxury-charcoal hover:bg-luxury-gold/15 duration-300 focus:outline-none">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="relative overflow-hidden pt-2">
+                <!-- Gold ambient light -->
+                <div class="absolute top-0 right-0 w-20 h-20 bg-luxury-gold/10 rounded-full blur-xl"></div>
+
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-5 relative z-10 text-center md:text-right">
+                    <div
+                        class="w-11 h-11 rounded-full bg-luxury-gold/15 text-luxury-gold flex items-center justify-center text-lg shrink-0">
+                        <i class="fa-solid fa-shirt"></i>
+                    </div>
+                    <div class="space-y-4 flex-1">
+                        <h4 class="text-base md:text-lg font-bold font-headings text-luxury-charcoal">تنبيه وتوجيه هام
+                            بشأن رموز اللباس (Dress Code)</h4>
+                        <p class="text-xs md:text-sm text-luxury-muted font-light leading-relaxed">
+                            يرجى من جميع الملكات الحاضرات ارتداء ملابس مريحة وفضفاضة بألوان الباستيل الهادئة تلائم
+                            حركات اليوغا والتحرر الحركي، مع ضرورة إحضار طقم ملابس إضافي كامل مخصص لفقرة <strong>"الصرخة
+                                الملونة"</strong> لتجنب تلطيخ الملابس بالألوان.
+                        </p>
+
+                        <!-- Visual Pastel Color Palette -->
+                        <div class="pt-1">
+                            <span class="block text-xs font-semibold text-luxury-gold-dark mb-3">لوحة الألوان
+                                المقترحة (Pastel Palette):</span>
+                            <div class="flex flex-wrap justify-center md:justify-start gap-2.5">
+                                <div class="flex flex-col items-center">
+                                    <div class="w-10 h-10 rounded-full border border-luxury-charcoal/10 shadow-inner"
+                                        style="background-color: #E2D7E7;"></div>
+                                    <span class="text-[9px] text-luxury-muted mt-1">البنفسجي الناعم</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <div class="w-10 h-10 rounded-full border border-luxury-charcoal/10 shadow-inner"
+                                        style="background-color: #E9D2CE;"></div>
+                                    <span class="text-[9px] text-luxury-muted mt-1">الوردي المغبر</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <div class="w-10 h-10 rounded-full border border-luxury-charcoal/10 shadow-inner"
+                                        style="background-color: #EFE2D3;"></div>
+                                    <span class="text-[9px] text-luxury-muted mt-1">البيج الدافئ</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <div class="w-10 h-10 rounded-full border border-luxury-charcoal/10 shadow-inner"
+                                        style="background-color: #D2DDD4;"></div>
+                                    <span class="text-[9px] text-luxury-muted mt-1">الأخضر الحكيم</span>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <div class="w-10 h-10 rounded-full border border-luxury-charcoal/10 shadow-inner"
+                                        style="background-color: #F7E5D9;"></div>
+                                    <span class="text-[9px] text-luxury-muted mt-1">المشمشي الناعم</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 text-center">
+                <button onclick="closeDressCodeModal()" class="btn-luxury px-8 py-3 text-sm">موافق، فهمت
+                    التعليمات</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUCCESS REGISTRATION MODAL -->
+    <div id="success-modal"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-luxury-charcoal/50 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+        <div
+            class="glassmorphism w-full max-w-md bg-white rounded-3xl p-8 shadow-2xl relative border-2 border-luxury-gold text-center animate-scale-up">
+
+            <div
+                class="w-20 h-20 rounded-full bg-gradient-to-r from-luxury-gold-dark to-luxury-gold text-white flex items-center justify-center text-3xl mx-auto mb-6 shadow-xl animate-float">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+
+            <h3 class="text-2xl font-extrabold font-headings text-luxury-charcoal mb-3">مرحباً بكِ في عرش عودتكِ!</h3>
+
+            <div class="w-12 h-0.5 bg-luxury-gold mx-auto mb-4"></div>
+
+            <p class="text-sm text-luxury-muted font-light leading-relaxed mb-6" id="success-modal-message">
+                حضرة الملكة <strong id="success-queen-name" class="text-luxury-charcoal font-semibold"></strong>، لقد تم
+                استلام طلب انضمامكِ لـ "عودة الملكة" بنجاح. سنقوم بمراجعة بياناتكِ وإعداد مساركِ الطاقي المخصص، وسيتواصل
+                معكِ مجلس التنظيم خلال الـ 24 ساعة القادمة عبر الواتس آب لتأكيد تفعيل مقعدكِ.
+            </p>
+
+            <div
+                class="bg-luxury-gold/5 p-4 rounded-xl text-xs text-luxury-gold-dark font-semibold mb-6 flex items-center justify-center space-x-reverse space-x-2">
+                <i class="fa-regular fa-clock text-sm"></i>
+                <span>تم حفظ مقعد مؤقت باسمكِ بنجاح لمدة ٢٤ ساعة.</span>
+            </div>
+
+            <button onclick="closeSuccessModal()" class="btn-luxury w-full py-3.5">
+                مبارك، سأنتظر التواصل
+            </button>
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // 1. SIMULATED KIDS GROUPS CAPACITY STATE
+        // Group 1: 5-6 Yrs (Starts occupied 14/15, 1 seat left)
+        // Group 2: 7-8 Yrs (Starts occupied 15/15, 0 seats left - FULL)
+        // Group 3: 9-10 Yrs (Starts occupied 10/15, 5 seats left)
+        const kidsCapacityState = {
+            "5-6": { occupied: 14, limit: 15, key: "g1" },
+            "7-8": { occupied: 15, limit: 15, key: "g2" },
+            "9-10": { occupied: 10, limit: 15, key: "g3" }
+        };
+
+        // 0. MOBILE NAVIGATION DRAWER
+        function toggleMobileMenu() {
+            const overlay = document.getElementById("mobile-menu-overlay");
+            const panel = document.getElementById("mobile-menu-panel");
+            const isOpen = !overlay.classList.contains("pointer-events-none");
+
+            if (isOpen) {
+                overlay.classList.add("opacity-0", "pointer-events-none");
+                panel.classList.add("translate-x-full");
+                document.body.classList.remove("overflow-hidden");
+            } else {
+                overlay.classList.remove("opacity-0", "pointer-events-none");
+                panel.classList.remove("translate-x-full");
+                document.body.classList.add("overflow-hidden");
+            }
+        }
+
+        function closeMobileMenuOnBackdrop(event) {
+            if (event.target.id === "mobile-menu-overlay") {
+                toggleMobileMenu();
+            }
+        }
+
+        // STATIONS INLINE ACCORDION (dropdown expand in place of the old modal)
+        function toggleStation(id) {
+            const card = document.getElementById(`station-card-${id}`);
+            const isOpen = card.classList.contains("station-open");
+
+            // Accordion behavior: close any other open station first
+            document.querySelectorAll(".station-card.station-open").forEach((openCard) => {
+                if (openCard !== card) {
+                    setStationState(openCard.id.replace("station-card-", ""), false);
+                }
+            });
+
+            setStationState(id, !isOpen);
+        }
+
+        function setStationState(id, open) {
+            const card = document.getElementById(`station-card-${id}`);
+            const panel = document.getElementById(`station-panel-${id}`);
+            const chevron = document.getElementById(`station-chevron-${id}`);
+            const label = document.getElementById(`station-label-${id}`);
+
+            panel.style.gridTemplateRows = open ? "1fr" : "0fr";
+            chevron.classList.toggle("rotate-180", open);
+            label.innerText = open ? "إخفاء تفاصيل المحطة" : "اضغطي لمعرفة تفاصيل المحطة";
+            card.classList.toggle("station-open", open);
+            card.classList.toggle("ring-2", open);
+            card.classList.toggle("ring-luxury-gold/40", open);
+        }
+
+        // AGENDA SLIM-RECTANGLE TOGGLE: slides the time under the title and
+        // reveals the event details in its place
+        function toggleAgendaItem(id) {
+            const item = document.getElementById(`agenda-item-${id}`);
+            const details = document.getElementById(`agenda-details-${id}`);
+            const timeUnder = document.getElementById(`agenda-time-under-${id}`);
+            const timeSide = document.getElementById(`agenda-time-side-${id}`);
+            const chevron = document.getElementById(`agenda-chevron-${id}`);
+            const open = !item.classList.contains("agenda-open");
+
+            details.style.gridTemplateRows = open ? "1fr" : "0fr";
+            timeUnder.style.gridTemplateRows = open ? "1fr" : "0fr";
+            timeSide.classList.toggle("opacity-0", open);
+            timeSide.classList.toggle("scale-90", open);
+            chevron.classList.toggle("rotate-180", open);
+            item.classList.toggle("agenda-open", open);
+        }
+
+        // DRESS CODE GLOWING ALERT: toggles open/closed, and auto-shows once
+        // when the register CTA is clicked or the registration section is reached
+        let dressCodeAutoShown = false;
+
+        function openDressCodeModal() {
+            const modal = document.getElementById("dress-code-modal");
+            modal.classList.remove("hidden");
+            setTimeout(() => {
+                modal.classList.remove("opacity-0");
+            }, 10);
+
+            dressCodeAutoShown = true;
+        }
+
+        function closeDressCodeModal() {
+            const modal = document.getElementById("dress-code-modal");
+            modal.classList.add("opacity-0");
+            setTimeout(() => {
+                modal.classList.add("hidden");
+            }, 300);
+        }
+
+        function closeDressCodeModalOnBackdrop(event) {
+            if (event.target.id === "dress-code-modal") {
+                closeDressCodeModal();
+            }
+        }
+
+        function showDressCodeMessage() {
+            if (!dressCodeAutoShown) {
+                openDressCodeModal();
+            }
+        }
+
+        // On Load Page Init
+        window.addEventListener("DOMContentLoaded", () => {
+            // Header scroll style effect
+            const header = document.getElementById("nav-header");
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 50) {
+                    header.classList.add("bg-white/80", "backdrop-blur-md", "shadow-sm", "border-b", "border-luxury-gold/10");
+                } else {
+                    header.classList.remove("bg-white/80", "backdrop-blur-md", "shadow-sm", "border-b", "border-luxury-gold/10");
+                }
+            });
+
+            // Auto-show the dress code message once the registration section is reached
+            const registerSection = document.getElementById("register-form");
+            if (registerSection) {
+                const dressCodeObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting && !dressCodeAutoShown) {
+                            showDressCodeMessage();
+                        }
+                    });
+                }, { threshold: 0.25 });
+                dressCodeObserver.observe(registerSection);
+            }
+
+            // Trigger Hero countdown progress bar loading animation
+            setTimeout(() => {
+                const pBar = document.getElementById("seats-progress-bar");
+                if (pBar) {
+                    pBar.style.width = "87%";
+                }
+
+                // Count down remaining seats count dynamically
+                const counterElement = document.getElementById("seats-left-counter");
+                if (counterElement) {
+                    let startVal = 100;
+                    const finalVal = 13;
+                    const duration = 2000;
+                    const stepTime = Math.abs(Math.floor(duration / (startVal - finalVal)));
+
+                    const timer = setInterval(() => {
+                        startVal--;
+                        counterElement.innerText = `${startVal} مقعداً`;
+                        if (startVal === finalVal) {
+                            clearInterval(timer);
+                            // add warning text highlights
+                            counterElement.innerHTML = `${finalVal} مقعداً <span class="animate-pulse text-red-500 text-xs">(متبقي فقط!)</span>`;
+                        }
+                    }, stepTime);
+                }
+            }, 500);
+
+            // Set Initial capacities layout display
+            updateCapacityDisplay("5-6");
+            updateCapacityDisplay("7-8");
+            updateCapacityDisplay("9-10");
+        });
+
+        // 3. CAPACITY DISPLAY MODIFIER
+        function updateCapacityDisplay(groupKey) {
+            const groupState = kidsCapacityState[groupKey];
+            if (!groupState) return;
+
+            const capLabel = document.getElementById(`capacity-${groupState.key}`);
+            const warningLabel = document.getElementById(`warning-${groupState.key}`);
+            const checkbox = document.getElementById(`kids-${groupState.key}`);
+
+            const available = groupState.limit - groupState.occupied;
+            capLabel.innerText = `${available} / ${groupState.limit} مقاعد متاحة`;
+
+            if (groupState.occupied >= groupState.limit) {
+                capLabel.innerText = "0 / 15 مقعد (ممتلئ)";
+                capLabel.classList.remove("text-luxury-gold-dark");
+                capLabel.classList.add("text-red-500");
+                warningLabel.classList.remove("hidden");
+
+                // Disable checkbox
+                if (checkbox) {
+                    checkbox.disabled = true;
+                    checkbox.parentElement.classList.add("cursor-not-allowed", "opacity-50");
+                    checkbox.parentElement.classList.remove("cursor-pointer");
+                }
+            } else {
+                capLabel.classList.remove("text-red-500");
+                capLabel.classList.add("text-luxury-gold-dark");
+                warningLabel.classList.add("hidden");
+
+                if (checkbox) {
+                    checkbox.disabled = false;
+                    checkbox.parentElement.classList.add("cursor-pointer");
+                    checkbox.parentElement.classList.remove("cursor-not-allowed", "opacity-50");
+                }
+            }
+        }
+
+        // 4. CHILD GROUP CHECKBOX CHANGE
+        function handleKidGroupChange(checkbox, groupKey) {
+            const groupState = kidsCapacityState[groupKey];
+            if (!groupState) return;
+
+            if (checkbox.checked) {
+                // If checking, increment occupied
+                if (groupState.occupied < groupState.limit) {
+                    groupState.occupied++;
+                } else {
+                    // Safety check if limit reached
+                    checkbox.checked = false;
+                    alert("عذراً، الأماكن ممتلئة في هذه المجموعة العمرية حالياً.");
+                }
+            } else {
+                // If unchecking, decrement occupied
+                if (groupState.occupied > 0) {
+                    groupState.occupied--;
+                }
+            }
+            updateCapacityDisplay(groupKey);
+        }
+
+        // 5. COLLAPSIBLE KIDS TOGGLE
+        function toggleKidsFields(show) {
+            const kidsContainer = document.getElementById("kids-options-container");
+            const inputs = kidsContainer.querySelectorAll('input[type="checkbox"]');
+
+            if (show) {
+                kidsContainer.classList.remove("hidden");
+            } else {
+                kidsContainer.classList.add("hidden");
+                // Reset child group choices and decrement state if checked
+                inputs.forEach(input => {
+                    if (input.checked) {
+                        input.checked = false;
+                        const val = input.value;
+                        if (kidsCapacityState[val]) {
+                            kidsCapacityState[val].occupied--;
+                            updateCapacityDisplay(val);
+                        }
+                    }
+                });
+            }
+        }
+
+        // 6. FORM SUBMISSION VALIDATION
+        function handleRetreatSubmit(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const errorAlert = document.getElementById("form-error-alert");
+            const errorText = document.getElementById("form-error-text");
+
+            // Basic Field Values
+            const fullName = document.getElementById("fullName").value.trim();
+            const whatsapp = document.getElementById("whatsapp").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const residence = document.getElementById("residence").value.trim();
+            const jobTitle = document.getElementById("jobTitle").value.trim();
+            const workplace = document.getElementById("workplace").value.trim();
+
+            errorAlert.classList.add("hidden");
+
+            // Check Basic validation
+            if (!fullName || !whatsapp || !email || !residence || !jobTitle || !workplace) {
+                showFormError("يرجى تعبئة جميع الحقول المطلوبة بنجاح.");
+                return;
+            }
+
+            // Energy paths selection checkbox check (at least 2 required)
+            const checkedPaths = form.querySelectorAll('input[name="energyPaths"]:checked');
+            if (checkedPaths.length < 2) {
+                showFormError("يرجى اختيار جانبين (محطتين) على الأقل من جوانب ومسارات الرتريت لمساعدتنا في تخطيط برنامجكِ.");
+                return;
+            }
+
+            // Kids Option validation
+            const bringKids = form.querySelector('input[name="bringKids"]:checked').value;
+            let kidsGroupsSelected = [];
+            if (bringKids === "yes") {
+                const checkedKidsGroups = form.querySelectorAll('input[name="kidsAgeGroups"]:checked');
+                if (checkedKidsGroups.length === 0) {
+                    showFormError("لقد اخترتِ اصطحاب أطفالكِ، يرجى تحديد فئة عمرية واحدة على الأقل من الفئات المتاحة.");
+                    return;
+                }
+                checkedKidsGroups.forEach(cb => {
+                    kidsGroupsSelected.push(cb.value);
+                });
+            }
+
+            // Valid Form - Show success modal
+            showSuccessModal(fullName);
+        }
+
+        function showFormError(message) {
+            const errorAlert = document.getElementById("form-error-alert");
+            const errorText = document.getElementById("form-error-text");
+            errorText.innerText = message;
+            errorAlert.classList.remove("hidden");
+            errorAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function showSuccessModal(name) {
+            const successModal = document.getElementById("success-modal");
+            document.getElementById("success-queen-name").innerText = name;
+
+            successModal.classList.remove("hidden");
+            setTimeout(() => {
+                successModal.classList.remove("opacity-0");
+            }, 10);
+        }
+
+        function closeSuccessModal() {
+            const successModal = document.getElementById("success-modal");
+            successModal.classList.add("opacity-0");
+            setTimeout(() => {
+                successModal.classList.add("hidden");
+                // Reset form values and scroll back to top
+                document.getElementById("queens-retreat-form").reset();
+                toggleKidsFields(false);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 300);
+        }
+    </script>
+</body>
+
+</html>
