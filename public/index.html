@@ -227,7 +227,7 @@
                             <span class="text-xs md:text-sm font-semibold text-luxury-charcoal">المقاعد المتبقية في هذه
                                 الرحلة</span>
                         </div>
-                        <span class="text-sm font-bold text-luxury-gold-dark" id="seats-left-counter">13 مقعداً</span>
+                        <span class="text-sm font-bold text-luxury-gold-dark" id="seats-left-counter">&hellip;</span>
                     </div>
 
                     <!-- Progress bar -->
@@ -239,7 +239,7 @@
 
                     <div class="flex justify-between items-center mt-2.5 text-[10px] text-luxury-charcoal">
                         <span>سعة الحضور الإجمالية: 100 سيدة</span>
-                        <span id="seats-percentage-text">تم حجز 87% من المقاعد</span>
+                        <span id="seats-percentage-text"></span>
                     </div>
                 </div>
             </div>
@@ -839,6 +839,11 @@
 
                 <form id="queens-retreat-form" onsubmit="handleRetreatSubmit(event)" class="space-y-6">
 
+                    <!-- Honeypot (spam trap) — invisible to humans, bots fill it -->
+                    <div style="position:absolute; left:-9999px; top:-9999px;" aria-hidden="true">
+                        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                    </div>
+
                     <!-- Grid personal info -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Full Name -->
@@ -993,14 +998,13 @@
                                 class="flex flex-col md:flex-row md:items-center justify-between gap-2 p-3 rounded-xl bg-white border border-luxury-gold-light/10">
                                 <label class="flex items-center space-x-reverse space-x-3 cursor-pointer shrink-0">
                                     <input type="checkbox" id="kids-g1" name="kidsAgeGroups" value="5-6"
-                                        onchange="handleKidGroupChange(this, '5-6')"
                                         class="w-4.5 h-4.5 rounded text-luxury-gold focus:ring-luxury-gold border-luxury-gold-light">
-                                    <span class="text-xs md:text-sm text-luxury-charcoal font-semibold">جيل 5 - 6
+                                    <span id="kids-name-g1" class="text-xs md:text-sm text-luxury-charcoal font-semibold">جيل 5 - 6
                                         سنوات</span>
                                 </label>
                                 <div class="flex items-center space-x-reverse space-x-2 text-xs">
                                     <span class="text-luxury-charcoal">الأماكن المتاحة:</span>
-                                    <span id="capacity-g1" class="font-bold text-luxury-gold-dark">1 / 15 مقعد</span>
+                                    <span id="capacity-g1" class="font-bold text-luxury-gold-dark">&mdash;</span>
                                     <span id="warning-g1" class="hidden text-red-500 text-[10px] font-semibold">الأماكن
                                         ممتلئة؟ يرجى التواصل معنا مباشرة لضم طفلكِ إلى قائمة الانتظار.</span>
                                 </div>
@@ -1009,18 +1013,18 @@
                             <!-- Group 2: 7-8 Years (Starts Full) -->
                             <div
                                 class="flex flex-col md:flex-row md:items-center justify-between gap-2 p-3 rounded-xl bg-white border border-luxury-gold-light/10">
-                                <label class="flex items-center space-x-reverse space-x-3 cursor-not-allowed shrink-0">
-                                    <input type="checkbox" id="kids-g2" name="kidsAgeGroups" value="7-8" disabled
-                                        class="w-4.5 h-4.5 rounded text-luxury-gold border-luxury-gold-light/50 bg-gray-100">
-                                    <span class="text-xs md:text-sm text-gray-400 font-semibold">جيل 7 - 8 سنوات</span>
+                                <label class="flex items-center space-x-reverse space-x-3 cursor-pointer shrink-0">
+                                    <input type="checkbox" id="kids-g2" name="kidsAgeGroups" value="7-8"
+                                        class="w-4.5 h-4.5 rounded text-luxury-gold focus:ring-luxury-gold border-luxury-gold-light">
+                                    <span id="kids-name-g2" class="text-xs md:text-sm text-luxury-charcoal font-semibold">جيل 7 - 8 سنوات</span>
                                 </label>
                                 <div
                                     class="flex flex-col md:flex-row md:items-center space-x-reverse space-x-2 text-xs">
                                     <div class="flex items-center space-x-reverse space-x-2">
-                                        <span class="text-gray-400">الأماكن المتاحة:</span>
-                                        <span id="capacity-g2" class="font-bold text-red-500">0 / 15 مقعد</span>
+                                        <span class="text-luxury-charcoal">الأماكن المتاحة:</span>
+                                        <span id="capacity-g2" class="font-bold text-luxury-gold-dark">&mdash;</span>
                                     </div>
-                                    <span id="warning-g2" class="text-red-500 text-[10px] font-semibold md:mr-3">الأماكن
+                                    <span id="warning-g2" class="hidden text-red-500 text-[10px] font-semibold md:mr-3">الأماكن
                                         ممتلئة؟ يرجى التواصل معنا مباشرة لضم طفلكِ إلى قائمة الانتظار.</span>
                                 </div>
                             </div>
@@ -1030,14 +1034,13 @@
                                 class="flex flex-col md:flex-row md:items-center justify-between gap-2 p-3 rounded-xl bg-white border border-luxury-gold-light/10">
                                 <label class="flex items-center space-x-reverse space-x-3 cursor-pointer shrink-0">
                                     <input type="checkbox" id="kids-g3" name="kidsAgeGroups" value="9-10"
-                                        onchange="handleKidGroupChange(this, '9-10')"
                                         class="w-4.5 h-4.5 rounded text-luxury-gold focus:ring-luxury-gold border-luxury-gold-light">
-                                    <span class="text-xs md:text-sm text-luxury-charcoal font-semibold">جيل 9 - 10
+                                    <span id="kids-name-g3" class="text-xs md:text-sm text-luxury-charcoal font-semibold">جيل 9 - 10
                                         سنوات</span>
                                 </label>
                                 <div class="flex items-center space-x-reverse space-x-2 text-xs">
                                     <span class="text-luxury-charcoal">الأماكن المتاحة:</span>
-                                    <span id="capacity-g3" class="font-bold text-luxury-gold-dark">5 / 15 مقعد</span>
+                                    <span id="capacity-g3" class="font-bold text-luxury-gold-dark">&mdash;</span>
                                     <span id="warning-g3" class="hidden text-red-500 text-[10px] font-semibold">الأماكن
                                         ممتلئة؟ يرجى التواصل معنا مباشرة لضم طفلكِ إلى قائمة الانتظار.</span>
                                 </div>
@@ -1048,10 +1051,10 @@
 
                     <!-- Submit Button -->
                     <div class="pt-6">
-                        <button type="submit"
+                        <button type="submit" id="submit-btn"
                             class="btn-luxury shimmer-effect w-full py-4.5 text-center font-headings text-lg tracking-wide rounded-2xl shadow-xl hover:shadow-luxury-gold/20 flex items-center justify-center space-x-reverse space-x-3">
                             <i class="fa-solid fa-crown"></i>
-                            <span>تأكيد التسجيل وحفظ مقعدي الملكي</span>
+                            <span id="submit-btn-text">تأكيد التسجيل وحفظ مقعدي الملكي</span>
                         </button>
                     </div>
 
@@ -1210,15 +1213,84 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // 1. SIMULATED KIDS GROUPS CAPACITY STATE
-        // Group 1: 5-6 Yrs (Starts occupied 14/15, 1 seat left)
-        // Group 2: 7-8 Yrs (Starts occupied 15/15, 0 seats left - FULL)
-        // Group 3: 9-10 Yrs (Starts occupied 10/15, 5 seats left)
+        // 1. LIVE CAPACITY STATE — populated from GET /api/counts (Google Sheet)
         const kidsCapacityState = {
-            "5-6": { occupied: 14, limit: 15, key: "g1" },
-            "7-8": { occupied: 15, limit: 15, key: "g2" },
-            "9-10": { occupied: 10, limit: 15, key: "g3" }
+            "5-6": { occupied: 0, limit: 15, key: "g1" },
+            "7-8": { occupied: 0, limit: 15, key: "g2" },
+            "9-10": { occupied: 0, limit: 15, key: "g3" }
         };
+        let retreatSoldOut = false;
+        let seatCounterTimer = null;
+
+        async function refreshSeatCounts(animate) {
+            const res = await fetch("/api/counts");
+            if (!res.ok) throw new Error("counts request failed");
+            const data = await res.json();
+            if (!data.ok) throw new Error(data.error || "counts error");
+
+            // Kids groups
+            for (const groupKey of Object.keys(kidsCapacityState)) {
+                if (data.kids && data.kids[groupKey]) {
+                    kidsCapacityState[groupKey].occupied = data.kids[groupKey].occupied;
+                    kidsCapacityState[groupKey].limit = data.kids[groupKey].limit;
+                }
+                updateCapacityDisplay(groupKey);
+            }
+
+            // Hero counter + progress bar
+            const seatsLeft = data.seatsLeft;
+            const capacity = data.totalCapacity;
+            const bookedPct = Math.round(((capacity - seatsLeft) / capacity) * 100);
+            const counterElement = document.getElementById("seats-left-counter");
+            const pBar = document.getElementById("seats-progress-bar");
+            const pctText = document.getElementById("seats-percentage-text");
+
+            if (pBar) pBar.style.width = `${bookedPct}%`;
+            if (pctText) pctText.innerText = `تم حجز ${bookedPct}% من المقاعد`;
+
+            const showFinal = () => {
+                if (seatsLeft <= 0) {
+                    counterElement.innerHTML = `اكتمل العدد <span class="animate-pulse text-red-500 text-xs">(انتهت المقاعد)</span>`;
+                } else if (seatsLeft <= 20) {
+                    counterElement.innerHTML = `${seatsLeft} مقعداً <span class="animate-pulse text-red-500 text-xs">(متبقي فقط!)</span>`;
+                } else {
+                    counterElement.innerText = `${seatsLeft} مقعداً`;
+                }
+            };
+
+            if (counterElement) {
+                if (seatCounterTimer) {
+                    clearInterval(seatCounterTimer);
+                    seatCounterTimer = null;
+                }
+                if (animate && seatsLeft > 0 && seatsLeft < capacity) {
+                    // Count down from full capacity to the real remaining number
+                    let startVal = capacity;
+                    const stepTime = Math.max(15, Math.abs(Math.floor(2000 / (startVal - seatsLeft))));
+                    seatCounterTimer = setInterval(() => {
+                        startVal--;
+                        counterElement.innerText = `${startVal} مقعداً`;
+                        if (startVal <= seatsLeft) {
+                            clearInterval(seatCounterTimer);
+                            seatCounterTimer = null;
+                            showFinal();
+                        }
+                    }, stepTime);
+                } else {
+                    showFinal();
+                }
+            }
+
+            // Sold out → close the form
+            retreatSoldOut = seatsLeft <= 0;
+            const submitBtn = document.getElementById("submit-btn");
+            const submitText = document.getElementById("submit-btn-text");
+            if (retreatSoldOut && submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.classList.add("opacity-60", "cursor-not-allowed");
+                if (submitText) submitText.innerText = "اكتمل التسجيل — انتهت المقاعد";
+            }
+        }
 
 
 
@@ -1328,37 +1400,14 @@
                 dressCodeObserver.observe(registerSection);
             }
 
-            // Trigger Hero countdown progress bar loading animation
+            // Load real seat counts from the backend (hero bar + kids groups)
             setTimeout(() => {
-                const pBar = document.getElementById("seats-progress-bar");
-                if (pBar) {
-                    pBar.style.width = "87%";
-                }
-
-                // Count down remaining seats count dynamically
-                const counterElement = document.getElementById("seats-left-counter");
-                if (counterElement) {
-                    let startVal = 100;
-                    const finalVal = 13;
-                    const duration = 2000;
-                    const stepTime = Math.abs(Math.floor(duration / (startVal - finalVal)));
-
-                    const timer = setInterval(() => {
-                        startVal--;
-                        counterElement.innerText = `${startVal} مقعداً`;
-                        if (startVal === finalVal) {
-                            clearInterval(timer);
-                            // add warning text highlights
-                            counterElement.innerHTML = `${finalVal} مقعداً <span class="animate-pulse text-red-500 text-xs">(متبقي فقط!)</span>`;
-                        }
-                    }, stepTime);
-                }
+                refreshSeatCounts(true).catch((err) => {
+                    console.error("Could not load seat counts:", err);
+                    const counterElement = document.getElementById("seats-left-counter");
+                    if (counterElement) counterElement.innerText = "";
+                });
             }, 500);
-
-            // Set Initial capacities layout display
-            updateCapacityDisplay("5-6");
-            updateCapacityDisplay("7-8");
-            updateCapacityDisplay("9-10");
         });
 
         // 3. CAPACITY DISPLAY MODIFIER
@@ -1370,20 +1419,26 @@
             const warningLabel = document.getElementById(`warning-${groupState.key}`);
             const checkbox = document.getElementById(`kids-${groupState.key}`);
 
+            const nameLabel = document.getElementById(`kids-name-${groupState.key}`);
             const available = groupState.limit - groupState.occupied;
             capLabel.innerText = `${available} / ${groupState.limit} مقاعد متاحة`;
 
             if (groupState.occupied >= groupState.limit) {
-                capLabel.innerText = "0 / 15 مقعد (ممتلئ)";
+                capLabel.innerText = `0 / ${groupState.limit} مقعد (ممتلئ)`;
                 capLabel.classList.remove("text-luxury-gold-dark");
                 capLabel.classList.add("text-red-500");
                 warningLabel.classList.remove("hidden");
 
                 // Disable checkbox
                 if (checkbox) {
+                    checkbox.checked = false;
                     checkbox.disabled = true;
                     checkbox.parentElement.classList.add("cursor-not-allowed", "opacity-50");
                     checkbox.parentElement.classList.remove("cursor-pointer");
+                }
+                if (nameLabel) {
+                    nameLabel.classList.add("text-gray-400");
+                    nameLabel.classList.remove("text-luxury-charcoal");
                 }
             } else {
                 capLabel.classList.remove("text-red-500");
@@ -1395,33 +1450,14 @@
                     checkbox.parentElement.classList.add("cursor-pointer");
                     checkbox.parentElement.classList.remove("cursor-not-allowed", "opacity-50");
                 }
+                if (nameLabel) {
+                    nameLabel.classList.remove("text-gray-400");
+                    nameLabel.classList.add("text-luxury-charcoal");
+                }
             }
         }
 
-        // 4. CHILD GROUP CHECKBOX CHANGE
-        function handleKidGroupChange(checkbox, groupKey) {
-            const groupState = kidsCapacityState[groupKey];
-            if (!groupState) return;
-
-            if (checkbox.checked) {
-                // If checking, increment occupied
-                if (groupState.occupied < groupState.limit) {
-                    groupState.occupied++;
-                } else {
-                    // Safety check if limit reached
-                    checkbox.checked = false;
-                    alert("عذراً، الأماكن ممتلئة في هذه المجموعة العمرية حالياً.");
-                }
-            } else {
-                // If unchecking, decrement occupied
-                if (groupState.occupied > 0) {
-                    groupState.occupied--;
-                }
-            }
-            updateCapacityDisplay(groupKey);
-        }
-
-        // 5. COLLAPSIBLE KIDS TOGGLE
+        // 4. COLLAPSIBLE KIDS TOGGLE
         function toggleKidsFields(show) {
             const kidsContainer = document.getElementById("kids-options-container");
             const inputs = kidsContainer.querySelectorAll('input[type="checkbox"]');
@@ -1430,27 +1466,21 @@
                 kidsContainer.classList.remove("hidden");
             } else {
                 kidsContainer.classList.add("hidden");
-                // Reset child group choices and decrement state if checked
-                inputs.forEach(input => {
-                    if (input.checked) {
-                        input.checked = false;
-                        const val = input.value;
-                        if (kidsCapacityState[val]) {
-                            kidsCapacityState[val].occupied--;
-                            updateCapacityDisplay(val);
-                        }
-                    }
-                });
+                inputs.forEach(input => { input.checked = false; });
             }
         }
 
-        // 6. FORM SUBMISSION VALIDATION
-        function handleRetreatSubmit(event) {
+        // 5. FORM SUBMISSION — validates, then saves via POST /api/register
+        async function handleRetreatSubmit(event) {
             event.preventDefault();
 
             const form = event.target;
             const errorAlert = document.getElementById("form-error-alert");
-            const errorText = document.getElementById("form-error-text");
+
+            if (retreatSoldOut) {
+                showFormError("نعتذر، اكتمل عدد المقاعد المتاحة للرتريت.");
+                return;
+            }
 
             // Basic Field Values
             const fullName = document.getElementById("fullName").value.trim();
@@ -1489,8 +1519,44 @@
                 });
             }
 
-            // Valid Form - Show success modal
-            showSuccessModal(fullName);
+            // Send to backend (stored in Google Sheet)
+            const submitBtn = document.getElementById("submit-btn");
+            const submitText = document.getElementById("submit-btn-text");
+            const originalText = submitText.innerText;
+            submitBtn.disabled = true;
+            submitText.innerText = "جارٍ حفظ تسجيلكِ...";
+
+            try {
+                const res = await fetch("/api/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        fullName, whatsapp, email, residence, jobTitle, workplace,
+                        energyPaths: Array.from(checkedPaths).map(cb => cb.value),
+                        bringKids,
+                        kidsAgeGroups: kidsGroupsSelected,
+                        website: document.getElementById("website").value
+                    })
+                });
+
+                let data = null;
+                try { data = await res.json(); } catch { /* non-JSON response */ }
+
+                if (res.ok && data && data.ok) {
+                    showSuccessModal(fullName);
+                    refreshSeatCounts(false).catch(() => { });
+                } else {
+                    showFormError((data && data.message) || "تعذر إتمام التسجيل، يرجى المحاولة مرة أخرى.");
+                    // Capacity may have changed under us — refresh the displays
+                    if (res.status === 409) refreshSeatCounts(false).catch(() => { });
+                }
+            } catch (err) {
+                console.error("Registration failed:", err);
+                showFormError("تعذر الاتصال بالخادم، يرجى التحقق من اتصالكِ بالإنترنت والمحاولة مرة أخرى.");
+            } finally {
+                submitBtn.disabled = retreatSoldOut;
+                submitText.innerText = retreatSoldOut ? "اكتمل التسجيل — انتهت المقاعد" : originalText;
+            }
         }
 
         function showFormError(message) {

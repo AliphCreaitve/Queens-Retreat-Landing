@@ -1,14 +1,19 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "queensretreat",
+  "main": "src/worker.js",
   "compatibility_date": "2026-07-02",
   "observability": {
     "enabled": true
   },
   "assets": {
-    "directory": "."
+    "directory": "./public"
   },
   "compatibility_flags": [
     "nodejs_compat"
-  ]
+  ],
+  "vars": {
+    "TOTAL_CAPACITY": "100",
+    "KIDS_GROUP_LIMIT": "15"
+  }
 }
