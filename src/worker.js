@@ -39,7 +39,15 @@ const SHEET_HEADER = [
     "المحطات المختارة",
     "اصطحاب أطفال",
     "فئات الأطفال",
+    "طريقة الدفع",
 ];
+
+const PAYMENT_METHOD_LABELS = {
+    applepay: "Apple Pay",
+    googlepay: "Google Pay",
+    bit: "Bit",
+    hyp: "Hyp",
+};
 
 export default {
     async fetch(request, env) {
@@ -184,6 +192,7 @@ async function handleRegister(request, env) {
         energyPaths.map((p) => STATION_NAMES[p]).join(" | "),
         bringKids === "yes" ? "نعم" : "لا",
         kidsAgeGroups.join(", "),
+        PAYMENT_METHOD_LABELS[body.paymentMethod] || "",
     ];
 
     if (!counts.headerPresent) {
@@ -210,7 +219,7 @@ async function getCounts(env, allowCache) {
     const token = await getAccessToken(env);
     const res = await fetch(
         `https://sheets.googleapis.com/v4/spreadsheets/${env.SHEET_ID}/values:batchGet` +
-            `?ranges=${encodeURIComponent("A1:J1")}&ranges=${encodeURIComponent("A2:J")}`,
+            `?ranges=${encodeURIComponent("A1:K1")}&ranges=${encodeURIComponent("A2:K")}`,
         { headers: { Authorization: `Bearer ${token}` } }
     );
     if (!res.ok) {
@@ -246,7 +255,7 @@ async function appendRow(env, row) {
     const token = await getAccessToken(env);
     const res = await fetch(
         `https://sheets.googleapis.com/v4/spreadsheets/${env.SHEET_ID}/values/${encodeURIComponent(
-            "A1:J1"
+            "A1:K1"
         )}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`,
         {
             method: "POST",

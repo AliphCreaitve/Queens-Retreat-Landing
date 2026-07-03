@@ -59,6 +59,16 @@
             background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 20%, rgba(255, 255, 255, 0.6) 60%, rgba(255, 255, 255, 0) 100%);
             animation: shimmer 3s infinite;
         }
+        /* Payment modal */
+        .payment-method-card { transition: all .3s ease; }
+        .payment-method-card:hover { transform: scale(1.03); border-color: rgba(196,168,188,0.7); background: rgba(255,255,255,0.9); }
+        .payment-method-card.dimmed { opacity: 0; transform: scale(.85); pointer-events: none; }
+        .payment-method-card.expanding { transform: scale(1.1); border-color: rgba(196,168,188,1); box-shadow: 0 10px 30px rgba(196,168,188,0.35); z-index: 10; }
+        .payment-wordmark {
+            display: inline-flex; align-items: center; justify-content: center; direction: ltr;
+            color: #fff; font-weight: 800; letter-spacing: .01em; border-radius: 9999px;
+            padding: .35rem 1.1rem; font-size: 1.15rem; line-height: 1.4; font-family: 'Segoe UI', sans-serif;
+        }
     </style>
 
 
@@ -1210,6 +1220,79 @@
         </div>
     </div>
 
+    <!-- PAYMENT MODAL -->
+    <div id="payment-modal"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-luxury-charcoal/50 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+        <div
+            class="glassmorphism w-full max-w-md bg-white rounded-3xl p-6 md:p-8 shadow-2xl relative border-2 border-luxury-gold animate-scale-up">
+
+            <button onclick="closePaymentModal()" aria-label="إغلاق"
+                class="absolute top-4 left-4 w-9 h-9 rounded-full bg-luxury-bg/80 text-luxury-charcoal hover:bg-luxury-gold hover:text-white transition-all duration-300 flex items-center justify-center text-sm z-20">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Step 1: choose a payment method -->
+            <div id="payment-step-methods">
+                <div
+                    class="w-16 h-16 rounded-full bg-gradient-to-r from-luxury-gold-dark to-luxury-gold text-white flex items-center justify-center text-2xl mx-auto mb-5 shadow-xl">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+
+                <h3 class="text-xl md:text-2xl font-extrabold font-headings text-luxury-charcoal mb-3 text-center">
+                    اختاري طريقة الدفع</h3>
+                <div class="w-12 h-0.5 bg-luxury-gold mx-auto mb-4"></div>
+
+                <p id="payment-amount-row" class="hidden text-center text-sm text-luxury-charcoal mb-2">
+                    رسوم الرتريت: <span id="payment-amount" class="font-bold text-luxury-gold-dark" dir="ltr"></span>
+                </p>
+
+                <div class="grid grid-cols-2 gap-3 mt-5">
+                    <button type="button" onclick="selectPaymentMethod('applepay', this)"
+                        class="payment-method-card flex flex-col items-center justify-center gap-2 p-5 rounded-2xl border border-luxury-gold-light/40 bg-luxury-bg/40">
+                        <i class="fa-brands fa-apple-pay text-4xl text-luxury-charcoal"></i>
+                        <span class="text-xs font-semibold text-luxury-charcoal">Apple Pay</span>
+                    </button>
+                    <button type="button" onclick="selectPaymentMethod('googlepay', this)"
+                        class="payment-method-card flex flex-col items-center justify-center gap-2 p-5 rounded-2xl border border-luxury-gold-light/40 bg-luxury-bg/40">
+                        <i class="fa-brands fa-google-pay text-4xl text-luxury-charcoal"></i>
+                        <span class="text-xs font-semibold text-luxury-charcoal">Google Pay</span>
+                    </button>
+                    <button type="button" onclick="selectPaymentMethod('bit', this)"
+                        class="payment-method-card flex flex-col items-center justify-center gap-2 p-5 rounded-2xl border border-luxury-gold-light/40 bg-luxury-bg/40">
+                        <span class="payment-wordmark" style="background:#00c8c8;">bit</span>
+                        <span class="text-xs font-semibold text-luxury-charcoal">بيت</span>
+                    </button>
+                    <button type="button" onclick="selectPaymentMethod('hyp', this)"
+                        class="payment-method-card flex flex-col items-center justify-center gap-2 p-5 rounded-2xl border border-luxury-gold-light/40 bg-luxury-bg/40">
+                        <span class="payment-wordmark" style="background:#e6007e;">hyp</span>
+                        <span class="text-xs font-semibold text-luxury-charcoal">هايب</span>
+                    </button>
+                </div>
+
+                <p class="mt-5 text-[10px] text-luxury-gold-dark text-center flex items-center justify-center gap-1.5">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>جميع عمليات الدفع مشفرة وآمنة</span>
+                </p>
+            </div>
+
+            <!-- Step 2: the selected method's portal fills the window -->
+            <div id="payment-step-portal" class="hidden">
+                <div class="flex items-center justify-between mb-4 pl-10">
+                    <button type="button" onclick="showPaymentMethods()"
+                        class="text-xs font-semibold text-luxury-gold-dark hover:text-luxury-charcoal transition-colors duration-300 flex items-center gap-1.5">
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        <span>تغيير طريقة الدفع</span>
+                    </button>
+                    <span id="payment-portal-method-badge" class="flex items-center gap-2"></span>
+                </div>
+
+                <div id="payment-portal-container"
+                    class="rounded-2xl border border-luxury-gold-light/40 bg-luxury-bg/40 min-h-[280px] flex items-center justify-center p-6">
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
@@ -1519,23 +1602,100 @@
                 });
             }
 
-            // Send to backend (stored in Google Sheet)
-            const submitBtn = document.getElementById("submit-btn");
-            const submitText = document.getElementById("submit-btn-text");
-            const originalText = submitText.innerText;
-            submitBtn.disabled = true;
-            submitText.innerText = "جارٍ حفظ تسجيلكِ...";
+            // Form is valid — collect the payload and open the payment step.
+            // The registration is only saved after payment completes.
+            pendingRegistration = {
+                fullName, whatsapp, email, residence, jobTitle, workplace,
+                energyPaths: Array.from(checkedPaths).map(cb => cb.value),
+                bringKids,
+                kidsAgeGroups: kidsGroupsSelected,
+                website: document.getElementById("website").value
+            };
+            openPaymentModal();
+        }
+
+        // 6. PAYMENT MODAL
+        const RETREAT_PRICE_ILS = 0; // set the real fee to display it (0 hides the amount row)
+        const PAYMENT_METHODS = {
+            applepay: { label: "Apple Pay", icon: '<i class="fa-brands fa-apple-pay text-4xl text-luxury-charcoal"></i>' },
+            googlepay: { label: "Google Pay", icon: '<i class="fa-brands fa-google-pay text-4xl text-luxury-charcoal"></i>' },
+            bit: { label: "bit", icon: '<span class="payment-wordmark" style="background:#00c8c8;">bit</span>' },
+            hyp: { label: "hyp", icon: '<span class="payment-wordmark" style="background:#e6007e;">hyp</span>' }
+        };
+        let pendingRegistration = null;
+        let selectedPaymentMethod = null;
+
+        function openPaymentModal() {
+            showPaymentMethods();
+            if (RETREAT_PRICE_ILS > 0) {
+                document.getElementById("payment-amount-row").classList.remove("hidden");
+                document.getElementById("payment-amount").innerText = `₪ ${RETREAT_PRICE_ILS}`;
+            }
+            const modal = document.getElementById("payment-modal");
+            modal.classList.remove("hidden");
+            setTimeout(() => modal.classList.remove("opacity-0"), 10);
+        }
+
+        function closePaymentModal() {
+            const modal = document.getElementById("payment-modal");
+            modal.classList.add("opacity-0");
+            setTimeout(() => modal.classList.add("hidden"), 300);
+        }
+
+        function showPaymentMethods() {
+            selectedPaymentMethod = null;
+            document.getElementById("payment-step-portal").classList.add("hidden");
+            document.getElementById("payment-step-methods").classList.remove("hidden");
+            document.querySelectorAll(".payment-method-card").forEach(c =>
+                c.classList.remove("dimmed", "expanding"));
+        }
+
+        function selectPaymentMethod(method, cardEl) {
+            selectedPaymentMethod = method;
+
+            // Expand the chosen card while the others fade away, then the
+            // portal takes over the window
+            document.querySelectorAll(".payment-method-card").forEach(c =>
+                c.classList.add(c === cardEl ? "expanding" : "dimmed"));
+
+            setTimeout(() => {
+                document.getElementById("payment-step-methods").classList.add("hidden");
+                document.getElementById("payment-step-portal").classList.remove("hidden");
+
+                const m = PAYMENT_METHODS[method];
+                document.getElementById("payment-portal-method-badge").innerHTML = m.icon;
+
+                // Placeholder portal — replaced by the real provider widget once
+                // the payment account is connected
+                document.getElementById("payment-portal-container").innerHTML = `
+                    <div class="text-center space-y-4 w-full">
+                        <div class="flex justify-center">${m.icon}</div>
+                        <p class="text-sm font-semibold text-luxury-charcoal">الدفع عبر ${m.label}</p>
+                        ${RETREAT_PRICE_ILS > 0 ? `<p class="text-2xl font-extrabold text-luxury-gold-dark" dir="ltr">₪ ${RETREAT_PRICE_ILS}</p>` : ""}
+                        <button type="button" id="portal-pay-btn" onclick="completeRegistration(this)"
+                            class="btn-luxury w-full py-3.5">
+                            إتمام الدفع وتأكيد التسجيل
+                        </button>
+                        <p class="text-[10px] text-luxury-gold-dark leading-relaxed">
+                            وضع تجريبي — سيتم تفعيل بوابة الدفع الفعلية عند ربط حساب المزوّد.
+                        </p>
+                    </div>`;
+            }, 320);
+        }
+
+        async function completeRegistration(payBtn) {
+            if (!pendingRegistration) return;
+
+            payBtn.disabled = true;
+            payBtn.innerText = "جارٍ إتمام الدفع...";
 
             try {
                 const res = await fetch("/api/register", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        fullName, whatsapp, email, residence, jobTitle, workplace,
-                        energyPaths: Array.from(checkedPaths).map(cb => cb.value),
-                        bringKids,
-                        kidsAgeGroups: kidsGroupsSelected,
-                        website: document.getElementById("website").value
+                        ...pendingRegistration,
+                        paymentMethod: selectedPaymentMethod
                     })
                 });
 
@@ -1543,19 +1703,21 @@
                 try { data = await res.json(); } catch { /* non-JSON response */ }
 
                 if (res.ok && data && data.ok) {
-                    showSuccessModal(fullName);
+                    const name = pendingRegistration.fullName;
+                    pendingRegistration = null;
+                    closePaymentModal();
+                    showSuccessModal(name);
                     refreshSeatCounts(false).catch(() => { });
                 } else {
+                    closePaymentModal();
                     showFormError((data && data.message) || "تعذر إتمام التسجيل، يرجى المحاولة مرة أخرى.");
                     // Capacity may have changed under us — refresh the displays
                     if (res.status === 409) refreshSeatCounts(false).catch(() => { });
                 }
             } catch (err) {
                 console.error("Registration failed:", err);
+                closePaymentModal();
                 showFormError("تعذر الاتصال بالخادم، يرجى التحقق من اتصالكِ بالإنترنت والمحاولة مرة أخرى.");
-            } finally {
-                submitBtn.disabled = retreatSoldOut;
-                submitText.innerText = retreatSoldOut ? "اكتمل التسجيل — انتهت المقاعد" : originalText;
             }
         }
 
