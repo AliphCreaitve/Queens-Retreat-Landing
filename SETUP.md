@@ -35,7 +35,7 @@ Cloudflare dashboard → **Workers & Pages → queensretreat → Settings → Va
 | `GOOGLE_SA_EMAIL` | `client_email` from the JSON |
 | `GOOGLE_SA_PRIVATE_KEY` | the full `private_key` value, including the BEGIN/END lines |
 
-(`TOTAL_CAPACITY` = 100 and `KIDS_GROUP_LIMIT` = 15 are plain vars in [wrangler.jsonc](wrangler.jsonc) — edit there if they ever change.)
+(`TOTAL_CAPACITY` = 100 is a plain var in [wrangler.jsonc](wrangler.jsonc) — edit there if it ever changes.)
 
 ## 5. Deploy
 
@@ -47,6 +47,11 @@ Push to `main` — the connected Cloudflare build deploys automatically. Then ve
 
 ## Notes
 
+- **Sheet columns changed in the July 2026 client-edits round**: the form now records
+  المحطات والمواعيد (station + chosen time slot), ترتيب رعاية الأطفال, and عدد الأطفال instead of
+  the old المحطات المختارة / اصطحاب أطفال / فئات الأطفال columns. If the Sheet already contains
+  rows from the old form, clear the tab (or start a fresh tab) before deploying so the new
+  header row is written cleanly.
 - **Deleting a row in the Sheet frees a seat** — the counts are always computed from the Sheet.
 - The seat counters cache for 30 seconds, so the public numbers can lag briefly; capacity checks during
   registration always use fresh data.

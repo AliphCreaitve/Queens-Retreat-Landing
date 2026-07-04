@@ -8,7 +8,7 @@
  *   POST /api/register  → validate + capacity-check + append a row to the sheet
  *
  * Required configuration:
- *   vars    : TOTAL_CAPACITY, KIDS_GROUP_LIMIT          (wrangler.jsonc)
+ *   vars    : TOTAL_CAPACITY                            (wrangler.jsonc)
  *   secrets : SHEET_ID                — the Google Sheet ID (from its URL)
  *             GOOGLE_SA_EMAIL         — service account email
  *             GOOGLE_SA_PRIVATE_KEY   — service account private key (PEM, PKCS#8)
@@ -18,15 +18,23 @@
  */
 
 const STATION_NAMES = {
-    "1": "جذور الملكة (التجذّر والوعي الترددي)",
-    "2": "صرخة ملوّنة: تحرر وتجديد طاقة من خلال الفن",
-    "3": "تطهير الروح: غسيل الطاقة والتشافي الذاتي",
-    "4": "إشراقة القوة: تحرير الطفل الداخلي",
-    "5": "تجسيد الملكة: أناقة وأثر قيادي",
-    "6": "إيقاع الملكة: تحرر الأنوثة والظهور الإبداعي الرقمي",
+    "1": "حضور الملكة (دنيا مخلوف)",
+    "2": "اتزان الملكة (رويدة الشاويش)",
+    "3": "صوت الملكة (نورا خطيب)",
+    "4": "جذور الملكة (ديالا نبواني)",
+    "5": "صورة الملكة (صابرين طافش)",
+    "6": "شجاعة الملكة (انتصار قراعين وفداء الرازم)",
 };
 
-const KIDS_GROUPS = ["5-6", "7-8", "9-10"];
+// Rotation rounds. The 4th slot is exclusive to صوت الملكة (station "3",
+// المحطة الثابتة).
+const TIME_SLOTS = ["10:30-11:15", "11:30-12:15", "12:30-13:15", "13:15-14:00"];
+const EXTENDED_SLOT_STATIONS = new Set(["3"]);
+
+const KIDS_PLAN_LABELS = {
+    external: "يتوفر إطار رعاية وبديل آمن خارج الرتريت",
+    onsite: "ترغب بفحص إمكانية دمجهم في الفعالية الموازية في الموقع",
+};
 
 const SHEET_HEADER = [
     "تاريخ التسجيل",
@@ -36,9 +44,9 @@ const SHEET_HEADER = [
     "مكان السكن",
     "المسمى الوظيفي",
     "مكان العمل",
-    "المحطات المختارة",
-    "اصطحاب أطفال",
-    "فئات الأطفال",
+    "المحطات والمواعيد",
+    "ترتيب رعاية الأطفال",
+    "عدد الأطفال",
     "طريقة الدفع",
 ];
 
@@ -128,35 +136,56 @@ async function handleRegister(request, env) {
         });
     }
 
-    const energyPaths = Array.isArray(body.energyPaths)
-        ? body.energyPaths.map(String).filter((p) => STATION_NAMES[p])
-        : [];
-    if (new Set(energyPaths).size !== 3) {
+    // Stations: exactly 3 unique stations, one valid time slot each, and no
+    // two stations in the same rotation round.
+    const stationsRaw = Array.isArray(body.stations) ? body.stations : [];
+    const stations = [];
+    const seenStations = new Set();
+    const seenSlots = new Set();
+    for (const entry of stationsRaw) {
+        const id = String(entry && entry.id);
+        const slot = String(entry && entry.slot);
+        const allowedSlots = EXTENDED_SLOT_STATIONS.has(id)
+            ? TIME_SLOTS
+            : TIME_SLOTS.slice(0, 3);
+        if (!STATION_NAMES[id] || seenStations.has(id) || !allowedSlots.includes(slot)) {
+            continue;
+        }
+        if (seenSlots.has(slot)) {
+            return json(400, {
+                ok: false,
+                error: "slot_clash",
+                message: "لا يمكن اختيار الموعد نفسه لمحطتين مختلفتين.",
+            });
+        }
+        seenStations.add(id);
+        seenSlots.add(slot);
+        stations.push({ id, slot });
+    }
+    if (stations.length !== 3 || stationsRaw.length !== 3) {
         return json(400, {
             ok: false,
             error: "invalid_stations",
-            message: "يرجى اختيار 3 محطات بالضبط.",
+            message: "يرجى اختيار 3 محطات بالضبط مع تحديد موعد صالح لكل محطة.",
         });
     }
 
-    const bringKids = body.bringKids === "yes" ? "yes" : "no";
-    let kidsAgeGroups = [];
-    if (bringKids === "yes") {
-        kidsAgeGroups = Array.isArray(body.kidsAgeGroups)
-            ? [...new Set(body.kidsAgeGroups.map(String))].filter((g) =>
-                  KIDS_GROUPS.includes(g)
-              )
-            : [];
-        if (kidsAgeGroups.length === 0) {
+    // Childcare question (only mothers answer it; optional otherwise).
+    const kidsPlan = KIDS_PLAN_LABELS[body.kidsPlan] ? String(body.kidsPlan) : "";
+    let kidsCount = "";
+    if (kidsPlan === "onsite") {
+        const n = parseInt(body.kidsCount, 10);
+        if (!Number.isInteger(n) || n < 1 || n > 20) {
             return json(400, {
                 ok: false,
-                error: "missing_kids_group",
-                message: "يرجى تحديد فئة عمرية واحدة على الأقل لأطفالكِ.",
+                error: "missing_kids_count",
+                message: "يرجى إدخال عدد الأطفال المراد دمجهم في الفعالية الموازية.",
             });
         }
+        kidsCount = String(n);
     }
 
-    // Capacity checks against fresh (uncached) sheet data.
+    // Capacity check against fresh (uncached) sheet data.
     const counts = await getCounts(env, /* allowCache */ false);
 
     if (counts.totalRegistered >= counts.totalCapacity) {
@@ -165,16 +194,6 @@ async function handleRegister(request, env) {
             error: "sold_out",
             message: "نعتذر، اكتمل عدد المقاعد المتاحة للرتريت.",
         });
-    }
-    for (const g of kidsAgeGroups) {
-        if (counts.kids[g].occupied >= counts.kids[g].limit) {
-            return json(409, {
-                ok: false,
-                error: "kids_group_full",
-                group: g,
-                message: `نعتذر، اكتملت الأماكن في مجموعة الأطفال (${g} سنوات). يرجى إزالتها من اختياركِ أو التواصل معنا لقائمة الانتظار.`,
-            });
-        }
     }
 
     const timestamp = new Date().toLocaleString("en-GB", {
@@ -189,9 +208,9 @@ async function handleRegister(request, env) {
         residence,
         jobTitle,
         workplace,
-        energyPaths.map((p) => STATION_NAMES[p]).join(" | "),
-        bringKids === "yes" ? "نعم" : "لا",
-        kidsAgeGroups.join(", "),
+        stations.map((s) => `${STATION_NAMES[s.id]} @ ${s.slot}`).join(" | "),
+        kidsPlan ? KIDS_PLAN_LABELS[kidsPlan] : "",
+        kidsCount,
         PAYMENT_METHOD_LABELS[body.paymentMethod] || "",
     ];
 
@@ -214,7 +233,6 @@ async function getCounts(env, allowCache) {
     }
 
     const totalCapacity = parseInt(env.TOTAL_CAPACITY, 10) || 100;
-    const kidsLimit = parseInt(env.KIDS_GROUP_LIMIT, 10) || 15;
 
     const token = await getAccessToken(env);
     const res = await fetch(
@@ -229,22 +247,10 @@ async function getCounts(env, allowCache) {
     const headerRows = data.valueRanges?.[0]?.values || [];
     const rows = data.valueRanges?.[1]?.values || [];
 
-    const kids = {};
-    for (const g of KIDS_GROUPS) {
-        kids[g] = { occupied: 0, limit: kidsLimit };
-    }
-    for (const row of rows) {
-        const groupsCell = row[9] || "";
-        for (const g of KIDS_GROUPS) {
-            if (groupsCell.includes(g)) kids[g].occupied++;
-        }
-    }
-
     const counts = {
         totalCapacity,
         totalRegistered: rows.length,
         seatsLeft: Math.max(0, totalCapacity - rows.length),
-        kids,
         headerPresent: headerRows.length > 0,
     };
     countsCache = { data: counts, at: Date.now() };

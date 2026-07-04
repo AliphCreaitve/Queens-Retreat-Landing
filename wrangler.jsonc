@@ -13,7 +13,6 @@
     "nodejs_compat"
   ],
   "vars": {
-    "TOTAL_CAPACITY": "100",
-    "KIDS_GROUP_LIMIT": "15"
+    "TOTAL_CAPACITY": "100"
   }
 }
