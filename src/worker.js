@@ -31,9 +31,11 @@ const STATION_NAMES = {
 const TIME_SLOTS = ["10:30-11:15", "11:30-12:15", "12:30-13:15", "13:15-14:00"];
 const EXTENDED_SLOT_STATIONS = new Set(["3"]);
 
+// Sheet values for the childcare question: نعم = wants on-site kid care,
+// لا = has external care arranged.
 const KIDS_PLAN_LABELS = {
-    external: "يتوفر إطار رعاية وبديل آمن خارج الرتريت",
-    onsite: "ترغب بفحص إمكانية دمجهم في الفعالية الموازية في الموقع",
+    external: "لا",
+    onsite: "نعم",
 };
 
 const SHEET_HEADER = [
