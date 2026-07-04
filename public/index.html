@@ -185,7 +185,7 @@
                     </div>
 
                     <button type="button" onclick="openLocationModal()"
-                        class="glassmorphism p-3.5 rounded-xl text-center border-white/50 cursor-pointer transition-all duration-300 hover:scale-[1.04] hover:bg-white/80 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-luxury-gold/40">
+                        class="glassmorphism animate-glow-pulse p-3.5 rounded-xl text-center border-2 border-luxury-gold/50 cursor-pointer transition-all duration-300 hover:scale-[1.04] hover:bg-white/80 focus:outline-none focus:ring-2 focus:ring-luxury-gold/40">
                         <div
                             class="relative w-9 h-9 rounded-full bg-luxury-gold/10 text-luxury-gold-dark flex items-center justify-center mx-auto mb-2 text-sm">
                             <i class="fa-solid fa-location-dot animate-pulse"></i>
@@ -1794,6 +1794,12 @@
                 dressCodeObserver.observe(registerSection);
             }
 
+            // Lock a chosen time slot across the other stations, live
+            const slotsGroup = document.getElementById("stations-slots-group");
+            if (slotsGroup) {
+                slotsGroup.addEventListener("change", refreshSlotAvailability);
+            }
+
             // Load real seat counts from the backend (hero notice)
             setTimeout(() => {
                 refreshSeatCounts().catch((err) => {
@@ -1816,6 +1822,29 @@
             } else {
                 slots.classList.add("hidden");
                 slots.querySelectorAll('input[type="radio"]').forEach(r => { r.checked = false; });
+            }
+            refreshSlotAvailability();
+        }
+
+        // A time slot chosen under one station is locked (greyed out) in all
+        // the other stations, so clashing times can't be selected at all.
+        function refreshSlotAvailability() {
+            const takenBy = {}; // slot value -> station id that holds it
+            for (let i = 1; i <= 6; i++) {
+                const sel = document.querySelector(`input[name="slot-${i}"]:checked`);
+                if (sel) takenBy[sel.value] = String(i);
+            }
+            for (let i = 1; i <= 6; i++) {
+                document.querySelectorAll(`input[name="slot-${i}"]`).forEach(radio => {
+                    const locked = takenBy[radio.value] && takenBy[radio.value] !== String(i);
+                    radio.disabled = !!locked;
+                    const chip = radio.closest("label");
+                    if (chip) {
+                        chip.classList.toggle("opacity-40", !!locked);
+                        chip.classList.toggle("cursor-not-allowed", !!locked);
+                        chip.classList.toggle("cursor-pointer", !locked);
+                    }
+                });
             }
         }
 
@@ -2039,6 +2068,7 @@
                 // Reset form values and scroll back to top
                 document.getElementById("queens-retreat-form").reset();
                 document.querySelectorAll('[id^="slots-"]').forEach(el => el.classList.add("hidden"));
+                refreshSlotAvailability();
                 toggleKidsCount(false);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }, 300);
