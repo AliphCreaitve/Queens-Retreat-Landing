@@ -1828,6 +1828,8 @@
 
         // A time slot chosen under one station is locked (greyed out) in all
         // the other stations, so clashing times can't be selected at all.
+        // Likewise, once 3 stations are checked the rest lock until one is
+        // unchecked again.
         function refreshSlotAvailability() {
             const takenBy = {}; // slot value -> station id that holds it
             for (let i = 1; i <= 6; i++) {
@@ -1846,6 +1848,20 @@
                     }
                 });
             }
+
+            // Station limit: with 3 checked, the unchecked ones lock
+            const stationBoxes = document.querySelectorAll('input[name="stationPick"]');
+            const pickedCount = document.querySelectorAll('input[name="stationPick"]:checked').length;
+            stationBoxes.forEach(box => {
+                const locked = pickedCount >= 3 && !box.checked;
+                box.disabled = locked;
+                const row = box.closest("label");
+                if (row) {
+                    row.classList.toggle("opacity-40", locked);
+                    row.classList.toggle("cursor-not-allowed", locked);
+                    row.classList.toggle("cursor-pointer", !locked);
+                }
+            });
         }
 
         // 4. KIDS COUNT TOGGLE (only for the on-site integration option)
