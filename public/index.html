@@ -184,14 +184,22 @@
                         <span class="block text-xs md:text-sm font-bold text-luxury-charcoal">19 يوليو 2026</span>
                     </div>
 
-                    <div class="glassmorphism p-3.5 rounded-xl text-center border-white/50">
+                    <button type="button" onclick="openLocationModal()"
+                        class="glassmorphism p-3.5 rounded-xl text-center border-white/50 cursor-pointer transition-all duration-300 hover:scale-[1.04] hover:bg-white/80 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-luxury-gold/40">
                         <div
-                            class="w-9 h-9 rounded-full bg-luxury-gold/10 text-luxury-gold-dark flex items-center justify-center mx-auto mb-2 text-sm">
-                            <i class="fa-solid fa-location-dot"></i>
+                            class="relative w-9 h-9 rounded-full bg-luxury-gold/10 text-luxury-gold-dark flex items-center justify-center mx-auto mb-2 text-sm">
+                            <i class="fa-solid fa-location-dot animate-pulse"></i>
+                            <span class="absolute -top-0.5 -left-0.5 flex h-2 w-2">
+                                <span
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-luxury-gold opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-luxury-gold-dark"></span>
+                            </span>
                         </div>
                         <span class="block text-[10px] text-luxury-charcoal">الموقع</span>
                         <span class="block text-xs md:text-sm font-bold text-luxury-charcoal">عين يالو</span>
-                    </div>
+                        <span class="block text-[9px] text-luxury-gold-dark font-semibold mt-0.5">اضغطي لعرض
+                            الخريطة</span>
+                    </button>
 
                     <div class="glassmorphism p-3.5 rounded-xl text-center border-white/50">
                         <div
@@ -1460,6 +1468,48 @@
         </div>
     </div>
 
+    <!-- LOCATION MAP MODAL -->
+    <div id="location-modal"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-luxury-charcoal/40 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300"
+        onclick="closeLocationModalOnBackdrop(event)">
+        <div class="glassmorphism w-full max-w-lg bg-white rounded-3xl p-5 md:p-6 shadow-2xl relative border-2 border-luxury-gold/40 animate-scale-up"
+            onclick="event.stopPropagation()">
+
+            <button onclick="closeLocationModal()" aria-label="إغلاق"
+                class="absolute top-4 left-4 w-9 h-9 rounded-full bg-luxury-bg flex items-center justify-center text-luxury-charcoal hover:bg-luxury-gold/15 duration-300 focus:outline-none z-10">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-4 pl-10">
+                <div
+                    class="w-10 h-10 rounded-full bg-luxury-gold/15 text-luxury-gold-dark flex items-center justify-center text-base shrink-0">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div>
+                    <h4 class="text-base md:text-lg font-bold font-headings text-luxury-charcoal leading-tight">موقع
+                        الرتريت — عين يالو</h4>
+                    <p class="text-[11px] text-luxury-gold-dark font-semibold">تجولي في الخريطة أو افتحيها في تطبيق
+                        خرائط Google</p>
+                </div>
+            </div>
+
+            <!-- The iframe src is set lazily the first time the modal opens -->
+            <div class="rounded-2xl overflow-hidden border border-luxury-gold-light/40 shadow-inner bg-luxury-bg/40">
+                <iframe id="location-map-frame" title="خريطة موقع الرتريت — عين يالو" data-src=""
+                    class="w-full h-[300px] md:h-[340px] block" style="border:0;" loading="lazy"
+                    allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <div class="mt-5 text-center">
+                <a id="location-open-link" href="#" target="_blank" rel="noopener"
+                    class="btn-luxury inline-flex items-center justify-center gap-2.5 px-8 py-3 text-sm w-full sm:w-auto">
+                    <i class="fa-solid fa-diamond-turn-right"></i>
+                    <span>فتح في خرائط Google والحصول على الاتجاهات</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- SUCCESS REGISTRATION MODAL -->
     <div id="success-modal"
         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-luxury-charcoal/50 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
@@ -1684,6 +1734,38 @@
         function showDressCodeMessage() {
             if (!dressCodeAutoShown) {
                 openDressCodeModal();
+            }
+        }
+
+        // LOCATION MAP MODAL — عين يالو (31°44'33.4"N 35°10'40.2"E)
+        const RETREAT_LAT = 31.742611;
+        const RETREAT_LNG = 35.177833;
+
+        function openLocationModal() {
+            const modal = document.getElementById("location-modal");
+            const frame = document.getElementById("location-map-frame");
+            const openLink = document.getElementById("location-open-link");
+
+            // Load the map only on first open (keeps page load light)
+            if (!frame.src) {
+                frame.src = `https://maps.google.com/maps?q=${RETREAT_LAT},${RETREAT_LNG}&z=15&hl=ar&output=embed`;
+            }
+            // Universal link: opens the Google Maps app on mobile, a tab on desktop
+            openLink.href = `https://www.google.com/maps/search/?api=1&query=${RETREAT_LAT},${RETREAT_LNG}`;
+
+            modal.classList.remove("hidden");
+            setTimeout(() => modal.classList.remove("opacity-0"), 10);
+        }
+
+        function closeLocationModal() {
+            const modal = document.getElementById("location-modal");
+            modal.classList.add("opacity-0");
+            setTimeout(() => modal.classList.add("hidden"), 300);
+        }
+
+        function closeLocationModalOnBackdrop(event) {
+            if (event.target.id === "location-modal") {
+                closeLocationModal();
             }
         }
 
