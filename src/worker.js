@@ -52,11 +52,9 @@ const SHEET_HEADER = [
     "طريقة الدفع",
 ];
 
+// bit is the only accepted payment method (transfer to the retreat's number).
 const PAYMENT_METHOD_LABELS = {
-    applepay: "Apple Pay",
-    googlepay: "Google Pay",
     bit: "Bit",
-    hyp: "Hyp",
 };
 
 export default {
