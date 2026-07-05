@@ -38,6 +38,9 @@ const KIDS_PLAN_LABELS = {
     onsite: "نعم",
 };
 
+// Payment is always a bit transfer; the last column tracks whether the
+// organizers verified the transfer. Every new row starts as "لا" and the
+// team flips it to "نعم" manually in the sheet once the payment is matched.
 const SHEET_HEADER = [
     "تاريخ التسجيل",
     "الاسم الكامل",
@@ -49,13 +52,8 @@ const SHEET_HEADER = [
     "المحطات والمواعيد",
     "ترتيب رعاية الأطفال",
     "عدد الأطفال",
-    "طريقة الدفع",
+    "تم التحقق من الدفع",
 ];
-
-// bit is the only accepted payment method (transfer to the retreat's number).
-const PAYMENT_METHOD_LABELS = {
-    bit: "Bit",
-};
 
 export default {
     async fetch(request, env) {
@@ -211,7 +209,7 @@ async function handleRegister(request, env) {
         stations.map((s) => `${STATION_NAMES[s.id]} @ ${s.slot}`).join(" | "),
         kidsPlan ? KIDS_PLAN_LABELS[kidsPlan] : "",
         kidsCount,
-        PAYMENT_METHOD_LABELS[body.paymentMethod] || "",
+        "لا", // payment verified — organizers flip to نعم after matching the bit transfer
     ];
 
     if (!counts.headerPresent) {
