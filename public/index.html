@@ -129,7 +129,7 @@
             </nav>
 
             <div class="flex items-center gap-2 shrink-0">
-                <a href="#register-form" onclick="showDressCodeMessage()"
+                <a href="#register-form" onclick="return handleRegisterCta(event)"
                     class="btn-luxury px-5 md:px-8 py-2.5 md:py-3.5 text-sm md:text-base font-medium tracking-wide shadow-md whitespace-nowrap">احجزي
                     الآن</a>
 
@@ -197,19 +197,22 @@
                             الخريطة</span>
                     </button>
 
-                    <div class="glassmorphism p-3.5 rounded-xl text-center border-white/50">
+                    <button type="button" onclick="openReturningModal()"
+                        class="glassmorphism p-3.5 rounded-xl text-center border-white/50 cursor-pointer transition-all duration-300 hover:scale-[1.04] hover:bg-white/80 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-luxury-gold/40">
                         <div
                             class="w-9 h-9 rounded-full bg-luxury-gold/10 text-luxury-gold-dark flex items-center justify-center mx-auto mb-2 text-sm">
                             <span class="font-bold text-[18px]">₪</span>
                         </div>
                         <span class="block text-[10px] text-luxury-charcoal">رسوم الاشتراك</span>
                         <span class="block text-xs md:text-sm font-bold text-luxury-charcoal">80 شيكل</span>
-                    </div>
+                        <span class="block text-[9px] text-luxury-gold-dark font-semibold mt-0.5">للدفع بعد
+                            التسجيل</span>
+                    </button>
                 </div>
 
                 <!-- Call to Action -->
                 <div class="pt-4 flex flex-col sm:flex-row items-center gap-4">
-                    <a href="#register-form" onclick="showDressCodeMessage()"
+                    <a href="#register-form" onclick="return handleRegisterCta(event)"
                         class="btn-luxury shimmer-effect w-full sm:w-auto text-center px-10 py-4.5 rounded-full text-base shadow-lg hover:shadow-luxury-gold/30">
                         احجزي مقعدكِ الملكي الآن!
                     </a>
@@ -946,7 +949,7 @@
                     إنها دعوتكِ الرسمية لتجربة تجمع بين القيادة، الأثر، والتغيير.. احجزي مساحتكِ الخاصة الآن وأعيدي
                     صياغة قصة نجاحكِ.
                 </p>
-                <a href="#register-form" onclick="showDressCodeMessage()"
+                <a href="#register-form" onclick="return handleRegisterCta(event)"
                     class="btn-luxury inline-block px-8 py-3 text-sm">احجزي مساحتكِ الخاصة الآن</a>
             </div>
 
@@ -1564,8 +1567,17 @@
                     رسوم الرتريت: <span id="payment-amount" class="font-bold text-luxury-gold-dark" dir="ltr">₪ 80</span>
                 </p>
 
-                <p class="text-xs md:text-sm text-luxury-charcoal font-light leading-relaxed mt-3 mb-2">
-                    حوّلي المبلغ عبر تطبيق bit إلى الرقم التالي:
+                <!-- Deep link that opens the bit app on the retreat's profile -->
+                <a href="https://www.bitpay.co.il/app/me/B48FAF1A-7F15-D5CC-C7E7-0CB848A532419496" target="_blank"
+                    rel="noopener"
+                    class="mt-4 mb-3 w-full py-3.5 rounded-full font-semibold text-white shadow-lg inline-flex items-center justify-center gap-2.5 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                    style="background: linear-gradient(90deg, #00b0b0, #00c8c8);">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                    <span>ادفعي الآن عبر تطبيق bit</span>
+                </a>
+
+                <p class="text-xs md:text-sm text-luxury-charcoal font-light leading-relaxed mb-2">
+                    أو حوّلي المبلغ يدوياً إلى الرقم التالي:
                 </p>
 
                 <!-- The bit number + copy button -->
@@ -1594,11 +1606,43 @@
                     قمتُ بالتحويل — تأكيد التسجيل
                 </button>
 
+                <!-- Shown instead of the confirm button when a registered
+                     guest re-opens the payment window later -->
+                <p id="payment-revisit-note"
+                    class="hidden text-xs text-luxury-charcoal font-semibold bg-luxury-gold/5 rounded-xl px-4 py-3">
+                    تسجيلكِ محفوظ لدينا — بعد إتمام التحويل سيتحقق الفريق من الدفعة ويؤكد مقعدكِ.
+                </p>
+
                 <p class="mt-4 text-[10px] text-luxury-gold-dark leading-relaxed flex items-center justify-center gap-1.5">
                     <i class="fa-solid fa-shield-halved"></i>
                     <span>سيتم التحقق من استلام التحويل عند تأكيد مقعدكِ خلال الـ 24 ساعة القادمة.</span>
                 </p>
             </div>
+        </div>
+    </div>
+
+    <!-- RETURNING GUEST MODAL (opened from the register CTA / fee badge) -->
+    <div id="returning-modal"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-luxury-charcoal/40 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300"
+        onclick="closeReturningModalOnBackdrop(event)">
+        <div class="glassmorphism w-full max-w-sm bg-white rounded-3xl p-6 md:p-8 shadow-2xl relative border-2 border-luxury-gold/40 text-center animate-scale-up"
+            onclick="event.stopPropagation()">
+
+            <button onclick="closeReturningModal()" aria-label="إغلاق"
+                class="absolute top-4 left-4 w-9 h-9 rounded-full bg-luxury-bg flex items-center justify-center text-luxury-charcoal hover:bg-luxury-gold/15 duration-300 focus:outline-none">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div
+                class="w-16 h-16 rounded-full bg-gradient-to-r from-luxury-gold-dark to-luxury-gold text-white flex items-center justify-center text-2xl mx-auto mb-5 shadow-xl">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+
+            <h3 id="returning-title" class="text-lg md:text-xl font-extrabold font-headings text-luxury-charcoal mb-2">
+            </h3>
+            <p id="returning-text" class="text-xs md:text-sm text-luxury-charcoal font-light leading-relaxed mb-6"></p>
+
+            <div id="returning-actions" class="space-y-3"></div>
         </div>
     </div>
 
@@ -1939,17 +1983,90 @@
 
         // 6. PAYMENT MODAL — bit only: the guest transfers the fee to the
         // retreat's bit number, then confirms to save the registration.
+        // A registered guest can re-open the window later (revisit mode) to
+        // retrieve the payment link without re-submitting.
         const RETREAT_PRICE_ILS = 80; // retreat fee in ILS
         let pendingRegistration = null;
 
-        function openPaymentModal() {
+        function openPaymentModal(revisit = false) {
             document.getElementById("payment-amount").innerText = `₪ ${RETREAT_PRICE_ILS}`;
             const payBtn = document.getElementById("portal-pay-btn");
             payBtn.disabled = false;
             payBtn.innerText = "قمتُ بالتحويل — تأكيد التسجيل";
+            payBtn.classList.toggle("hidden", revisit);
+            document.getElementById("payment-revisit-note").classList.toggle("hidden", !revisit);
             const modal = document.getElementById("payment-modal");
             modal.classList.remove("hidden");
             setTimeout(() => modal.classList.remove("opacity-0"), 10);
+        }
+
+        // 6b. ON-DEVICE REGISTRATION MEMORY + RETURNING GUEST MODAL
+        const REG_STORAGE_KEY = "queensRetreatRegistration";
+
+        function saveRegistrationLocally(name, whatsapp) {
+            try {
+                localStorage.setItem(REG_STORAGE_KEY, JSON.stringify({ name, whatsapp, at: Date.now() }));
+            } catch { /* private browsing — memory just won't persist */ }
+        }
+
+        function getSavedRegistration() {
+            try {
+                const data = JSON.parse(localStorage.getItem(REG_STORAGE_KEY));
+                return data && data.name ? data : null;
+            } catch {
+                return null;
+            }
+        }
+
+        // Register CTAs: a registered guest gets the returning modal instead
+        // of being sent to the form again
+        function handleRegisterCta(event) {
+            if (getSavedRegistration()) {
+                event.preventDefault();
+                openReturningModal();
+                return false;
+            }
+            showDressCodeMessage();
+            return true;
+        }
+
+        function openReturningModal() {
+            const saved = getSavedRegistration();
+            const title = document.getElementById("returning-title");
+            const text = document.getElementById("returning-text");
+            const actions = document.getElementById("returning-actions");
+
+            if (saved) {
+                title.innerText = `أهلاً بعودتكِ، ${saved.name}!`;
+                text.innerText = "تسجيلكِ محفوظ على هذا الجهاز. يمكنكِ فتح نافذة الدفع لإتمام تحويل رسوم الاشتراك عبر bit أو مراجعة تفاصيله.";
+                actions.innerHTML = `
+                    <button type="button" onclick="closeReturningModal(); openPaymentModal(true);"
+                        class="btn-luxury w-full py-3 text-sm">فتح نافذة الدفع عبر bit</button>
+                    <a href="#register-form" onclick="closeReturningModal()"
+                        class="block text-xs text-luxury-gold-dark font-semibold hover:text-luxury-charcoal transition-colors duration-300">تسجيل مشارِكة أخرى من هذا الجهاز</a>`;
+            } else {
+                title.innerText = "لم نعثر على تسجيل من هذا الجهاز";
+                text.innerText = "نافذة الدفع تُتاح بعد إتمام التسجيل. أكملي نموذج الحجز أولاً وستظهر لكِ تفاصيل الدفع عبر bit مباشرة.";
+                actions.innerHTML = `
+                    <a href="#register-form" onclick="closeReturningModal(); showDressCodeMessage();"
+                        class="btn-luxury block w-full py-3 text-sm">الانتقال إلى التسجيل</a>`;
+            }
+
+            const modal = document.getElementById("returning-modal");
+            modal.classList.remove("hidden");
+            setTimeout(() => modal.classList.remove("opacity-0"), 10);
+        }
+
+        function closeReturningModal() {
+            const modal = document.getElementById("returning-modal");
+            modal.classList.add("opacity-0");
+            setTimeout(() => modal.classList.add("hidden"), 300);
+        }
+
+        function closeReturningModalOnBackdrop(event) {
+            if (event.target.id === "returning-modal") {
+                closeReturningModal();
+            }
         }
 
         function closePaymentModal() {
@@ -1996,11 +2113,17 @@
 
                 if (res.ok && data && data.ok) {
                     const name = pendingRegistration.fullName;
+                    saveRegistrationLocally(name, pendingRegistration.whatsapp);
                     pendingRegistration = null;
                     closePaymentModal();
                     showSuccessModal(name);
                     refreshSeatCounts().catch(() => { });
                 } else {
+                    // Already registered with this phone → remember it on this
+                    // device too, so the payment link stays retrievable
+                    if (data && data.error === "already_registered") {
+                        saveRegistrationLocally(pendingRegistration.fullName, pendingRegistration.whatsapp);
+                    }
                     closePaymentModal();
                     showFormError((data && data.message) || "تعذر إتمام التسجيل، يرجى المحاولة مرة أخرى.");
                     // Capacity may have changed under us — refresh the displays

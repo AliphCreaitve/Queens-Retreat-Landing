@@ -183,7 +183,7 @@ async function handleRegister(request, env) {
         kidsCount = String(n);
     }
 
-    // Capacity check against fresh (uncached) sheet data.
+    // Capacity + duplicate checks against fresh (uncached) sheet data.
     const counts = await getCounts(env, /* allowCache */ false);
 
     if (counts.totalRegistered >= counts.totalCapacity) {
@@ -191,6 +191,15 @@ async function handleRegister(request, env) {
             ok: false,
             error: "sold_out",
             message: "نعتذر، اكتمل عدد المقاعد المتاحة للرتريت.",
+        });
+    }
+
+    const phone = normalizePhone(whatsapp);
+    if (phone && counts.phones.includes(phone)) {
+        return json(409, {
+            ok: false,
+            error: "already_registered",
+            message: "هذا الرقم مسجل مسبقاً — تسجيلكِ محفوظ لدينا، ويمكنكِ فتح نافذة الدفع من زر رسوم الاشتراك في أعلى الصفحة.",
         });
     }
 
@@ -250,9 +259,19 @@ async function getCounts(env, allowCache) {
         totalRegistered: rows.length,
         seatsLeft: Math.max(0, totalCapacity - rows.length),
         headerPresent: headerRows.length > 0,
+        // Normalized WhatsApp numbers (column C) for duplicate detection
+        phones: rows.map((row) => normalizePhone(row[2])).filter(Boolean),
     };
     countsCache = { data: counts, at: Date.now() };
     return counts;
+}
+
+// Digits only; international prefix 972 folded to the local 0 form so
+// "+972 53-378-6870" and "0533786870" match.
+function normalizePhone(value) {
+    let digits = String(value || "").replace(/\D/g, "");
+    if (digits.startsWith("972")) digits = "0" + digits.slice(3);
+    return digits.length >= 9 ? digits : "";
 }
 
 async function appendRow(env, row) {
