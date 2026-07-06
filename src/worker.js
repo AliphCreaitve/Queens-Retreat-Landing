@@ -38,6 +38,9 @@ const KIDS_PLAN_LABELS = {
     onsite: "نعم",
 };
 
+// Informational age categories for on-site kid care (no capacity limits).
+const KIDS_GROUPS = ["5-6", "7-8", "9-10"];
+
 // Payment is always a bit transfer; the last column tracks whether the
 // organizers verified the transfer. Every new row starts as "لا" and the
 // team flips it to "نعم" manually in the sheet once the payment is matched.
@@ -51,6 +54,7 @@ const SHEET_HEADER = [
     "مكان العمل",
     "المحطات والمواعيد",
     "ترتيب رعاية الأطفال",
+    "فئات الأطفال",
     "عدد الأطفال",
     "تم التحقق من الدفع",
 ];
@@ -170,17 +174,31 @@ async function handleRegister(request, env) {
 
     // Childcare question (only mothers answer it; optional otherwise).
     const kidsPlan = KIDS_PLAN_LABELS[body.kidsPlan] ? String(body.kidsPlan) : "";
-    let kidsCount = "";
+    let kidsGroups = [];
     if (kidsPlan === "onsite") {
-        const n = parseInt(body.kidsCount, 10);
-        if (!Number.isInteger(n) || n < 1 || n > 20) {
+        const raw = Array.isArray(body.kidsGroups) ? body.kidsGroups : [];
+        const seenGroups = new Set();
+        for (const entry of raw) {
+            const group = String(entry && entry.group);
+            const count = parseInt(entry && entry.count, 10);
+            if (!KIDS_GROUPS.includes(group) || seenGroups.has(group)) continue;
+            if (!Number.isInteger(count) || count < 1 || count > 20) {
+                return json(400, {
+                    ok: false,
+                    error: "missing_kids_count",
+                    message: `يرجى إدخال عدد الأطفال لفئة جيل ${group} سنوات.`,
+                });
+            }
+            seenGroups.add(group);
+            kidsGroups.push({ group, count });
+        }
+        if (kidsGroups.length === 0) {
             return json(400, {
                 ok: false,
-                error: "missing_kids_count",
-                message: "يرجى إدخال عدد الأطفال المراد دمجهم في الفعالية الموازية.",
+                error: "missing_kids_group",
+                message: "يرجى تحديد فئة عمرية واحدة على الأقل لأطفالكِ.",
             });
         }
-        kidsCount = String(n);
     }
 
     // Capacity + duplicate checks against fresh (uncached) sheet data.
@@ -217,7 +235,10 @@ async function handleRegister(request, env) {
         workplace,
         stations.map((s) => `${STATION_NAMES[s.id]} @ ${s.slot}`).join(" | "),
         kidsPlan ? KIDS_PLAN_LABELS[kidsPlan] : "",
-        kidsCount,
+        kidsGroups.map((k) => `${k.group} (${k.count})`).join(", "),
+        kidsGroups.length
+            ? String(kidsGroups.reduce((sum, k) => sum + k.count, 0))
+            : "",
         "لا", // payment verified — organizers flip to نعم after matching the bit transfer
     ];
 
@@ -244,7 +265,7 @@ async function getCounts(env, allowCache) {
     const token = await getAccessToken(env);
     const res = await fetch(
         `https://sheets.googleapis.com/v4/spreadsheets/${env.SHEET_ID}/values:batchGet` +
-            `?ranges=${encodeURIComponent("A1:K1")}&ranges=${encodeURIComponent("A2:K")}`,
+            `?ranges=${encodeURIComponent("A1:L1")}&ranges=${encodeURIComponent("A2:L")}`,
         { headers: { Authorization: `Bearer ${token}` } }
     );
     if (!res.ok) {
@@ -278,7 +299,7 @@ async function appendRow(env, row) {
     const token = await getAccessToken(env);
     const res = await fetch(
         `https://sheets.googleapis.com/v4/spreadsheets/${env.SHEET_ID}/values/${encodeURIComponent(
-            "A1:K1"
+            "A1:L1"
         )}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`,
         {
             method: "POST",

@@ -1332,14 +1332,66 @@
                             </label>
                         </div>
 
-                        <!-- Kids count (only when integrating on site) -->
-                        <div id="kids-count-container" class="hidden space-y-2 p-4 rounded-xl border border-white/60"
+                        <!-- Kids details (only when integrating on site): one
+                             row per age category with its own child count -->
+                        <div id="kids-count-container" class="hidden space-y-3 p-4 rounded-xl border border-white/60"
                             style="background: rgba(210,221,212,0.4);">
-                            <label for="kidsCount" class="block text-xs font-bold text-luxury-gold-dark">عدد الأطفال
-                                (في حال دمجهم) <span class="text-red-500">*</span></label>
-                            <input type="number" id="kidsCount" name="kidsCount" min="1" max="10" placeholder="مثال: 2"
-                                class="w-full md:w-40 px-4 py-3 rounded-xl border border-luxury-pastel-sand/50 bg-white focus:border-luxury-pastel-lavender focus:outline-none focus:ring-2 focus:ring-luxury-pastel-lavender/25 text-sm transition-all duration-300 text-left"
-                                dir="ltr">
+                            <span class="block text-xs font-bold text-luxury-gold-dark">اختاري الفئات العمرية
+                                لأطفالكِ وحددي عدد الأطفال في كل فئة <span class="text-red-500">*</span></span>
+
+                            <div
+                                class="flex items-center justify-between gap-3 p-3 rounded-xl bg-white border border-luxury-gold-light/20">
+                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                    <input type="checkbox" name="kidsAgeGroups" value="5-6"
+                                        onchange="toggleKidsGroupCount(this)"
+                                        class="w-4 h-4 rounded text-luxury-gold focus:ring-luxury-gold border-luxury-gold-light">
+                                    <span class="text-xs md:text-sm text-luxury-charcoal font-semibold">جيل 5 - 6
+                                        سنوات</span>
+                                </label>
+                                <div class="flex items-center gap-2">
+                                    <label for="kids-count-5-6" class="text-[10px] text-luxury-charcoal">عدد
+                                        الأطفال:</label>
+                                    <input type="number" id="kids-count-5-6" min="1" max="10" disabled placeholder="-"
+                                        class="w-16 px-2 py-1.5 rounded-lg border border-luxury-pastel-sand/50 bg-white focus:border-luxury-pastel-lavender focus:outline-none focus:ring-2 focus:ring-luxury-pastel-lavender/25 text-sm text-center transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
+                                        dir="ltr">
+                                </div>
+                            </div>
+
+                            <div
+                                class="flex items-center justify-between gap-3 p-3 rounded-xl bg-white border border-luxury-gold-light/20">
+                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                    <input type="checkbox" name="kidsAgeGroups" value="7-8"
+                                        onchange="toggleKidsGroupCount(this)"
+                                        class="w-4 h-4 rounded text-luxury-gold focus:ring-luxury-gold border-luxury-gold-light">
+                                    <span class="text-xs md:text-sm text-luxury-charcoal font-semibold">جيل 7 - 8
+                                        سنوات</span>
+                                </label>
+                                <div class="flex items-center gap-2">
+                                    <label for="kids-count-7-8" class="text-[10px] text-luxury-charcoal">عدد
+                                        الأطفال:</label>
+                                    <input type="number" id="kids-count-7-8" min="1" max="10" disabled placeholder="-"
+                                        class="w-16 px-2 py-1.5 rounded-lg border border-luxury-pastel-sand/50 bg-white focus:border-luxury-pastel-lavender focus:outline-none focus:ring-2 focus:ring-luxury-pastel-lavender/25 text-sm text-center transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
+                                        dir="ltr">
+                                </div>
+                            </div>
+
+                            <div
+                                class="flex items-center justify-between gap-3 p-3 rounded-xl bg-white border border-luxury-gold-light/20">
+                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                    <input type="checkbox" name="kidsAgeGroups" value="9-10"
+                                        onchange="toggleKidsGroupCount(this)"
+                                        class="w-4 h-4 rounded text-luxury-gold focus:ring-luxury-gold border-luxury-gold-light">
+                                    <span class="text-xs md:text-sm text-luxury-charcoal font-semibold">جيل 9 - 10
+                                        سنوات</span>
+                                </label>
+                                <div class="flex items-center gap-2">
+                                    <label for="kids-count-9-10" class="text-[10px] text-luxury-charcoal">عدد
+                                        الأطفال:</label>
+                                    <input type="number" id="kids-count-9-10" min="1" max="10" disabled placeholder="-"
+                                        class="w-16 px-2 py-1.5 rounded-lg border border-luxury-pastel-sand/50 bg-white focus:border-luxury-pastel-lavender focus:outline-none focus:ring-2 focus:ring-luxury-pastel-lavender/25 text-sm text-center transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
+                                        dir="ltr">
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -1880,16 +1932,26 @@
             });
         }
 
-        // 4. KIDS COUNT TOGGLE (only for the on-site integration option)
+        // 4. KIDS DETAILS TOGGLE (only for the on-site integration option)
         function toggleKidsCount(show) {
             const container = document.getElementById("kids-count-container");
-            const input = document.getElementById("kidsCount");
             if (show) {
                 container.classList.remove("hidden");
             } else {
                 container.classList.add("hidden");
-                if (input) input.value = "";
+                container.querySelectorAll('input[name="kidsAgeGroups"]').forEach(cb => {
+                    cb.checked = false;
+                    toggleKidsGroupCount(cb);
+                });
             }
+        }
+
+        // Each age category's count field activates only while it is checked
+        function toggleKidsGroupCount(checkbox) {
+            const input = document.getElementById(`kids-count-${checkbox.value}`);
+            if (!input) return;
+            input.disabled = !checkbox.checked;
+            if (!checkbox.checked) input.value = "";
         }
 
         // 5. FORM SUBMISSION — validates, then saves via POST /api/register
@@ -1946,12 +2008,20 @@
             // Childcare question (mothers only — optional for the rest)
             const kidsPlanInput = form.querySelector('input[name="kidsPlan"]:checked');
             const kidsPlan = kidsPlanInput ? kidsPlanInput.value : "";
-            let kidsCount = "";
+            let kidsGroups = [];
             if (kidsPlan === "onsite") {
-                kidsCount = document.getElementById("kidsCount").value.trim();
-                if (!kidsCount || parseInt(kidsCount, 10) < 1) {
-                    showFormError("يرجى إدخال عدد الأطفال المراد دمجهم في الفعالية الموازية.");
+                const checkedGroups = form.querySelectorAll('input[name="kidsAgeGroups"]:checked');
+                if (checkedGroups.length === 0) {
+                    showFormError("يرجى تحديد فئة عمرية واحدة على الأقل لأطفالكِ.");
                     return;
+                }
+                for (const cb of checkedGroups) {
+                    const count = parseInt(document.getElementById(`kids-count-${cb.value}`).value, 10);
+                    if (!Number.isInteger(count) || count < 1) {
+                        showFormError(`يرجى إدخال عدد الأطفال لفئة جيل ${cb.value} سنوات.`);
+                        return;
+                    }
+                    kidsGroups.push({ group: cb.value, count });
                 }
             }
 
@@ -1961,7 +2031,7 @@
                 fullName, whatsapp, email, residence, jobTitle, workplace,
                 stations,
                 kidsPlan,
-                kidsCount,
+                kidsGroups,
                 website: document.getElementById("website").value
             };
             openPaymentModal();

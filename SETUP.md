@@ -47,11 +47,12 @@ Push to `main` — the connected Cloudflare build deploys automatically. Then ve
 
 ## Notes
 
-- **Sheet columns changed in the July 2026 client-edits round**: the form now records
-  المحطات والمواعيد (station + chosen time slot), ترتيب رعاية الأطفال, and عدد الأطفال instead of
-  the old المحطات المختارة / اصطحاب أطفال / فئات الأطفال columns. If the Sheet already contains
-  rows from the old form, clear the tab (or start a fresh tab) before deploying so the new
-  header row is written cleanly.
+- **Sheet columns (July 2026 client-edits round)**: the form records المحطات والمواعيد
+  (station + chosen time slot), ترتيب رعاية الأطفال (نعم/لا), فئات الأطفال (per-age-group
+  breakdown like `5-6 (2), 9-10 (1)`), عدد الأطفال (auto total), and تم التحقق من الدفع
+  (starts as لا; organizers flip to نعم after matching the bit transfer). If the Sheet
+  contains rows or a header from an older form version, clear the tab before deploying so
+  the Worker writes the current header cleanly.
 - **Deleting a row in the Sheet frees a seat** — the counts are always computed from the Sheet.
 - The seat counters cache for 30 seconds, so the public numbers can lag briefly; capacity checks during
   registration always use fresh data.
