@@ -1576,21 +1576,7 @@
                     <span>ادفعي الآن عبر تطبيق bit</span>
                 </a>
 
-                <p class="text-xs md:text-sm text-luxury-charcoal font-light leading-relaxed mb-2">
-                    أو حوّلي المبلغ يدوياً إلى الرقم التالي:
-                </p>
-
-                <!-- The bit number + copy button -->
-                <div
-                    class="flex items-center justify-center gap-3 rounded-2xl border border-luxury-gold-light/40 bg-luxury-bg/40 px-4 py-3.5 mb-2">
-                    <span id="bit-number" class="text-xl md:text-2xl font-extrabold text-luxury-charcoal tracking-widest"
-                        dir="ltr">0533786870</span>
-                    <button type="button" onclick="copyBitNumber(this)" aria-label="نسخ الرقم"
-                        class="w-9 h-9 rounded-full bg-luxury-gold/10 text-luxury-gold-dark hover:bg-luxury-gold hover:text-white transition-all duration-300 flex items-center justify-center text-sm shrink-0">
-                        <i class="fa-regular fa-copy"></i>
-                    </button>
-                </div>
-                <div class="animate-glow-pulse flex items-center gap-3 rounded-2xl border-2 border-luxury-gold/60 bg-gradient-to-l from-luxury-gold-light/40 to-luxury-pastel-peach/40 px-4 py-3 mb-4 text-right">
+                <div class="animate-glow-pulse flex items-center gap-3 rounded-2xl border-2 border-luxury-gold/60 bg-gradient-to-l from-luxury-gold-light/40 to-luxury-pastel-peach/40 px-4 py-3 mb-4 mt-2 text-right">
                     <span
                         class="w-9 h-9 rounded-full bg-luxury-gold text-white flex items-center justify-center text-sm shrink-0 shadow-md">
                         <i class="fa-solid fa-signature"></i>
@@ -2073,26 +2059,6 @@
             const modal = document.getElementById("payment-modal");
             modal.classList.add("opacity-0");
             setTimeout(() => modal.classList.add("hidden"), 300);
-        }
-
-        function copyBitNumber(btn) {
-            const number = document.getElementById("bit-number").innerText.trim();
-            const done = () => {
-                btn.innerHTML = '<i class="fa-solid fa-check"></i>';
-                setTimeout(() => { btn.innerHTML = '<i class="fa-regular fa-copy"></i>'; }, 1500);
-            };
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(number).then(done).catch(() => { });
-            } else {
-                // Fallback for older browsers
-                const tmp = document.createElement("textarea");
-                tmp.value = number;
-                document.body.appendChild(tmp);
-                tmp.select();
-                document.execCommand("copy");
-                document.body.removeChild(tmp);
-                done();
-            }
         }
 
         async function completeRegistration(payBtn) {
