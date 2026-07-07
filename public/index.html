@@ -2035,6 +2035,9 @@
                     if (counterElement) counterElement.innerText = "";
                 });
             }, 500);
+
+            // Drop stale on-device memory if the registration is gone from the Sheet
+            verifySavedRegistration();
         });
 
         // 3. STATION TIME-SLOT PICKER — the slot list appears under a station
@@ -2233,6 +2236,25 @@
             }
         }
 
+        function clearSavedRegistration() {
+            try { localStorage.removeItem(REG_STORAGE_KEY); } catch { /* ignore */ }
+        }
+
+        // Self-heal the on-device memory: if the saved registration no longer
+        // exists in the Sheet (organizers deleted/cleared the row, or it was a
+        // test entry), forget it so the device stops greeting a non-registrant.
+        async function verifySavedRegistration() {
+            const saved = getSavedRegistration();
+            if (!saved || !saved.whatsapp) return;
+            try {
+                const res = await fetch(`/api/status?phone=${encodeURIComponent(saved.whatsapp)}`);
+                const data = await res.json();
+                if (data && data.ok && data.registered === false) {
+                    clearSavedRegistration();
+                }
+            } catch { /* network issue — keep the memory rather than lose the link */ }
+        }
+
         // Register CTAs: a registered guest gets the returning modal instead
         // of being sent to the form again
         function handleRegisterCta(event) {
@@ -2257,8 +2279,8 @@
                 actions.innerHTML = `
                     <button type="button" onclick="closeReturningModal(); openPaymentModal(true);"
                         class="btn-luxury w-full py-3 text-sm">فتح نافذة الدفع عبر bit</button>
-                    <a href="#register-form" onclick="closeReturningModal()"
-                        class="block text-xs text-luxury-gold-dark font-semibold hover:text-luxury-charcoal transition-colors duration-300">تسجيل مشارِكة أخرى من هذا الجهاز</a>`;
+                    <a href="#register-form" onclick="startFreshRegistration()"
+                        class="block text-xs text-luxury-gold-dark font-semibold hover:text-luxury-charcoal transition-colors duration-300">ليست بياناتكِ؟ ابدئي تسجيلاً جديداً من هذا الجهاز</a>`;
             } else {
                 title.innerText = "لم نعثر على تسجيل من هذا الجهاز";
                 text.innerText = "نافذة الدفع تُتاح بعد إتمام التسجيل. أكملي نموذج الحجز أولاً وستظهر لكِ تفاصيل الدفع عبر bit مباشرة.";
@@ -2282,6 +2304,14 @@
             if (event.target.id === "returning-modal") {
                 closeReturningModal();
             }
+        }
+
+        // Manual override: forget this device's saved registration and send the
+        // guest to a fresh form (e.g. wrong person, or a cancelled registration)
+        function startFreshRegistration() {
+            clearSavedRegistration();
+            closeReturningModal();
+            showDressCodeMessage();
         }
 
         // 6c. ELIA SLIDESHOW (من نحن) — auto-advances every 5s, swipeable,

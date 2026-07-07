@@ -67,6 +67,9 @@ export default {
             if (url.pathname === "/api/counts" && request.method === "GET") {
                 return await handleCounts(env);
             }
+            if (url.pathname === "/api/status" && request.method === "GET") {
+                return await handleStatus(url, env);
+            }
             if (url.pathname === "/api/register" && request.method === "POST") {
                 return await handleRegister(request, env);
             }
@@ -98,6 +101,18 @@ const COUNTS_TTL_MS = 5_000;
 async function handleCounts(env) {
     const counts = await getCounts(env, /* allowCache */ true);
     return json(200, { ok: true, ...counts });
+}
+
+// Lets a device confirm its saved registration still exists in the Sheet.
+// If the organizers deleted/cleared the row, this returns registered:false so
+// the site can forget the stale on-device memory.
+async function handleStatus(url, env) {
+    const phone = normalizePhone(url.searchParams.get("phone"));
+    if (!phone) {
+        return json(400, { ok: false, error: "missing_phone" });
+    }
+    const counts = await getCounts(env, /* allowCache */ true);
+    return json(200, { ok: true, registered: counts.phones.includes(phone) });
 }
 
 async function handleRegister(request, env) {
