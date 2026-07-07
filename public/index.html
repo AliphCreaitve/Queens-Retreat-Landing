@@ -59,6 +59,8 @@
             background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 20%, rgba(255, 255, 255, 0.6) 60%, rgba(255, 255, 255, 0) 100%);
             animation: shimmer 3s infinite;
         }
+        /* Elia slideshow: hide the scrollbar (drag/swipe + arrows remain) */
+        #elia-slider::-webkit-scrollbar { display: none; }
         /* Payment modal */
         .payment-wordmark {
             display: inline-flex; align-items: center; justify-content: center; direction: ltr;
@@ -271,6 +273,135 @@
                     قيادة الأثر تبدأ من الاستثمار الحقيقي في القيادية نفسها، وتوفير بيئة داعمة ومحفزة تمنحها الأدوات
                     اللازمة للانطلاق نحو آفاق جديدة من التميز والابتكار والمساهمة المجتمعية.
                 </p>
+            </div>
+
+            <!-- Auto-advancing slideshow of the forum's gatherings -->
+            <div class="relative max-w-4xl mx-auto mt-10 md:mt-14" id="elia-slideshow">
+                <div id="elia-slider"
+                    class="flex overflow-x-auto snap-x snap-mandatory rounded-[2rem] shadow-[0_20px_50px_rgba(196,168,188,0.35)] border-[6px] border-white/80 bg-white/40"
+                    style="scrollbar-width: none; -ms-overflow-style: none;">
+
+                    <div class="elia-slide shrink-0 w-full snap-center relative">
+                        <img src="resources/elia-1.jpg" alt="جلسة قيادية لسيدات إيليا"
+                            class="w-full h-[260px] sm:h-[340px] md:h-[430px] object-cover" loading="lazy">
+                        <div
+                            class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-luxury-charcoal/90 via-luxury-charcoal/55 to-transparent px-5 md:px-8 pb-5 pt-16 text-right">
+                            <h4 class="text-white font-headings font-bold text-sm md:text-lg mb-1">في قلب القيادة</h4>
+                            <p class="text-white/85 text-[11px] md:text-sm font-light leading-relaxed">ندوات وجلسات
+                                نقاش مع خبيرات ومختصات تضيء على قضايا القيادة والتمكين وصناعة الأثر.</p>
+                        </div>
+                    </div>
+
+                    <div class="elia-slide shrink-0 w-full snap-center relative">
+                        <img src="resources/elia-2.jpg" alt="لقاء تشبيك لسيدات إيليا"
+                            class="w-full h-[260px] sm:h-[340px] md:h-[430px] object-cover" loading="lazy">
+                        <div
+                            class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-luxury-charcoal/90 via-luxury-charcoal/55 to-transparent px-5 md:px-8 pb-5 pt-16 text-right">
+                            <h4 class="text-white font-headings font-bold text-sm md:text-lg mb-1">شبكة علاقات
+                                نخبوية</h4>
+                            <p class="text-white/85 text-[11px] md:text-sm font-light leading-relaxed">لقاءات تشبيك
+                                تجمع القياديات وصانعات الأثر من مختلف المجالات لبناء شراكات مؤثرة.</p>
+                        </div>
+                    </div>
+
+                    <div class="elia-slide shrink-0 w-full snap-center relative">
+                        <img src="resources/elia-3.jpg" alt="جلسة حوارية لسيدات إيليا"
+                            class="w-full h-[260px] sm:h-[340px] md:h-[430px] object-cover" loading="lazy">
+                        <div
+                            class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-luxury-charcoal/90 via-luxury-charcoal/55 to-transparent px-5 md:px-8 pb-5 pt-16 text-right">
+                            <h4 class="text-white font-headings font-bold text-sm md:text-lg mb-1">صوت كل قيادية
+                                مسموع</h4>
+                            <p class="text-white/85 text-[11px] md:text-sm font-light leading-relaxed">جلسات حوارية
+                                تشارك فيها كل سيدة رؤيتها وتجربتها — لأن قيادة الأثر تبدأ من صوت واثق.</p>
+                        </div>
+                    </div>
+
+                    <div class="elia-slide shrink-0 w-full snap-center relative">
+                        <img src="resources/elia-4.jpg" alt="ورشة عمل لسيدات إيليا"
+                            class="w-full h-[260px] sm:h-[340px] md:h-[430px] object-cover" loading="lazy">
+                        <div
+                            class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-luxury-charcoal/90 via-luxury-charcoal/55 to-transparent px-5 md:px-8 pb-5 pt-16 text-right">
+                            <h4 class="text-white font-headings font-bold text-sm md:text-lg mb-1">ورشات تنمي
+                                المهارات</h4>
+                            <p class="text-white/85 text-[11px] md:text-sm font-light leading-relaxed">مجموعات عمل
+                                مصغرة تتيح التعلم العميق وتبادل الخبرات في أجواء داعمة وآمنة.</p>
+                        </div>
+                    </div>
+
+                    <div class="elia-slide shrink-0 w-full snap-center relative">
+                        <img src="resources/elia-5.jpg" alt="فعالية تفاعلية لسيدات إيليا"
+                            class="w-full h-[260px] sm:h-[340px] md:h-[430px] object-cover" loading="lazy">
+                        <div
+                            class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-luxury-charcoal/90 via-luxury-charcoal/55 to-transparent px-5 md:px-8 pb-5 pt-16 text-right">
+                            <h4 class="text-white font-headings font-bold text-sm md:text-lg mb-1">تجارب تفاعلية
+                                ملهمة</h4>
+                            <p class="text-white/85 text-[11px] md:text-sm font-light leading-relaxed">فعاليات
+                                تفاعلية مدروسة تلامس القلب والعقل، وتترك أثراً يرافق المشاركات بعد كل لقاء.</p>
+                        </div>
+                    </div>
+
+                    <div class="elia-slide shrink-0 w-full snap-center relative">
+                        <img src="resources/elia-6.jpg" alt="حوار ملهم في منتدى سيدات إيليا"
+                            class="w-full h-[260px] sm:h-[340px] md:h-[430px] object-cover" loading="lazy">
+                        <div
+                            class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-luxury-charcoal/90 via-luxury-charcoal/55 to-transparent px-5 md:px-8 pb-5 pt-16 text-right">
+                            <h4 class="text-white font-headings font-bold text-sm md:text-lg mb-1">حوارات تصنع
+                                التغيير</h4>
+                            <p class="text-white/85 text-[11px] md:text-sm font-light leading-relaxed">نستضيف قيادات
+                                ملهمة تشارك قصصها وخبراتها لتفتح آفاقاً جديدة أمام عضوات المنتدى.</p>
+                        </div>
+                    </div>
+
+                    <div class="elia-slide shrink-0 w-full snap-center relative">
+                        <img src="resources/elia-7.jpg" alt="أمسية فنية لسيدات إيليا"
+                            class="w-full h-[260px] sm:h-[340px] md:h-[430px] object-cover" loading="lazy">
+                        <div
+                            class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-luxury-charcoal/90 via-luxury-charcoal/55 to-transparent px-5 md:px-8 pb-5 pt-16 text-right">
+                            <h4 class="text-white font-headings font-bold text-sm md:text-lg mb-1">ثقافة وفن
+                                يجمعاننا</h4>
+                            <p class="text-white/85 text-[11px] md:text-sm font-light leading-relaxed">أمسيات فنية
+                                وثقافية تحتفي بالهوية والتراث، وتمنح عضواتنا مساحة للفرح والإلهام.</p>
+                        </div>
+                    </div>
+
+                    <div class="elia-slide shrink-0 w-full snap-center relative">
+                        <img src="resources/elia-8.jpg" alt="يوم مجتمعي لسيدات إيليا"
+                            class="w-full h-[260px] sm:h-[340px] md:h-[430px] object-cover" loading="lazy">
+                        <div
+                            class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-luxury-charcoal/90 via-luxury-charcoal/55 to-transparent px-5 md:px-8 pb-5 pt-16 text-right">
+                            <h4 class="text-white font-headings font-bold text-sm md:text-lg mb-1">مجتمع نابض
+                                بالحياة</h4>
+                            <p class="text-white/85 text-[11px] md:text-sm font-light leading-relaxed">أيام مجتمعية
+                                تجمع بين الفن والموسيقى والتواصل — هكذا تبدو عائلة سيدات إيليا.</p>
+                        </div>
+                    </div>
+
+                    <div class="elia-slide shrink-0 w-full snap-center relative">
+                        <img src="resources/elia-9.jpg" alt="تفاصيل ضيافة سيدات إيليا"
+                            class="w-full h-[260px] sm:h-[340px] md:h-[430px] object-cover" loading="lazy">
+                        <div
+                            class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-luxury-charcoal/90 via-luxury-charcoal/55 to-transparent px-5 md:px-8 pb-5 pt-16 text-right">
+                            <h4 class="text-white font-headings font-bold text-sm md:text-lg mb-1">ضيافة بذوق
+                                ملكي</h4>
+                            <p class="text-white/85 text-[11px] md:text-sm font-light leading-relaxed">نؤمن أن
+                                التفاصيل الصغيرة تصنع الأثر الكبير — كل لقاء يُصمم بعناية ليليق بحضور قائداته.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Arrows -->
+                <button type="button" onclick="eliaSlideStep(-1)" aria-label="الشريحة السابقة"
+                    class="absolute top-1/2 -translate-y-1/2 right-3 w-10 h-10 rounded-full bg-white/80 backdrop-blur text-luxury-gold-dark hover:bg-luxury-gold hover:text-white shadow-lg transition-all duration-300 flex items-center justify-center z-10">
+                    <i class="fa-solid fa-chevron-right text-sm"></i>
+                </button>
+                <button type="button" onclick="eliaSlideStep(1)" aria-label="الشريحة التالية"
+                    class="absolute top-1/2 -translate-y-1/2 left-3 w-10 h-10 rounded-full bg-white/80 backdrop-blur text-luxury-gold-dark hover:bg-luxury-gold hover:text-white shadow-lg transition-all duration-300 flex items-center justify-center z-10">
+                    <i class="fa-solid fa-chevron-left text-sm"></i>
+                </button>
+
+                <!-- Dots -->
+                <div id="elia-dots" class="flex justify-center gap-2 mt-5"></div>
             </div>
         </div>
     </section>
@@ -1862,6 +1993,9 @@
                 dressCodeObserver.observe(registerSection);
             }
 
+            // من نحن slideshow
+            initEliaSlideshow();
+
             // Lock a chosen time slot across the other stations, live
             const slotsGroup = document.getElementById("stations-slots-group");
             if (slotsGroup) {
@@ -2123,6 +2257,99 @@
             if (event.target.id === "returning-modal") {
                 closeReturningModal();
             }
+        }
+
+        // 6c. ELIA SLIDESHOW (من نحن) — auto-advances every 5s, swipeable,
+        // arrows + dots; pauses while the guest hovers or touches it.
+        let eliaIndex = 0;
+        let eliaTimer = null;
+
+        function eliaSlides() {
+            return document.querySelectorAll("#elia-slider .elia-slide");
+        }
+
+        function eliaGoTo(index, smooth = true) {
+            const slider = document.getElementById("elia-slider");
+            const slides = eliaSlides();
+            if (!slider || !slides.length) return;
+            eliaIndex = (index + slides.length) % slides.length;
+            // offsetLeft-based targets stay correct in RTL across browsers
+            slider.scrollTo({ left: slides[eliaIndex].offsetLeft, behavior: smooth ? "smooth" : "auto" });
+            eliaUpdateDots();
+        }
+
+        function eliaSlideStep(step) {
+            eliaGoTo(eliaIndex + step);
+            eliaRestartAutoplay();
+        }
+
+        function eliaUpdateDots() {
+            document.querySelectorAll("#elia-dots button").forEach((dot, i) => {
+                dot.classList.toggle("bg-luxury-gold-dark", i === eliaIndex);
+                dot.classList.toggle("w-6", i === eliaIndex);
+                dot.classList.toggle("bg-luxury-gold/30", i !== eliaIndex);
+                dot.classList.toggle("w-2.5", i !== eliaIndex);
+            });
+        }
+
+        function eliaRestartAutoplay() {
+            if (eliaTimer) clearInterval(eliaTimer);
+            eliaTimer = setInterval(() => eliaGoTo(eliaIndex + 1), 5000);
+        }
+
+        function eliaStopAutoplay() {
+            if (eliaTimer) {
+                clearInterval(eliaTimer);
+                eliaTimer = null;
+            }
+        }
+
+        function initEliaSlideshow() {
+            const slider = document.getElementById("elia-slider");
+            if (!slider) return;
+
+            const dots = document.getElementById("elia-dots");
+            eliaSlides().forEach((_, i) => {
+                const dot = document.createElement("button");
+                dot.type = "button";
+                dot.setAttribute("aria-label", `الشريحة ${i + 1}`);
+                dot.className = "h-2.5 w-2.5 rounded-full bg-luxury-gold/30 transition-all duration-300";
+                dot.onclick = () => {
+                    eliaGoTo(i);
+                    eliaRestartAutoplay();
+                };
+                dots.appendChild(dot);
+            });
+            eliaUpdateDots();
+
+            // Manual swipe/drag: track the slide nearest the scroll position
+            let scrollDebounce = null;
+            slider.addEventListener("scroll", () => {
+                clearTimeout(scrollDebounce);
+                scrollDebounce = setTimeout(() => {
+                    const slides = eliaSlides();
+                    let nearest = 0;
+                    let nearestDist = Infinity;
+                    slides.forEach((slide, i) => {
+                        const dist = Math.abs(slide.offsetLeft - slider.scrollLeft);
+                        if (dist < nearestDist) {
+                            nearestDist = dist;
+                            nearest = i;
+                        }
+                    });
+                    if (nearest !== eliaIndex) {
+                        eliaIndex = nearest;
+                        eliaUpdateDots();
+                    }
+                }, 80);
+            }, { passive: true });
+
+            ["mouseenter", "touchstart", "pointerdown"].forEach((evt) =>
+                slider.addEventListener(evt, eliaStopAutoplay, { passive: true }));
+            ["mouseleave", "touchend"].forEach((evt) =>
+                slider.addEventListener(evt, eliaRestartAutoplay, { passive: true }));
+
+            eliaRestartAutoplay();
         }
 
         function closePaymentModal() {
