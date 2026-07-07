@@ -87,10 +87,13 @@ export default {
 /* Endpoints                                                           */
 /* ------------------------------------------------------------------ */
 
-// Counts are cached in the isolate for a short window so page loads don't
-// hammer the Sheets API. Invalidated after every successful registration.
+// The public seats counter is cached in the isolate for a very short window
+// so a burst of simultaneous page loads collapses into a single Sheets read
+// (protecting the API quota, which also keeps registrations reliable during a
+// rush). 5s is effectively live for a human. Invalidated after every
+// successful registration, and the registration path always reads fresh.
 let countsCache = { data: null, at: 0 };
-const COUNTS_TTL_MS = 30_000;
+const COUNTS_TTL_MS = 5_000;
 
 async function handleCounts(env) {
     const counts = await getCounts(env, /* allowCache */ true);

@@ -43,7 +43,7 @@ Push to `main` — the connected Cloudflare build deploys automatically. Then ve
 
 - `https://<your-domain>/api/counts` returns JSON with `"ok": true`.
 - Submit a test registration on the live site and confirm the row appears in the Sheet
-  (you can delete test rows from the Sheet; counts update within ~30 seconds).
+  (you can delete or clear test rows from the Sheet; counts update within ~5 seconds).
 
 ## Notes
 
@@ -54,6 +54,6 @@ Push to `main` — the connected Cloudflare build deploys automatically. Then ve
   contains rows or a header from an older form version, clear the tab before deploying so
   the Worker writes the current header cleanly.
 - **Deleting a row in the Sheet frees a seat** — the counts are always computed from the Sheet.
-- The seat counters cache for 30 seconds, so the public numbers can lag briefly; capacity checks during
+- The seat counter caches for 5 seconds (to absorb traffic bursts), so the public number can lag briefly; capacity checks during
   registration always use fresh data.
 - The API returns Arabic error messages that the form shows directly to visitors.
