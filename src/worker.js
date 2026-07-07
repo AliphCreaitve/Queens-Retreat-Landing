@@ -273,7 +273,14 @@ async function getCounts(env, allowCache) {
     }
     const data = await res.json();
     const headerRows = data.valueRanges?.[0]?.values || [];
-    const rows = data.valueRanges?.[1]?.values || [];
+    const allRows = data.valueRanges?.[1]?.values || [];
+
+    // A registration only counts if it still holds a registrant. Clearing a
+    // row's contents in the Sheet (rather than deleting the whole row) leaves
+    // a blank row behind; those must NOT occupy a seat. The full name
+    // (column B) is required on every real registration, so we treat it as the
+    // marker of an occupied seat.
+    const rows = allRows.filter((row) => String(row?.[1] ?? "").trim() !== "");
 
     const counts = {
         totalCapacity,
