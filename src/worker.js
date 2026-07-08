@@ -61,9 +61,22 @@ const KIDS_PLAN_LABELS = {
 // Informational age categories for on-site kid care (no capacity limits).
 const KIDS_GROUPS = ["5-6", "7-8", "9-10"];
 
-// Payment is always a bit transfer; the last column tracks whether the
-// organizers verified the transfer. Every new row starts as "لا" and the
-// team flips it to "نعم" manually in the sheet once the payment is matched.
+// Payment method chosen on the form. For bit, the recorded action also says
+// whether the guest opened the payment link or pressed the confirm button —
+// useful when matching transfers. "other" means the team follows up about
+// payment later.
+const PAYMENT_METHOD_LABELS = {
+    bit: "Bit",
+    other: "أخرى (سيتم التواصل لإيضاح آلية الدفع)",
+};
+const PAYMENT_ACTION_LABELS = {
+    link: "فتحت رابط الدفع",
+    confirm: "أكدت التحويل",
+};
+
+// The last column tracks whether the organizers verified the payment. Every
+// new row starts as "لا" and the team flips it to "نعم" manually in the sheet
+// once the payment is matched.
 const SHEET_HEADER = [
     "تاريخ التسجيل",
     "الاسم الكامل",
@@ -76,6 +89,7 @@ const SHEET_HEADER = [
     "ترتيب رعاية الأطفال",
     "فئات الأطفال",
     "عدد الأطفال",
+    "طريقة الدفع",
     "تم التحقق من الدفع",
 ];
 
@@ -239,6 +253,25 @@ async function handleRegister(request, env) {
         }
     }
 
+    // Payment method: bit (with how it was initiated) or other.
+    const paymentMethod = PAYMENT_METHOD_LABELS[body.paymentMethod]
+        ? String(body.paymentMethod)
+        : "";
+    if (!paymentMethod) {
+        return json(400, {
+            ok: false,
+            error: "missing_payment_method",
+            message: "يرجى اختيار طريقة الدفع.",
+        });
+    }
+    const paymentAction = PAYMENT_ACTION_LABELS[body.paymentAction]
+        ? String(body.paymentAction)
+        : "confirm";
+    const paymentCell =
+        paymentMethod === "bit"
+            ? `Bit — ${PAYMENT_ACTION_LABELS[paymentAction]}`
+            : PAYMENT_METHOD_LABELS.other;
+
     // Capacity + duplicate checks against fresh (uncached) sheet data.
     const counts = await getCounts(env, /* allowCache */ false);
 
@@ -290,7 +323,8 @@ async function handleRegister(request, env) {
         kidsGroups.length
             ? String(kidsGroups.reduce((sum, k) => sum + k.count, 0))
             : "",
-        "لا", // payment verified — organizers flip to نعم after matching the bit transfer
+        paymentCell,
+        "لا", // payment verified — organizers flip to نعم after matching the payment
     ];
 
     if (!counts.headerPresent) {
@@ -317,7 +351,7 @@ async function getCounts(env, allowCache) {
     const token = await getAccessToken(env);
     const res = await fetch(
         `https://sheets.googleapis.com/v4/spreadsheets/${env.SHEET_ID}/values:batchGet` +
-            `?ranges=${encodeURIComponent("A1:L1")}&ranges=${encodeURIComponent("A2:L")}`,
+            `?ranges=${encodeURIComponent("A1:M1")}&ranges=${encodeURIComponent("A2:M")}`,
         { headers: { Authorization: `Bearer ${token}` } }
     );
     if (!res.ok) {
@@ -372,7 +406,7 @@ async function appendRow(env, row) {
     const token = await getAccessToken(env);
     const res = await fetch(
         `https://sheets.googleapis.com/v4/spreadsheets/${env.SHEET_ID}/values/${encodeURIComponent(
-            "A1:L1"
+            "A1:M1"
         )}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`,
         {
             method: "POST",

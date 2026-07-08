@@ -1832,9 +1832,44 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
-            <!-- bit-only payment step -->
-            <div class="text-center">
-                <div class="flex justify-center mb-5">
+            <!-- Step 1: choose bit or cash -->
+            <div id="payment-step-methods" class="text-center">
+                <div
+                    class="w-16 h-16 rounded-full bg-gradient-to-r from-luxury-gold-dark to-luxury-gold text-white flex items-center justify-center text-2xl mx-auto mb-5 shadow-xl">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+
+                <h3 class="text-xl md:text-2xl font-extrabold font-headings text-luxury-charcoal mb-3">
+                    اختاري طريقة الدفع</h3>
+                <div class="w-12 h-0.5 bg-luxury-gold mx-auto mb-4"></div>
+
+                <p class="text-sm text-luxury-charcoal mb-5">
+                    رسوم الرتريت: <span id="payment-amount" class="font-bold text-luxury-gold-dark" dir="ltr">₪ 50</span>
+                </p>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <button type="button" onclick="choosePaymentMethod('bit')"
+                        class="flex flex-col items-center justify-center gap-2.5 p-5 rounded-2xl border border-luxury-gold-light/40 bg-luxury-bg/40 transition-all duration-300 hover:scale-[1.03] hover:border-luxury-gold/70 hover:bg-white/90">
+                        <span class="payment-wordmark" style="background:#00c8c8;">bit</span>
+                        <span class="text-xs font-semibold text-luxury-charcoal">تحويل عبر تطبيق bit</span>
+                    </button>
+                    <button type="button" onclick="choosePaymentMethod('other')"
+                        class="flex flex-col items-center justify-center gap-2.5 p-5 rounded-2xl border border-luxury-gold-light/40 bg-luxury-bg/40 transition-all duration-300 hover:scale-[1.03] hover:border-luxury-gold/70 hover:bg-white/90">
+                        <i class="fa-solid fa-money-bills text-3xl text-luxury-gold-dark"></i>
+                        <span class="text-xs font-semibold text-luxury-charcoal">طرق أخرى للدفع</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2a: bit transfer -->
+            <div id="payment-step-bit" class="hidden text-center">
+                <button type="button" onclick="showPaymentMethods()"
+                    class="absolute top-5 right-5 text-xs font-semibold text-luxury-gold-dark hover:text-luxury-charcoal transition-colors duration-300 flex items-center gap-1.5">
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    <span>تغيير طريقة الدفع</span>
+                </button>
+
+                <div class="flex justify-center mb-5 mt-4">
                     <span class="payment-wordmark shadow-lg" style="background:#00c8c8; font-size:1.5rem; padding:.5rem 1.6rem;">bit</span>
                 </div>
 
@@ -1843,12 +1878,15 @@
                 <div class="w-12 h-0.5 bg-luxury-gold mx-auto mb-4"></div>
 
                 <p class="text-sm text-luxury-charcoal mb-1">
-                    رسوم الرتريت: <span id="payment-amount" class="font-bold text-luxury-gold-dark" dir="ltr">₪ 50</span>
+                    رسوم الرتريت: <span class="payment-amount-echo font-bold text-luxury-gold-dark" dir="ltr">₪ 50</span>
                 </p>
 
-                <!-- Deep link that opens the bit app on the retreat's profile -->
-                <a href="https://www.bitpay.co.il/app/me/1C835411-B303-4AB3-BB72-5EC4C961DFF0" target="_blank"
-                    rel="noopener"
+                <!-- Deep link that opens the bit app on the retreat's profile.
+                     Clicking it also saves the registration right away, so a
+                     guest who pays in the app but never returns to press the
+                     confirm button is not lost. -->
+                <a id="bit-pay-link" href="https://www.bitpay.co.il/app/me/1C835411-B303-4AB3-BB72-5EC4C961DFF0"
+                    target="_blank" rel="noopener" onclick="handleBitLinkClick()"
                     class="mt-4 mb-3 w-full py-3.5 rounded-full font-semibold text-white shadow-lg inline-flex items-center justify-center gap-2.5 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                     style="background: linear-gradient(90deg, #00b0b0, #00c8c8);">
                     <i class="fa-solid fa-mobile-screen-button"></i>
@@ -1881,6 +1919,42 @@
                 <p class="mt-4 text-[10px] text-luxury-gold-dark leading-relaxed flex items-center justify-center gap-1.5">
                     <i class="fa-solid fa-shield-halved"></i>
                     <span>سيتم التحقق من استلام التحويل عند تأكيد مقعدكِ خلال الـ 24 ساعة القادمة.</span>
+                </p>
+            </div>
+
+            <!-- Step 2b: other payment methods (pay on the event day) -->
+            <div id="payment-step-other" class="hidden text-center">
+                <button type="button" onclick="showPaymentMethods()"
+                    class="absolute top-5 right-5 text-xs font-semibold text-luxury-gold-dark hover:text-luxury-charcoal transition-colors duration-300 flex items-center gap-1.5">
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    <span>تغيير طريقة الدفع</span>
+                </button>
+
+                <div
+                    class="w-16 h-16 rounded-full bg-gradient-to-r from-luxury-gold-dark to-luxury-gold text-white flex items-center justify-center text-2xl mx-auto mb-5 mt-4 shadow-xl">
+                    <i class="fa-solid fa-money-bills"></i>
+                </div>
+
+                <h3 class="text-xl md:text-2xl font-extrabold font-headings text-luxury-charcoal mb-3">
+                    طرق أخرى للدفع</h3>
+                <div class="w-12 h-0.5 bg-luxury-gold mx-auto mb-4"></div>
+
+                <p class="text-sm text-luxury-charcoal mb-4">
+                    رسوم الرتريت: <span class="payment-amount-echo font-bold text-luxury-gold-dark" dir="ltr">₪ 50</span>
+                </p>
+
+                <p class="text-xs md:text-sm text-luxury-charcoal font-light leading-relaxed bg-luxury-bg/40 border border-luxury-gold-light/40 rounded-2xl px-4 py-4 mb-4 text-right">
+                    سيتم التواصل معكِ لاحقاً لإيضاح آلية الدفع.
+                </p>
+
+                <button type="button" id="other-pay-btn" onclick="completeRegistration(this)"
+                    class="btn-luxury w-full py-3.5">
+                    تأكيد التسجيل
+                </button>
+
+                <p id="payment-revisit-note-other"
+                    class="hidden text-xs text-luxury-charcoal font-semibold bg-luxury-gold/5 rounded-xl px-4 py-3">
+                    تسجيلكِ محفوظ لدينا — سيتم التواصل معكِ لاحقاً لإيضاح آلية الدفع.
                 </p>
             </div>
         </div>
@@ -2305,23 +2379,57 @@
             openPaymentModal();
         }
 
-        // 6. PAYMENT MODAL — bit only: the guest transfers the fee to the
-        // retreat's bit number, then confirms to save the registration.
+        // 6. PAYMENT MODAL — the guest picks bit (transfer via the app) or
+        // "other" (the team follows up about payment later), then confirms to
+        // save the registration. Clicking the bit deep link ALSO saves the
+        // registration immediately (recorded as "opened the link"), so a guest
+        // who pays in the app but never returns to confirm is not lost.
         // A registered guest can re-open the window later (revisit mode) to
         // retrieve the payment link without re-submitting.
         const RETREAT_PRICE_ILS = 50; // retreat fee in ILS
         let pendingRegistration = null;
+        let selectedPaymentMethod = null;
+        let paymentRevisit = false;
 
         function openPaymentModal(revisit = false) {
+            paymentRevisit = revisit;
             document.getElementById("payment-amount").innerText = `₪ ${RETREAT_PRICE_ILS}`;
-            const payBtn = document.getElementById("portal-pay-btn");
-            payBtn.disabled = false;
-            payBtn.innerText = "قمتُ بالتحويل — تأكيد التسجيل";
-            payBtn.classList.toggle("hidden", revisit);
-            document.getElementById("payment-revisit-note").classList.toggle("hidden", !revisit);
+            document.querySelectorAll(".payment-amount-echo").forEach(el => {
+                el.innerText = `₪ ${RETREAT_PRICE_ILS}`;
+            });
+            showPaymentMethods();
             const modal = document.getElementById("payment-modal");
             modal.classList.remove("hidden");
             setTimeout(() => modal.classList.remove("opacity-0"), 10);
+        }
+
+        function showPaymentMethods() {
+            selectedPaymentMethod = null;
+            document.getElementById("payment-step-bit").classList.add("hidden");
+            document.getElementById("payment-step-other").classList.add("hidden");
+            document.getElementById("payment-step-methods").classList.remove("hidden");
+        }
+
+        function choosePaymentMethod(method) {
+            selectedPaymentMethod = method;
+            document.getElementById("payment-step-methods").classList.add("hidden");
+            document.getElementById(`payment-step-${method}`).classList.remove("hidden");
+
+            // Reset the step's confirm button, or swap it for the revisit note
+            // when a registered guest is just retrieving the payment details
+            const btn = document.getElementById(method === "bit" ? "portal-pay-btn" : "other-pay-btn");
+            const note = document.getElementById(method === "bit" ? "payment-revisit-note" : "payment-revisit-note-other");
+            btn.disabled = false;
+            btn.innerText = method === "bit" ? "قمتُ بالتحويل — تأكيد التسجيل" : "تأكيد التسجيل";
+            btn.classList.toggle("hidden", paymentRevisit);
+            note.classList.toggle("hidden", !paymentRevisit);
+        }
+
+        // The bit deep link registers on the spot (action: "link"); the link
+        // itself still opens the app. On revisit there is nothing to save.
+        function handleBitLinkClick() {
+            if (!pendingRegistration) return;
+            completeRegistration(document.getElementById("portal-pay-btn"), "link");
         }
 
         // 6b. ON-DEVICE REGISTRATION MEMORY + RETURNING GUEST MODAL
@@ -2519,7 +2627,7 @@
             setTimeout(() => modal.classList.add("hidden"), 300);
         }
 
-        async function completeRegistration(payBtn) {
+        async function completeRegistration(payBtn, paymentAction = "confirm") {
             if (!pendingRegistration) return;
 
             payBtn.disabled = true;
@@ -2529,7 +2637,11 @@
                 const res = await fetch("/api/register", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(pendingRegistration)
+                    body: JSON.stringify({
+                        ...pendingRegistration,
+                        paymentMethod: selectedPaymentMethod,
+                        paymentAction
+                    })
                 });
 
                 let data = null;
