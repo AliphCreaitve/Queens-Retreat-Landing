@@ -2425,11 +2425,11 @@
             note.classList.toggle("hidden", !paymentRevisit);
         }
 
-        // The bit deep link registers on the spot (action: "link"); the link
-        // itself still opens the app. On revisit there is nothing to save.
+        // The bit deep link registers on the spot; the link itself still opens
+        // the app. On revisit there is nothing to save.
         function handleBitLinkClick() {
             if (!pendingRegistration) return;
-            completeRegistration(document.getElementById("portal-pay-btn"), "link");
+            completeRegistration(document.getElementById("portal-pay-btn"));
         }
 
         // 6b. ON-DEVICE REGISTRATION MEMORY + RETURNING GUEST MODAL
@@ -2627,7 +2627,7 @@
             setTimeout(() => modal.classList.add("hidden"), 300);
         }
 
-        async function completeRegistration(payBtn, paymentAction = "confirm") {
+        async function completeRegistration(payBtn) {
             if (!pendingRegistration) return;
 
             payBtn.disabled = true;
@@ -2639,8 +2639,7 @@
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         ...pendingRegistration,
-                        paymentMethod: selectedPaymentMethod,
-                        paymentAction
+                        paymentMethod: selectedPaymentMethod
                     })
                 });
 

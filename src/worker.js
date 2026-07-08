@@ -61,17 +61,11 @@ const KIDS_PLAN_LABELS = {
 // Informational age categories for on-site kid care (no capacity limits).
 const KIDS_GROUPS = ["5-6", "7-8", "9-10"];
 
-// Payment method chosen on the form. For bit, the recorded action also says
-// whether the guest opened the payment link or pressed the confirm button —
-// useful when matching transfers. "other" means the team follows up about
-// payment later.
+// Payment method chosen on the form: bit transfer, or "other" (the team
+// follows up about payment later).
 const PAYMENT_METHOD_LABELS = {
     bit: "Bit",
-    other: "أخرى (سيتم التواصل لإيضاح آلية الدفع)",
-};
-const PAYMENT_ACTION_LABELS = {
-    link: "فتحت رابط الدفع",
-    confirm: "أكدت التحويل",
+    other: "أخرى",
 };
 
 // The last column tracks whether the organizers verified the payment. Every
@@ -253,7 +247,7 @@ async function handleRegister(request, env) {
         }
     }
 
-    // Payment method: bit (with how it was initiated) or other.
+    // Payment method: bit or other.
     const paymentMethod = PAYMENT_METHOD_LABELS[body.paymentMethod]
         ? String(body.paymentMethod)
         : "";
@@ -264,13 +258,7 @@ async function handleRegister(request, env) {
             message: "يرجى اختيار طريقة الدفع.",
         });
     }
-    const paymentAction = PAYMENT_ACTION_LABELS[body.paymentAction]
-        ? String(body.paymentAction)
-        : "confirm";
-    const paymentCell =
-        paymentMethod === "bit"
-            ? `Bit — ${PAYMENT_ACTION_LABELS[paymentAction]}`
-            : PAYMENT_METHOD_LABELS.other;
+    const paymentCell = PAYMENT_METHOD_LABELS[paymentMethod];
 
     // Capacity + duplicate checks against fresh (uncached) sheet data.
     const counts = await getCounts(env, /* allowCache */ false);
