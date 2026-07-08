@@ -35,7 +35,8 @@ Cloudflare dashboard → **Workers & Pages → queensretreat → Settings → Va
 | `GOOGLE_SA_EMAIL` | `client_email` from the JSON |
 | `GOOGLE_SA_PRIVATE_KEY` | the full `private_key` value, including the BEGIN/END lines |
 
-(`TOTAL_CAPACITY` = 100 is a plain var in [wrangler.jsonc](wrangler.jsonc) — edit there if it ever changes.)
+(`TOTAL_CAPACITY` = 100 is a plain var in [wrangler.jsonc](wrangler.jsonc) — edit there if it ever changes.
+`SLOT_CAPACITY` defaults to 20 per station+time-slot; add it as a var in [wrangler.jsonc](wrangler.jsonc) to override.)
 
 ## 5. Deploy
 

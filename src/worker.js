@@ -31,6 +31,26 @@ const STATION_NAMES = {
 const TIME_SLOTS = ["10:30-11:15", "11:30-12:15", "12:30-13:15", "13:15-14:00"];
 const EXTENDED_SLOT_STATIONS = new Set(["3"]);
 
+// Reverse lookup (stored name -> station id) so occupancy can be tallied from
+// the Sheet's "المحطات والمواعيد" column.
+const STATION_NAME_TO_ID = Object.fromEntries(
+    Object.entries(STATION_NAMES).map(([id, name]) => [name, id])
+);
+
+// Each station+slot seats at most this many participants (env-overridable).
+const DEFAULT_SLOT_CAPACITY = 20;
+
+// Parse one "<station name> @ <slot>" entry into a "<id>|<slot>" key, or null.
+function slotKeyFromEntry(entry) {
+    const at = entry.lastIndexOf(" @ ");
+    if (at === -1) return null;
+    const name = entry.slice(0, at).trim();
+    const slot = entry.slice(at + 3).trim();
+    const id = STATION_NAME_TO_ID[name];
+    if (!id || !TIME_SLOTS.includes(slot)) return null;
+    return `${id}|${slot}`;
+}
+
 // Sheet values for the childcare question: نعم = wants on-site kid care,
 // لا = has external care arranged.
 const KIDS_PLAN_LABELS = {
@@ -239,6 +259,19 @@ async function handleRegister(request, env) {
         });
     }
 
+    // Per-slot capacity: reject if any chosen station+slot is already full.
+    for (const s of stations) {
+        const key = `${s.id}|${s.slot}`;
+        if ((counts.slotCounts[key] || 0) >= counts.slotCapacity) {
+            return json(409, {
+                ok: false,
+                error: "slot_full",
+                key,
+                message: `نعتذر، اكتمل العدد في محطة «${STATION_NAMES[s.id]}» بموعد ${s.slot}. يرجى اختيار موعد آخر لهذه المحطة.`,
+            });
+        }
+    }
+
     const timestamp = new Date().toLocaleString("en-GB", {
         timeZone: "Asia/Jerusalem",
         hour12: false,
@@ -279,6 +312,7 @@ async function getCounts(env, allowCache) {
     }
 
     const totalCapacity = parseInt(env.TOTAL_CAPACITY, 10) || 100;
+    const slotCapacity = parseInt(env.SLOT_CAPACITY, 10) || DEFAULT_SLOT_CAPACITY;
 
     const token = await getAccessToken(env);
     const res = await fetch(
@@ -300,6 +334,18 @@ async function getCounts(env, allowCache) {
     // marker of an occupied seat.
     const rows = allRows.filter((row) => String(row?.[1] ?? "").trim() !== "");
 
+    // Tally how many participants picked each station+slot (column H), so full
+    // slots (>= slotCapacity) can be closed on the form and at registration.
+    const slotCounts = {};
+    for (const row of rows) {
+        const cell = String(row[7] ?? "");
+        if (!cell) continue;
+        for (const part of cell.split(" | ")) {
+            const key = slotKeyFromEntry(part.trim());
+            if (key) slotCounts[key] = (slotCounts[key] || 0) + 1;
+        }
+    }
+
     const counts = {
         totalCapacity,
         totalRegistered: rows.length,
@@ -307,6 +353,8 @@ async function getCounts(env, allowCache) {
         headerPresent: headerRows.length > 0,
         // Normalized WhatsApp numbers (column C) for duplicate detection
         phones: rows.map((row) => normalizePhone(row[2])).filter(Boolean),
+        slotCapacity,
+        slotCounts,
     };
     countsCache = { data: counts, at: Date.now() };
     return counts;

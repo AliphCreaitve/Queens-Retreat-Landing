@@ -1918,12 +1918,23 @@
         // Only the remaining-seats notice is shown; the total capacity is
         // intentionally never displayed (client request).
         let retreatSoldOut = false;
+        // Station+slot combos that have reached the per-slot cap ("<id>|<slot>")
+        let fullSlots = new Set();
 
         async function refreshSeatCounts() {
             const res = await fetch("/api/counts");
             if (!res.ok) throw new Error("counts request failed");
             const data = await res.json();
             if (!data.ok) throw new Error(data.error || "counts error");
+
+            // Per-slot caps: mark any station+slot at capacity as full
+            fullSlots = new Set();
+            if (data.slotCounts && data.slotCapacity) {
+                for (const key of Object.keys(data.slotCounts)) {
+                    if (data.slotCounts[key] >= data.slotCapacity) fullSlots.add(key);
+                }
+            }
+            refreshSlotAvailability();
 
             const seatsLeft = data.seatsLeft;
             const counterElement = document.getElementById("seats-left-counter");
@@ -2139,13 +2150,18 @@
             }
             for (let i = 1; i <= 6; i++) {
                 document.querySelectorAll(`input[name="slot-${i}"]`).forEach(radio => {
-                    const locked = takenBy[radio.value] && takenBy[radio.value] !== String(i);
+                    const clashLocked = takenBy[radio.value] && takenBy[radio.value] !== String(i);
+                    const full = fullSlots.has(`${i}|${radio.value}`);
+                    // A full slot the participant grabbed is released so she repicks
+                    if (full && radio.checked) radio.checked = false;
+                    const locked = clashLocked || full;
                     radio.disabled = !!locked;
                     const chip = radio.closest("label");
                     if (chip) {
                         chip.classList.toggle("opacity-40", !!locked);
                         chip.classList.toggle("cursor-not-allowed", !!locked);
                         chip.classList.toggle("cursor-pointer", !locked);
+                        setSlotFullBadge(chip, full);
                     }
                 });
             }
@@ -2163,6 +2179,21 @@
                     row.classList.toggle("cursor-pointer", !locked);
                 }
             });
+        }
+
+        // Shows/hides a small "(مكتمل)" badge on a full slot chip
+        function setSlotFullBadge(chip, full) {
+            let badge = chip.querySelector(".slot-full-badge");
+            if (full) {
+                if (!badge) {
+                    badge = document.createElement("span");
+                    badge.className = "slot-full-badge text-[9px] font-bold text-red-500";
+                    badge.innerText = "(مكتمل)";
+                    chip.appendChild(badge);
+                }
+            } else if (badge) {
+                badge.remove();
+            }
         }
 
         // 4. KIDS DETAILS TOGGLE (only for the on-site integration option)
@@ -2232,6 +2263,10 @@
                 }
                 if (usedSlots.has(slot.value)) {
                     showFormError("لا يمكن اختيار الموعد نفسه لمحطتين مختلفتين — يرجى توزيع محطاتكِ على مواعيد مختلفة.");
+                    return;
+                }
+                if (fullSlots.has(`${id}|${slot.value}`)) {
+                    showFormError("نعتذر، اكتمل العدد في أحد المواعيد المختارة. يرجى اختيار موعد آخر لتلك المحطة.");
                     return;
                 }
                 usedSlots.add(slot.value);
