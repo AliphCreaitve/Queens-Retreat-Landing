@@ -32,7 +32,7 @@ const TIME_SLOTS = ["10:30-11:15", "11:30-12:15", "12:30-13:15", "13:15-14:00"];
 const EXTENDED_SLOT_STATIONS = new Set(["3"]);
 
 // Reverse lookup (stored name -> station id) so occupancy can be tallied from
-// the Sheet's "المحطات والمواعيد" column.
+// the Sheet's station columns (المحطة الأولى/الثانية/الثالثة).
 const STATION_NAME_TO_ID = Object.fromEntries(
     Object.entries(STATION_NAMES).map(([id, name]) => [name, id])
 );
@@ -79,7 +79,9 @@ const SHEET_HEADER = [
     "مكان السكن",
     "المسمى الوظيفي",
     "مكان العمل",
-    "المحطات والمواعيد",
+    "المحطة الأولى",
+    "المحطة الثانية",
+    "المحطة الثالثة",
     "ترتيب رعاية الأطفال",
     "فئات الأطفال",
     "عدد الأطفال",
@@ -297,6 +299,11 @@ async function handleRegister(request, env) {
         timeZone: "Asia/Jerusalem",
         hour12: false,
     });
+    // One column per station (المحطة الأولى/الثانية/الثالثة), ordered
+    // chronologically by time slot.
+    const orderedStations = [...stations].sort(
+        (a, b) => TIME_SLOTS.indexOf(a.slot) - TIME_SLOTS.indexOf(b.slot)
+    );
     const row = [
         timestamp,
         fullName,
@@ -305,7 +312,7 @@ async function handleRegister(request, env) {
         residence,
         jobTitle,
         workplace,
-        stations.map((s) => `${STATION_NAMES[s.id]} @ ${s.slot}`).join(" | "),
+        ...orderedStations.map((s) => `${STATION_NAMES[s.id]} @ ${s.slot}`),
         kidsPlan ? KIDS_PLAN_LABELS[kidsPlan] : "",
         kidsGroups.map((k) => `${k.group} (${k.count})`).join(", "),
         kidsGroups.length
@@ -339,7 +346,7 @@ async function getCounts(env, allowCache) {
     const token = await getAccessToken(env);
     const res = await fetch(
         `https://sheets.googleapis.com/v4/spreadsheets/${env.SHEET_ID}/values:batchGet` +
-            `?ranges=${encodeURIComponent("A1:M1")}&ranges=${encodeURIComponent("A2:M")}`,
+            `?ranges=${encodeURIComponent("A1:O1")}&ranges=${encodeURIComponent("A2:O")}`,
         { headers: { Authorization: `Bearer ${token}` } }
     );
     if (!res.ok) {
@@ -356,15 +363,19 @@ async function getCounts(env, allowCache) {
     // marker of an occupied seat.
     const rows = allRows.filter((row) => String(row?.[1] ?? "").trim() !== "");
 
-    // Tally how many participants picked each station+slot (column H), so full
-    // slots (>= slotCapacity) can be closed on the form and at registration.
+    // Tally how many participants picked each station+slot (columns H, I, J —
+    // one station per column), so full slots (>= slotCapacity) can be closed
+    // on the form and at registration. Cells are still split on " | " so rows
+    // from the old combined-column format keep counting correctly.
     const slotCounts = {};
     for (const row of rows) {
-        const cell = String(row[7] ?? "");
-        if (!cell) continue;
-        for (const part of cell.split(" | ")) {
-            const key = slotKeyFromEntry(part.trim());
-            if (key) slotCounts[key] = (slotCounts[key] || 0) + 1;
+        for (const col of [7, 8, 9]) {
+            const cell = String(row[col] ?? "");
+            if (!cell) continue;
+            for (const part of cell.split(" | ")) {
+                const key = slotKeyFromEntry(part.trim());
+                if (key) slotCounts[key] = (slotCounts[key] || 0) + 1;
+            }
         }
     }
 
