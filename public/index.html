@@ -235,8 +235,8 @@
                         alt="رتريت عودة الملكة — العودة للذات" class="w-full h-full object-contain">
                 </div>
 
-                <!-- Interactive Seat Counter / FOMO bar -->
-                <div
+                <!-- Interactive Seat Counter / FOMO bar (hidden once sold out) -->
+                <div id="seats-counter-box"
                     class="w-full max-w-[280px] sm:max-w-sm md:max-w-md glassmorphism p-5 md:p-6 rounded-2xl border-luxury-gold/30 shadow-lg relative -mt-6 md:-mt-12 mx-auto">
                     <div class="flex justify-between items-center mb-3">
                         <div class="flex items-center space-x-reverse space-x-2">
@@ -1667,8 +1667,9 @@
             </div>
 
         </div>
-        <div class="max-w-7xl mx-auto px-6 mt-8 pt-8 border-t border-white/5 text-center text-[10px] text-white/40">
-            &copy; 2026 منتدى سيدات إيليا. جميع الحقوق محفوظة لرتريت عودة الملكة.
+        <div class="max-w-7xl mx-auto px-6 mt-8 pt-8 border-t border-white/5 text-center text-[10px] text-white/40 space-y-1">
+            <p>&copy; 2026 منتدى سيدات إيليا. جميع الحقوق محفوظة لرتريت عودة الملكة.</p>
+            <p>تصميم وتطوير <span class="text-white/60 font-semibold">Aliph Creative</span></p>
         </div>
     </footer>
 
@@ -2012,11 +2013,13 @@
 
             const seatsLeft = data.seatsLeft;
             const counterElement = document.getElementById("seats-left-counter");
+            const counterBox = document.getElementById("seats-counter-box");
 
-            if (counterElement) {
-                if (seatsLeft <= 0) {
-                    counterElement.innerHTML = `اكتمل العدد <span class="animate-pulse text-red-500 text-xs">(انتهت المقاعد)</span>`;
-                } else if (seatsLeft <= 20) {
+            // Sold out → remove the counter widget entirely (client request)
+            if (counterBox) counterBox.classList.toggle("hidden", seatsLeft <= 0);
+
+            if (counterElement && seatsLeft > 0) {
+                if (seatsLeft <= 20) {
                     counterElement.innerHTML = `${seatsLeft} مقعداً <span class="animate-pulse text-red-500 text-xs">(متبقي فقط!)</span>`;
                 } else {
                     counterElement.innerText = `${seatsLeft} مقعداً`;
