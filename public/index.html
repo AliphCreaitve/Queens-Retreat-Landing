@@ -61,12 +61,6 @@
         }
         /* Elia slideshow: hide the scrollbar (drag/swipe + arrows remain) */
         #elia-slider::-webkit-scrollbar { display: none; }
-        /* Payment modal */
-        .payment-wordmark {
-            display: inline-flex; align-items: center; justify-content: center; direction: ltr;
-            color: #fff; font-weight: 800; letter-spacing: .01em; border-radius: 9999px;
-            padding: .35rem 1.1rem; font-size: 1.15rem; line-height: 1.4; font-family: 'Segoe UI', sans-serif;
-        }
     </style>
 
 
@@ -114,11 +108,19 @@
     <header class="sticky top-0 z-50 transition-all duration-300 w-full" id="nav-header"
         style="background: rgba(226,215,231,0.7); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.5);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 py-1.5 md:py-2 flex items-center justify-between">
-            <a href="#" class="shrink-0 block py-1">
-                <img src="resources/logo.png"
-                    alt="Logo"
-                    class="h-24 md:h-36 w-auto object-contain transition-transform duration-300 hover:scale-105">
-            </a>
+            <div class="flex items-center gap-2.5 md:gap-3 shrink-0">
+                <a href="#" class="shrink-0 block py-1">
+                    <img src="resources/logo.png"
+                        alt="Logo"
+                        class="h-24 md:h-36 w-auto object-contain transition-transform duration-300 hover:scale-105">
+                </a>
+                <div class="flex items-center gap-2.5 md:gap-3">
+                    <div class="w-px h-11 md:h-20 bg-luxury-charcoal/25 shrink-0"></div>
+                    <img src="resources/jerusalem-foundation-logo.png"
+                        alt="مؤسسة صندوق القدس"
+                        class="h-11 md:h-16 w-auto object-contain shrink-0">
+                </div>
+            </div>
 
             <nav
                 class="hidden md:flex items-center space-x-reverse space-x-8 text-sm font-semibold text-luxury-charcoal">
@@ -172,7 +174,7 @@
                 </p>
 
                 <!-- Metadata badges -->
-                <div class="grid grid-cols-3 gap-3 md:gap-4 max-w-lg">
+                <div class="grid grid-cols-2 gap-3 md:gap-4 max-w-lg">
                     <div class="glassmorphism p-3.5 rounded-xl text-center border-white/50">
                         <div
                             class="w-9 h-9 rounded-full bg-luxury-gold/10 text-luxury-gold-dark flex items-center justify-center mx-auto mb-2 text-sm">
@@ -197,18 +199,6 @@
                         <span class="block text-xs md:text-sm font-bold text-luxury-charcoal">عين يالو</span>
                         <span class="block text-[9px] text-luxury-gold-dark font-semibold mt-0.5">اضغطي لعرض
                             الخريطة</span>
-                    </button>
-
-                    <button type="button" onclick="openReturningModal()"
-                        class="glassmorphism p-3.5 rounded-xl text-center border-white/50 cursor-pointer transition-all duration-300 hover:scale-[1.04] hover:bg-white/80 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-luxury-gold/40">
-                        <div
-                            class="w-9 h-9 rounded-full bg-luxury-gold/10 text-luxury-gold-dark flex items-center justify-center mx-auto mb-2 text-sm">
-                            <span class="font-bold text-[18px]">₪</span>
-                        </div>
-                        <span class="block text-[10px] text-luxury-charcoal">رسوم الاشتراك</span>
-                        <span class="block text-xs md:text-sm font-bold text-luxury-charcoal">50 شيكل</span>
-                        <span class="block text-[9px] text-luxury-gold-dark font-semibold mt-0.5">للدفع بعد
-                            التسجيل</span>
                     </button>
                 </div>
 
@@ -1667,6 +1657,15 @@
             </div>
 
         </div>
+
+        <div class="max-w-7xl mx-auto px-6 mt-8 pt-8 border-t border-white/5 flex flex-col items-center gap-3">
+            <span class="text-[10px] text-white/40 font-semibold tracking-wide">بالشراكة مع</span>
+            <div class="bg-white/95 rounded-xl px-5 py-3 shadow-md">
+                <img src="resources/jerusalem-foundation-logo.png" alt="مؤسسة صندوق القدس"
+                    class="h-10 md:h-12 w-auto object-contain">
+            </div>
+        </div>
+
         <div class="max-w-7xl mx-auto px-6 mt-8 pt-8 border-t border-white/5 text-center text-[10px] text-white/40 space-y-1">
             <p>&copy; 2026 منتدى سيدات إيليا. جميع الحقوق محفوظة لرتريت عودة الملكة.</p>
             <p>تصميم وتطوير <span class="text-white/60 font-semibold">Aliph Creative</span></p>
@@ -1822,146 +1821,7 @@
         </div>
     </div>
 
-    <!-- PAYMENT MODAL -->
-    <div id="payment-modal"
-        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-luxury-charcoal/50 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
-        <div
-            class="glassmorphism w-full max-w-md bg-white rounded-3xl p-6 md:p-8 shadow-2xl relative border-2 border-luxury-gold animate-scale-up">
-
-            <button onclick="closePaymentModal()" aria-label="إغلاق"
-                class="absolute top-4 left-4 w-9 h-9 rounded-full bg-luxury-bg/80 text-luxury-charcoal hover:bg-luxury-gold hover:text-white transition-all duration-300 flex items-center justify-center text-sm z-20">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <!-- Step 1: choose bit or cash -->
-            <div id="payment-step-methods" class="text-center">
-                <div
-                    class="w-16 h-16 rounded-full bg-gradient-to-r from-luxury-gold-dark to-luxury-gold text-white flex items-center justify-center text-2xl mx-auto mb-5 shadow-xl">
-                    <i class="fa-solid fa-wallet"></i>
-                </div>
-
-                <h3 class="text-xl md:text-2xl font-extrabold font-headings text-luxury-charcoal mb-3">
-                    اختاري طريقة الدفع</h3>
-                <div class="w-12 h-0.5 bg-luxury-gold mx-auto mb-4"></div>
-
-                <p class="text-sm text-luxury-charcoal mb-5">
-                    رسوم الرتريت: <span id="payment-amount" class="font-bold text-luxury-gold-dark" dir="ltr">₪ 50</span>
-                </p>
-
-                <div class="grid grid-cols-2 gap-3">
-                    <button type="button" onclick="choosePaymentMethod('bit')"
-                        class="flex flex-col items-center justify-center gap-2.5 p-5 rounded-2xl border border-luxury-gold-light/40 bg-luxury-bg/40 transition-all duration-300 hover:scale-[1.03] hover:border-luxury-gold/70 hover:bg-white/90">
-                        <span class="payment-wordmark" style="background:#00c8c8;">bit</span>
-                        <span class="text-xs font-semibold text-luxury-charcoal">تحويل عبر تطبيق bit</span>
-                    </button>
-                    <button type="button" onclick="choosePaymentMethod('other')"
-                        class="flex flex-col items-center justify-center gap-2.5 p-5 rounded-2xl border border-luxury-gold-light/40 bg-luxury-bg/40 transition-all duration-300 hover:scale-[1.03] hover:border-luxury-gold/70 hover:bg-white/90">
-                        <i class="fa-solid fa-money-bills text-3xl text-luxury-gold-dark"></i>
-                        <span class="text-xs font-semibold text-luxury-charcoal">طرق أخرى للدفع</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Step 2a: bit transfer -->
-            <div id="payment-step-bit" class="hidden text-center">
-                <button type="button" onclick="showPaymentMethods()"
-                    class="absolute top-5 right-5 text-xs font-semibold text-luxury-gold-dark hover:text-luxury-charcoal transition-colors duration-300 flex items-center gap-1.5">
-                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    <span>تغيير طريقة الدفع</span>
-                </button>
-
-                <div class="flex justify-center mb-5 mt-4">
-                    <span class="payment-wordmark shadow-lg" style="background:#00c8c8; font-size:1.5rem; padding:.5rem 1.6rem;">bit</span>
-                </div>
-
-                <h3 class="text-xl md:text-2xl font-extrabold font-headings text-luxury-charcoal mb-3">
-                    الدفع عبر تطبيق bit</h3>
-                <div class="w-12 h-0.5 bg-luxury-gold mx-auto mb-4"></div>
-
-                <p class="text-sm text-luxury-charcoal mb-1">
-                    رسوم الرتريت: <span class="payment-amount-echo font-bold text-luxury-gold-dark" dir="ltr">₪ 50</span>
-                </p>
-
-                <!-- Deep link that opens the bit app on the retreat's profile.
-                     Clicking it also saves the registration right away, so a
-                     guest who pays in the app but never returns to press the
-                     confirm button is not lost. -->
-                <a id="bit-pay-link" href="https://www.bitpay.co.il/app/me/1C835411-B303-4AB3-BB72-5EC4C961DFF0"
-                    target="_blank" rel="noopener" onclick="handleBitLinkClick()"
-                    class="mt-4 mb-3 w-full py-3.5 rounded-full font-semibold text-white shadow-lg inline-flex items-center justify-center gap-2.5 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
-                    style="background: linear-gradient(90deg, #00b0b0, #00c8c8);">
-                    <i class="fa-solid fa-mobile-screen-button"></i>
-                    <span>ادفعي الآن عبر تطبيق bit</span>
-                </a>
-
-                <div class="animate-glow-pulse flex items-center gap-3 rounded-2xl border-2 border-luxury-gold/60 bg-gradient-to-l from-luxury-gold-light/40 to-luxury-pastel-peach/40 px-4 py-3 mb-4 mt-2 text-right">
-                    <span
-                        class="w-9 h-9 rounded-full bg-luxury-gold text-white flex items-center justify-center text-sm shrink-0 shadow-md">
-                        <i class="fa-solid fa-signature"></i>
-                    </span>
-                    <p class="text-[12px] md:text-sm text-luxury-charcoal font-bold leading-snug">
-                        هام جداً: اكتبي <span class="text-luxury-gold-dark">اسمكِ الكامل</span> في ملاحظة التحويل —
-                        هكذا نربط دفعتكِ بتسجيلكِ ونؤكد مقعدكِ بسرعة.
-                    </p>
-                </div>
-
-                <button type="button" id="portal-pay-btn" onclick="completeRegistration(this)"
-                    class="btn-luxury w-full py-3.5">
-                    قمتُ بالتحويل — تأكيد التسجيل
-                </button>
-
-                <!-- Shown instead of the confirm button when a registered
-                     guest re-opens the payment window later -->
-                <p id="payment-revisit-note"
-                    class="hidden text-xs text-luxury-charcoal font-semibold bg-luxury-gold/5 rounded-xl px-4 py-3">
-                    تسجيلكِ محفوظ لدينا — بعد إتمام التحويل سيتحقق الفريق من الدفعة ويؤكد مقعدكِ.
-                </p>
-
-                <p class="mt-4 text-[10px] text-luxury-gold-dark leading-relaxed flex items-center justify-center gap-1.5">
-                    <i class="fa-solid fa-shield-halved"></i>
-                    <span>سيتم التحقق من استلام التحويل عند تأكيد مقعدكِ خلال الـ 24 ساعة القادمة.</span>
-                </p>
-            </div>
-
-            <!-- Step 2b: other payment methods (pay on the event day) -->
-            <div id="payment-step-other" class="hidden text-center">
-                <button type="button" onclick="showPaymentMethods()"
-                    class="absolute top-5 right-5 text-xs font-semibold text-luxury-gold-dark hover:text-luxury-charcoal transition-colors duration-300 flex items-center gap-1.5">
-                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    <span>تغيير طريقة الدفع</span>
-                </button>
-
-                <div
-                    class="w-16 h-16 rounded-full bg-gradient-to-r from-luxury-gold-dark to-luxury-gold text-white flex items-center justify-center text-2xl mx-auto mb-5 mt-4 shadow-xl">
-                    <i class="fa-solid fa-money-bills"></i>
-                </div>
-
-                <h3 class="text-xl md:text-2xl font-extrabold font-headings text-luxury-charcoal mb-3">
-                    طرق أخرى للدفع</h3>
-                <div class="w-12 h-0.5 bg-luxury-gold mx-auto mb-4"></div>
-
-                <p class="text-sm text-luxury-charcoal mb-4">
-                    رسوم الرتريت: <span class="payment-amount-echo font-bold text-luxury-gold-dark" dir="ltr">₪ 50</span>
-                </p>
-
-                <p class="text-xs md:text-sm text-luxury-charcoal font-light leading-relaxed bg-luxury-bg/40 border border-luxury-gold-light/40 rounded-2xl px-4 py-4 mb-4 text-right">
-                    سيتم التواصل معكِ لاحقاً لإيضاح آلية الدفع.
-                </p>
-
-                <button type="button" id="other-pay-btn" onclick="completeRegistration(this)"
-                    class="btn-luxury w-full py-3.5">
-                    تأكيد التسجيل
-                </button>
-
-                <p id="payment-revisit-note-other"
-                    class="hidden text-xs text-luxury-charcoal font-semibold bg-luxury-gold/5 rounded-xl px-4 py-3">
-                    تسجيلكِ محفوظ لدينا — سيتم التواصل معكِ لاحقاً لإيضاح آلية الدفع.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- RETURNING GUEST MODAL (opened from the register CTA / fee badge) -->
+    <!-- RETURNING GUEST MODAL (opened from the register CTA) -->
     <div id="returning-modal"
         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-luxury-charcoal/40 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300"
         onclick="closeReturningModalOnBackdrop(event)">
@@ -2370,8 +2230,8 @@
                 }
             }
 
-            // Form is valid — collect the payload and open the payment step.
-            // The registration is only saved after payment completes.
+            // Form is valid — the retreat is free, so save the registration
+            // right away (no payment step).
             pendingRegistration = {
                 fullName, whatsapp, email, residence, jobTitle, workplace,
                 stations,
@@ -2379,63 +2239,11 @@
                 kidsGroups,
                 website: document.getElementById("website").value
             };
-            openPaymentModal();
+            completeRegistration(document.getElementById("submit-btn"));
         }
 
-        // 6. PAYMENT MODAL — the guest picks bit (transfer via the app) or
-        // "other" (the team follows up about payment later), then confirms to
-        // save the registration. Clicking the bit deep link ALSO saves the
-        // registration immediately (recorded as "opened the link"), so a guest
-        // who pays in the app but never returns to confirm is not lost.
-        // A registered guest can re-open the window later (revisit mode) to
-        // retrieve the payment link without re-submitting.
-        const RETREAT_PRICE_ILS = 50; // retreat fee in ILS
+        // 6. ON-DEVICE REGISTRATION MEMORY + RETURNING GUEST MODAL
         let pendingRegistration = null;
-        let selectedPaymentMethod = null;
-        let paymentRevisit = false;
-
-        function openPaymentModal(revisit = false) {
-            paymentRevisit = revisit;
-            document.getElementById("payment-amount").innerText = `₪ ${RETREAT_PRICE_ILS}`;
-            document.querySelectorAll(".payment-amount-echo").forEach(el => {
-                el.innerText = `₪ ${RETREAT_PRICE_ILS}`;
-            });
-            showPaymentMethods();
-            const modal = document.getElementById("payment-modal");
-            modal.classList.remove("hidden");
-            setTimeout(() => modal.classList.remove("opacity-0"), 10);
-        }
-
-        function showPaymentMethods() {
-            selectedPaymentMethod = null;
-            document.getElementById("payment-step-bit").classList.add("hidden");
-            document.getElementById("payment-step-other").classList.add("hidden");
-            document.getElementById("payment-step-methods").classList.remove("hidden");
-        }
-
-        function choosePaymentMethod(method) {
-            selectedPaymentMethod = method;
-            document.getElementById("payment-step-methods").classList.add("hidden");
-            document.getElementById(`payment-step-${method}`).classList.remove("hidden");
-
-            // Reset the step's confirm button, or swap it for the revisit note
-            // when a registered guest is just retrieving the payment details
-            const btn = document.getElementById(method === "bit" ? "portal-pay-btn" : "other-pay-btn");
-            const note = document.getElementById(method === "bit" ? "payment-revisit-note" : "payment-revisit-note-other");
-            btn.disabled = false;
-            btn.innerText = method === "bit" ? "قمتُ بالتحويل — تأكيد التسجيل" : "تأكيد التسجيل";
-            btn.classList.toggle("hidden", paymentRevisit);
-            note.classList.toggle("hidden", !paymentRevisit);
-        }
-
-        // The bit deep link registers on the spot; the link itself still opens
-        // the app. On revisit there is nothing to save.
-        function handleBitLinkClick() {
-            if (!pendingRegistration) return;
-            completeRegistration(document.getElementById("portal-pay-btn"));
-        }
-
-        // 6b. ON-DEVICE REGISTRATION MEMORY + RETURNING GUEST MODAL
         const REG_STORAGE_KEY = "queensRetreatRegistration";
 
         function saveRegistrationLocally(name, whatsapp) {
@@ -2492,15 +2300,13 @@
 
             if (saved) {
                 title.innerText = `أهلاً بعودتكِ، ${saved.name}!`;
-                text.innerText = "تسجيلكِ محفوظ على هذا الجهاز. يمكنكِ فتح نافذة الدفع لإتمام تحويل رسوم الاشتراك عبر bit أو مراجعة تفاصيله.";
+                text.innerText = "تسجيلكِ محفوظ على هذا الجهاز ومقعدكِ مؤكد.";
                 actions.innerHTML = `
-                    <button type="button" onclick="closeReturningModal(); openPaymentModal(true);"
-                        class="btn-luxury w-full py-3 text-sm">فتح نافذة الدفع عبر bit</button>
                     <a href="#register-form" onclick="startFreshRegistration()"
                         class="block text-xs text-luxury-gold-dark font-semibold hover:text-luxury-charcoal transition-colors duration-300">ليست بياناتكِ؟ ابدئي تسجيلاً جديداً من هذا الجهاز</a>`;
             } else {
                 title.innerText = "لم نعثر على تسجيل من هذا الجهاز";
-                text.innerText = "نافذة الدفع تُتاح بعد إتمام التسجيل. أكملي نموذج الحجز أولاً وستظهر لكِ تفاصيل الدفع عبر bit مباشرة.";
+                text.innerText = "لم تقومي بالتسجيل بعد من هذا الجهاز. أكملي نموذج الحجز لتأكيد مقعدكِ.";
                 actions.innerHTML = `
                     <a href="#register-form" onclick="closeReturningModal(); showDressCodeMessage();"
                         class="btn-luxury block w-full py-3 text-sm">الانتقال إلى التسجيل</a>`;
@@ -2624,15 +2430,10 @@
             eliaRestartAutoplay();
         }
 
-        function closePaymentModal() {
-            const modal = document.getElementById("payment-modal");
-            modal.classList.add("opacity-0");
-            setTimeout(() => modal.classList.add("hidden"), 300);
-        }
-
         async function completeRegistration(payBtn) {
             if (!pendingRegistration) return;
 
+            const originalBtnText = payBtn.innerText;
             payBtn.disabled = true;
             payBtn.innerText = "جارٍ تأكيد التسجيل...";
 
@@ -2640,10 +2441,7 @@
                 const res = await fetch("/api/register", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        ...pendingRegistration,
-                        paymentMethod: selectedPaymentMethod
-                    })
+                    body: JSON.stringify(pendingRegistration)
                 });
 
                 let data = null;
@@ -2653,23 +2451,24 @@
                     const name = pendingRegistration.fullName;
                     saveRegistrationLocally(name, pendingRegistration.whatsapp);
                     pendingRegistration = null;
-                    closePaymentModal();
                     showSuccessModal(name);
                     refreshSeatCounts().catch(() => { });
                 } else {
                     // Already registered with this phone → remember it on this
-                    // device too, so the payment link stays retrievable
+                    // device too
                     if (data && data.error === "already_registered") {
                         saveRegistrationLocally(pendingRegistration.fullName, pendingRegistration.whatsapp);
                     }
-                    closePaymentModal();
+                    payBtn.disabled = false;
+                    payBtn.innerText = originalBtnText;
                     showFormError((data && data.message) || "تعذر إتمام التسجيل، يرجى المحاولة مرة أخرى.");
                     // Capacity may have changed under us — refresh the displays
                     if (res.status === 409) refreshSeatCounts().catch(() => { });
                 }
             } catch (err) {
                 console.error("Registration failed:", err);
-                closePaymentModal();
+                payBtn.disabled = false;
+                payBtn.innerText = originalBtnText;
                 showFormError("تعذر الاتصال بالخادم، يرجى التحقق من اتصالكِ بالإنترنت والمحاولة مرة أخرى.");
             }
         }
