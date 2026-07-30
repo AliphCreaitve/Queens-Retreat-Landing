@@ -61,16 +61,6 @@ const KIDS_PLAN_LABELS = {
 // Informational age categories for on-site kid care (no capacity limits).
 const KIDS_GROUPS = ["5-6", "7-8", "9-10"];
 
-// Payment method chosen on the form: bit transfer, or "other" (the team
-// follows up about payment later).
-const PAYMENT_METHOD_LABELS = {
-    bit: "Bit",
-    other: "أخرى",
-};
-
-// The last column tracks whether the organizers verified the payment. Every
-// new row starts as "لا" and the team flips it to "نعم" manually in the sheet
-// once the payment is matched.
 const SHEET_HEADER = [
     "تاريخ التسجيل",
     "الاسم الكامل",
@@ -249,18 +239,8 @@ async function handleRegister(request, env) {
         }
     }
 
-    // Payment method: bit or other.
-    const paymentMethod = PAYMENT_METHOD_LABELS[body.paymentMethod]
-        ? String(body.paymentMethod)
-        : "";
-    if (!paymentMethod) {
-        return json(400, {
-            ok: false,
-            error: "missing_payment_method",
-            message: "يرجى اختيار طريقة الدفع.",
-        });
-    }
-    const paymentCell = PAYMENT_METHOD_LABELS[paymentMethod];
+    // The retreat is now free of charge — no payment method is collected.
+    const paymentCell = "بدون رسوم";
 
     // Capacity + duplicate checks against fresh (uncached) sheet data.
     const counts = await getCounts(env, /* allowCache */ false);
@@ -278,7 +258,7 @@ async function handleRegister(request, env) {
         return json(409, {
             ok: false,
             error: "already_registered",
-            message: "هذا الرقم مسجل مسبقاً — تسجيلكِ محفوظ لدينا، ويمكنكِ فتح نافذة الدفع من زر رسوم الاشتراك في أعلى الصفحة.",
+            message: "هذا الرقم مسجل مسبقاً — تسجيلكِ محفوظ لدينا بالفعل.",
         });
     }
 
