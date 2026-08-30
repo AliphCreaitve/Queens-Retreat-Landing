@@ -6,3 +6,9 @@
 !.dev.vars.example
 .env*
 !.env.example
+
+# 🔴 The registration export. Real names, WhatsApp numbers and payment
+# method for every registrant -- and this repo is public. It lives here because
+# the Sheet was emptied and this is the only copy of what was in it; it must
+# never be committed. Keep the file, keep it out of git.
+*.xlsx

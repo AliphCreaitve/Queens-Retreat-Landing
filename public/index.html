@@ -1856,11 +1856,31 @@
         // Station+slot combos that have reached the per-slot cap ("<id>|<slot>")
         let fullSlots = new Set();
 
+        // 🔴 ARCHIVED 2026-08-30 — the retreat ran on 19 July 2026 and this
+        // page is kept online as a portfolio piece. The counts are PINNED here
+        // rather than fetched.
+        //
+        // ⚠️ The Worker answers /api/counts with these same numbers and refuses
+        // /api/register with a 410 — see the ARCHIVED block in src/worker.js for
+        // why the Sheet is off limits rather than merely unused. Pinning it HERE
+        // as well is not belt-and-braces for its own sake: it means the page
+        // shows the right thing even if it is ever served as plain static files
+        // with no Worker behind it, which is what a portfolio artefact
+        // eventually becomes.
+        //
+        // ⚠️ 2 is a DISPLAY decision. The branch below renders the red
+        // «(متبقي فقط!)» urgency at 20 or fewer and a plain number above it, so a
+        // small value is what actually shows the widget doing its job. Raising
+        // it past 20 quietly removes the thing this counter is here to show.
+        const ARCHIVED_COUNTS = {
+            ok: true,
+            seatsLeft: 2,
+            slotCapacity: 20,
+            slotCounts: {},
+        };
+
         async function refreshSeatCounts() {
-            const res = await fetch("/api/counts");
-            if (!res.ok) throw new Error("counts request failed");
-            const data = await res.json();
-            if (!data.ok) throw new Error(data.error || "counts error");
+            const data = ARCHIVED_COUNTS;
 
             // Per-slot caps: mark any station+slot at capacity as full
             fullSlots = new Set();

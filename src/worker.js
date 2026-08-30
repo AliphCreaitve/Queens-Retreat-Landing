@@ -7,6 +7,10 @@
  *   GET  /api/counts    → current registration totals + kids group occupancy
  *   POST /api/register  → validate + capacity-check + append a row to the sheet
  *
+ * 🔴 BOTH ARE ARCHIVED as of 2026-08-30 and answer from a constant. See
+ * the ARCHIVED block below the constants — the Sheet is off limits, not merely
+ * unused, and the reason matters.
+ *
  * Required configuration:
  *   vars    : TOTAL_CAPACITY                            (wrangler.jsonc)
  *   secrets : SHEET_ID                — the Google Sheet ID (from its URL)
@@ -79,18 +83,80 @@ const SHEET_HEADER = [
     "تم التحقق من الدفع",
 ];
 
+/* ══════════════════════════════════════════════════════════════════
+   🔴 ARCHIVED 2026-08-30. The retreat ran on 19 July 2026. This site is kept
+   online as a PORTFOLIO PIECE: the page stays up and looks like itself, the
+   registration does not work, and nothing here reads or writes a Google Sheet.
+
+   ⚠️ THE SHEET IS OFF LIMITS, NOT MERELY UNUSED, and that is the whole
+   reason this block exists. The spreadsheet `SHEET_ID` points at has been
+   REPURPOSED as the Aliph client-feedback log. Its first tab now holds feedback
+   rows — and `getCounts()` counts every row with a non-empty column B as an
+   occupied seat, which is exactly what a feedback row has (the client's name).
+   Left live, this Worker would have:
+
+     - reported client feedback as registrations, so the hero's seat counter
+       would tick DOWN by one every time a client answered the feedback form;
+     - written its own header into a sheet that already had one, or worse
+       skipped it (`if (!counts.headerPresent)`), leaving any registration
+       filed under the feedback form's column names, permanently;
+     - dropped a real registrant's name, phone and payment method into a
+       spreadsheet the agency reads as client feedback.
+
+   ✅ The three secrets are LEFT IN PLACE and simply stop being used. Nothing
+   has to be rotated, nothing has to be known, and this file can be redeployed
+   by anyone without them.
+
+   ✅ It also closes something that was always true and is now moot: `/api/counts`
+   returned every registrant's normalised phone number in a public JSON response,
+   and `/api/status?phone=` answered whether any guessed number was registered.
+
+   ✅ TO BRING IT BACK: point `SHEET_ID` at a sheet of this Worker's OWN, then
+   set ARCHIVED to false. Do not do the second without the first.
+   ══════════════════════════════════════════════════════════════════ */
+const ARCHIVED = true;
+
+// What /api/counts answers while archived. ⚠️ `seatsLeft: 2` is deliberate and
+// it is a display decision, not a fact: the page renders the red
+// «(متبقي فقط!)» urgency at 20 or fewer and a plain number above it, so a small
+// value is what actually shows the counter widget doing its job in a portfolio.
+// `phones: []` is load-bearing — see the note above.
+const ARCHIVE_COUNTS = {
+    totalCapacity: 100,
+    totalRegistered: 98,
+    seatsLeft: 2,
+    headerPresent: true,
+    phones: [],
+    slotCapacity: 20,
+    slotCounts: {},
+};
+
 export default {
     async fetch(request, env) {
         const url = new URL(request.url);
 
         try {
             if (url.pathname === "/api/counts" && request.method === "GET") {
+                if (ARCHIVED) return json(200, { ok: true, ...ARCHIVE_COUNTS });
                 return await handleCounts(env);
             }
             if (url.pathname === "/api/status" && request.method === "GET") {
+                // Archived: nothing is registered, and answering so lets a
+                // device with stale on-file memory clear it by itself.
+                if (ARCHIVED) return json(200, { ok: true, registered: false });
                 return await handleStatus(url, env);
             }
             if (url.pathname === "/api/register" && request.method === "POST") {
+                // 410 Gone, not 404 or 403: the endpoint existed, it worked, and
+                // it is over. The message is what the page shows the visitor —
+                // see showFormError() in public/index.html.
+                if (ARCHIVED) {
+                    return json(410, {
+                        ok: false,
+                        error: "registration_closed",
+                        message: "انتهت فترة التسجيل لهذه الرحلة.",
+                    });
+                }
                 return await handleRegister(request, env);
             }
         } catch (err) {
